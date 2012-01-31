@@ -17,14 +17,28 @@ package org.scouting.gui;
  */
 public class AboutGUI extends javax.swing.JFrame
 {
-    private static String VERSION = "Beta 0.1";
+    private static String VERSION = "versionError";
 
     /** Creates new form AboutGUI */
     public AboutGUI()
     {
         initComponents();
 
+        setVersion(VERSION);
+
         setLocation(350,250);
+        setVisible(true);
+    }
+
+    public AboutGUI(String version)
+    {
+        initComponents();
+
+        setLocation(350,250);
+
+        VERSION = version;
+        setVersion(VERSION);
+
         setVisible(true);
     }
 

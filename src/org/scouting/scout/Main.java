@@ -12,6 +12,8 @@ import java.util.*;
 
 public class Main 
 {
+    private static final String VERSION = "1.0";
+
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
         // Initialize classes dealing with File operation
@@ -186,7 +188,7 @@ public class Main
 
         // Data Entry starts here
         // Initialize the Data Entry GUI
-        DataEntryGUI deGUI = new DataEntryGUI();
+        DataEntryGUI deGUI = new DataEntryGUI(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
         Thread.currentThread().sleep(100);
