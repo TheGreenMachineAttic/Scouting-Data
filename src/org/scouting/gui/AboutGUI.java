@@ -51,9 +51,9 @@ public class AboutGUI extends javax.swing.JFrame
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Developed By");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24));
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Alex O'Neill");
+        jLabel3.setText("The Programmers of 1816");
 
         jLabel4.setText("Beta 0.1");
 
