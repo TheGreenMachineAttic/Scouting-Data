@@ -17,6 +17,7 @@ package org.scouting.gui;
  */
 public class AboutGUI extends javax.swing.JFrame
 {
+    private static String VERSION = "Beta 0.1";
 
     /** Creates new form AboutGUI */
     public AboutGUI()
@@ -36,26 +37,26 @@ public class AboutGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        pic = new javax.swing.JLabel();
+        devLabel = new javax.swing.JLabel();
+        whoIsLabel = new javax.swing.JLabel();
+        versionLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
         setResizable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/scouting/rescources/Logo.png"))); // NOI18N
+        pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/scouting/rescources/Logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Developed By");
+        devLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        devLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        devLabel.setText("Developed By");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("The Programmers of 1816");
+        whoIsLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        whoIsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        whoIsLabel.setText("The Programmers of 1816");
 
-        jLabel4.setText("Beta 0.1");
+        versionLabel.setText("Beta 0.1");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,23 +65,23 @@ public class AboutGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .add(jLabel4))
+                    .add(pic)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, whoIsLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .add(devLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .add(versionLabel))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1)
+                .add(pic)
                 .add(18, 18, 18)
-                .add(jLabel2)
+                .add(devLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel3)
+                .add(whoIsLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
-                .add(jLabel4)
+                .add(versionLabel)
                 .addContainerGap())
         );
 
@@ -99,11 +100,16 @@ public class AboutGUI extends javax.swing.JFrame
         });
     }
 
+    private void setVersion(String version)
+    {
+        versionLabel.setText(version);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel devLabel;
+    private javax.swing.JLabel pic;
+    private javax.swing.JLabel versionLabel;
+    private javax.swing.JLabel whoIsLabel;
     // End of variables declaration//GEN-END:variables
 
 }
