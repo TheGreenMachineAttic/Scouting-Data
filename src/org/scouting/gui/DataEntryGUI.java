@@ -42,11 +42,23 @@ public class DataEntryGUI extends javax.swing.JFrame
     // Fla to store the state of the submit button
     private boolean submitted = false;
 
+    // Version String
+    private static String VERSION = "versionError";
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI()
     {
         initComponents();
+
+        // Show the window
+        setVisible(true);
+    }
+
+    public DataEntryGUI(String version)
+    {
+        initComponents();
+
+        VERSION = version;
 
         // Show the window
         setVisible(true);
@@ -1265,7 +1277,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     // If the About menu option is clicked, pull up the AboutGUI
     private void aboutOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutOptionActionPerformed
         // TODO add your handling code here:
-        AboutGUI aGUI = new AboutGUI();
+        AboutGUI aGUI = new AboutGUI(VERSION);
     }//GEN-LAST:event_aboutOptionActionPerformed
 
     // If the Clear Feilds menu option is clicked, reset all of the feilds
@@ -1406,7 +1418,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamNumber4.setText("2169");
         teamNumber5.setText("1337");
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutOption;
