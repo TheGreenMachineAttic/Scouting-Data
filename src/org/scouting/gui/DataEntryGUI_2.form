@@ -645,7 +645,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder thickness="3">
-              <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
+              <Color PropertyName="color" blue="0" green="0" red="ff" type="rgb"/>
             </LineBorder>
           </Border>
         </Property>
@@ -1962,7 +1962,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder thickness="3">
-              <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
+              <Color PropertyName="color" blue="0" green="0" red="ff" type="rgb"/>
             </LineBorder>
           </Border>
         </Property>
@@ -2401,7 +2401,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder thickness="3">
-              <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
+              <Color PropertyName="color" blue="0" green="0" red="ff" type="rgb"/>
             </LineBorder>
           </Border>
         </Property>

@@ -44,6 +44,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // Version String
     private static String VERSION = "versionError";
+    private int TOP_SCORE = 3;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI_2()
@@ -579,7 +580,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
             }
         });
 
-        teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
+        teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
         teamNumber1.setText("Team ##");
         teamNumber1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1347,7 +1348,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        teamPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
+        teamPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
         teamNumber6.setText("Team ##");
         teamNumber6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1603,7 +1604,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        teamPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
+        teamPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
         teamNumber7.setText("Team ##");
         teamNumber7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1990,6 +1991,103 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         // TODO add your handling code here:
         try
         {
+            // Team Top Left
+            int autoPoints = TOP_SCORE * Integer.parseInt(topTextBox.getText()) +
+                    Integer.parseInt(leftTextBox.getText()) +
+                    Integer.parseInt(rightTextBox.getText()) +
+                    Integer.parseInt(bottomTextBox.getText());
+
+            int mainPoints = TOP_SCORE * Integer.parseInt(topTextBox1.getText()) +
+                    Integer.parseInt(leftTextBox1.getText()) +
+                    Integer.parseInt(rightTextBox1.getText()) +
+                    Integer.parseInt(bottomTextBox1.getText());
+
+            int endPoints = TOP_SCORE * Integer.parseInt(topTextBox2.getText()) +
+                    Integer.parseInt(leftTextBox2.getText()) +
+                    Integer.parseInt(rightTextBox2.getText()) +
+                    Integer.parseInt(bottomTextBox2.getText());
+
+            // Team Top Middle
+            int autoPoints1 = TOP_SCORE * Integer.parseInt(topTextBox11.getText()) +
+                    Integer.parseInt(leftTextBox11.getText()) +
+                    Integer.parseInt(rightTextBox11.getText()) +
+                    Integer.parseInt(bottomTextBox11.getText());
+
+            int mainPoints1 = TOP_SCORE * Integer.parseInt(topTextBox12.getText()) +
+                    Integer.parseInt(leftTextBox12.getText()) +
+                    Integer.parseInt(rightTextBox12.getText()) +
+                    Integer.parseInt(bottomTextBox12.getText());
+
+            int endPoints1 = TOP_SCORE * Integer.parseInt(topTextBox13.getText()) +
+                    Integer.parseInt(leftTextBox13.getText()) +
+                    Integer.parseInt(rightTextBox13.getText()) +
+                    Integer.parseInt(bottomTextBox13.getText());
+
+            // Team Top Right
+            int autoPoints2 = TOP_SCORE * Integer.parseInt(topTextBox8.getText()) +
+                    Integer.parseInt(leftTextBox8.getText()) +
+                    Integer.parseInt(rightTextBox8.getText()) +
+                    Integer.parseInt(bottomTextBox8.getText());
+
+            int mainPoints2 = TOP_SCORE * Integer.parseInt(topTextBox9.getText()) +
+                    Integer.parseInt(leftTextBox9.getText()) +
+                    Integer.parseInt(rightTextBox9.getText()) +
+                    Integer.parseInt(bottomTextBox9.getText());
+
+            int endPoints2 = TOP_SCORE * Integer.parseInt(topTextBox10.getText()) +
+                    Integer.parseInt(leftTextBox10.getText()) +
+                    Integer.parseInt(rightTextBox10.getText()) +
+                    Integer.parseInt(bottomTextBox10.getText());
+
+            // Team Bottom Left
+            int autoPoints3 = TOP_SCORE * Integer.parseInt(topTextBox3.getText()) +
+                    Integer.parseInt(leftTextBox3.getText()) +
+                    Integer.parseInt(rightTextBox3.getText()) +
+                    Integer.parseInt(bottomTextBox3.getText());
+
+            int mainPoints3 = TOP_SCORE * Integer.parseInt(topTextBox4.getText()) +
+                    Integer.parseInt(leftTextBox4.getText()) +
+                    Integer.parseInt(rightTextBox4.getText()) +
+                    Integer.parseInt(bottomTextBox4.getText());
+
+            int endPoints3 = TOP_SCORE * Integer.parseInt(topTextBox5.getText()) +
+                    Integer.parseInt(leftTextBox5.getText()) +
+                    Integer.parseInt(rightTextBox5.getText()) +
+                    Integer.parseInt(bottomTextBox5.getText());
+
+             // Team Bottom Middle
+            int autoPoints4 = TOP_SCORE * Integer.parseInt(topTextBox14.getText()) +
+                    Integer.parseInt(leftTextBox14.getText()) +
+                    Integer.parseInt(rightTextBox14.getText()) +
+                    Integer.parseInt(bottomTextBox14.getText());
+
+            int mainPoints4 = TOP_SCORE * Integer.parseInt(topTextBox15.getText()) +
+                    Integer.parseInt(leftTextBox15.getText()) +
+                    Integer.parseInt(rightTextBox15.getText()) +
+                    Integer.parseInt(bottomTextBox15.getText());
+
+            int endPoints4 = TOP_SCORE * Integer.parseInt(topTextBox16.getText()) +
+                    Integer.parseInt(leftTextBox16.getText()) +
+                    Integer.parseInt(rightTextBox16.getText()) +
+                    Integer.parseInt(bottomTextBox16.getText());
+
+             // Team Bottom Right
+            int autoPoints5 = TOP_SCORE * Integer.parseInt(topTextBox17.getText()) +
+                    Integer.parseInt(leftTextBox17.getText()) +
+                    Integer.parseInt(rightTextBox17.getText()) +
+                    Integer.parseInt(bottomTextBox17.getText());
+
+            int mainPoints5 = TOP_SCORE * Integer.parseInt(topTextBox18.getText()) +
+                    Integer.parseInt(leftTextBox18.getText()) +
+                    Integer.parseInt(rightTextBox18.getText()) +
+                    Integer.parseInt(bottomTextBox18.getText());
+
+            int endPoints5 = TOP_SCORE * Integer.parseInt(topTextBox19.getText()) +
+                    Integer.parseInt(leftTextBox19.getText()) +
+                    Integer.parseInt(rightTextBox19.getText()) +
+                    Integer.parseInt(bottomTextBox19.getText());
+
+
             // Set the flag to true
             submitted = true;
 
@@ -2131,37 +2229,37 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_penaltiesBox1MouseClicked
 
-    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
+    private void penaltiesBox6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox6MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_teamNumber4MouseClicked
-
-    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_penaltiesBox4MouseClicked
-
-    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teamNumber5MouseClicked
-
-    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_penaltiesBox5MouseClicked
+}//GEN-LAST:event_penaltiesBox6MouseClicked
 
     private void teamNumber6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber6MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_teamNumber6MouseClicked
-
-    private void penaltiesBox6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox6MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_penaltiesBox6MouseClicked
-
-    private void teamNumber7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teamNumber7MouseClicked
+}//GEN-LAST:event_teamNumber6MouseClicked
 
     private void penaltiesBox7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox7MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_penaltiesBox7MouseClicked
+}//GEN-LAST:event_penaltiesBox7MouseClicked
+
+    private void teamNumber7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber7MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_teamNumber7MouseClicked
+
+    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_penaltiesBox4MouseClicked
+
+    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_teamNumber4MouseClicked
+
+    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_penaltiesBox5MouseClicked
+
+    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_teamNumber5MouseClicked
 
     /**
     * @param args the command line arguments
