@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import org.scouting.gui.ScoreCruncher;
 import java.lang.Exception;
 import java.util.Random;
 
@@ -1991,101 +1992,106 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         // TODO add your handling code here:
         try
         {
-            // Team Top Left
-            int autoPoints = TOP_SCORE * Integer.parseInt(topTextBox.getText()) +
-                    Integer.parseInt(leftTextBox.getText()) +
-                    Integer.parseInt(rightTextBox.getText()) +
-                    Integer.parseInt(bottomTextBox.getText());
+            ScoreCruncher sc = new ScoreCruncher();
 
-            int mainPoints = TOP_SCORE * Integer.parseInt(topTextBox1.getText()) +
-                    Integer.parseInt(leftTextBox1.getText()) +
-                    Integer.parseInt(rightTextBox1.getText()) +
-                    Integer.parseInt(bottomTextBox1.getText());
+            int autoPoints = sc.getScores(ScoreCruncher.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
+            System.out.println("Auto Score for Team " + teamNumber.getText() + ": " + autoPoints);
 
-            int endPoints = TOP_SCORE * Integer.parseInt(topTextBox2.getText()) +
-                    Integer.parseInt(leftTextBox2.getText()) +
-                    Integer.parseInt(rightTextBox2.getText()) +
-                    Integer.parseInt(bottomTextBox2.getText());
-
-            // Team Top Middle
-            int autoPoints1 = TOP_SCORE * Integer.parseInt(topTextBox11.getText()) +
-                    Integer.parseInt(leftTextBox11.getText()) +
-                    Integer.parseInt(rightTextBox11.getText()) +
-                    Integer.parseInt(bottomTextBox11.getText());
-
-            int mainPoints1 = TOP_SCORE * Integer.parseInt(topTextBox12.getText()) +
-                    Integer.parseInt(leftTextBox12.getText()) +
-                    Integer.parseInt(rightTextBox12.getText()) +
-                    Integer.parseInt(bottomTextBox12.getText());
-
-            int endPoints1 = TOP_SCORE * Integer.parseInt(topTextBox13.getText()) +
-                    Integer.parseInt(leftTextBox13.getText()) +
-                    Integer.parseInt(rightTextBox13.getText()) +
-                    Integer.parseInt(bottomTextBox13.getText());
-
-            // Team Top Right
-            int autoPoints2 = TOP_SCORE * Integer.parseInt(topTextBox8.getText()) +
-                    Integer.parseInt(leftTextBox8.getText()) +
-                    Integer.parseInt(rightTextBox8.getText()) +
-                    Integer.parseInt(bottomTextBox8.getText());
-
-            int mainPoints2 = TOP_SCORE * Integer.parseInt(topTextBox9.getText()) +
-                    Integer.parseInt(leftTextBox9.getText()) +
-                    Integer.parseInt(rightTextBox9.getText()) +
-                    Integer.parseInt(bottomTextBox9.getText());
-
-            int endPoints2 = TOP_SCORE * Integer.parseInt(topTextBox10.getText()) +
-                    Integer.parseInt(leftTextBox10.getText()) +
-                    Integer.parseInt(rightTextBox10.getText()) +
-                    Integer.parseInt(bottomTextBox10.getText());
-
-            // Team Bottom Left
-            int autoPoints3 = TOP_SCORE * Integer.parseInt(topTextBox3.getText()) +
-                    Integer.parseInt(leftTextBox3.getText()) +
-                    Integer.parseInt(rightTextBox3.getText()) +
-                    Integer.parseInt(bottomTextBox3.getText());
-
-            int mainPoints3 = TOP_SCORE * Integer.parseInt(topTextBox4.getText()) +
-                    Integer.parseInt(leftTextBox4.getText()) +
-                    Integer.parseInt(rightTextBox4.getText()) +
-                    Integer.parseInt(bottomTextBox4.getText());
-
-            int endPoints3 = TOP_SCORE * Integer.parseInt(topTextBox5.getText()) +
-                    Integer.parseInt(leftTextBox5.getText()) +
-                    Integer.parseInt(rightTextBox5.getText()) +
-                    Integer.parseInt(bottomTextBox5.getText());
-
-             // Team Bottom Middle
-            int autoPoints4 = TOP_SCORE * Integer.parseInt(topTextBox14.getText()) +
-                    Integer.parseInt(leftTextBox14.getText()) +
-                    Integer.parseInt(rightTextBox14.getText()) +
-                    Integer.parseInt(bottomTextBox14.getText());
-
-            int mainPoints4 = TOP_SCORE * Integer.parseInt(topTextBox15.getText()) +
-                    Integer.parseInt(leftTextBox15.getText()) +
-                    Integer.parseInt(rightTextBox15.getText()) +
-                    Integer.parseInt(bottomTextBox15.getText());
-
-            int endPoints4 = TOP_SCORE * Integer.parseInt(topTextBox16.getText()) +
-                    Integer.parseInt(leftTextBox16.getText()) +
-                    Integer.parseInt(rightTextBox16.getText()) +
-                    Integer.parseInt(bottomTextBox16.getText());
-
-             // Team Bottom Right
-            int autoPoints5 = TOP_SCORE * Integer.parseInt(topTextBox17.getText()) +
-                    Integer.parseInt(leftTextBox17.getText()) +
-                    Integer.parseInt(rightTextBox17.getText()) +
-                    Integer.parseInt(bottomTextBox17.getText());
-
-            int mainPoints5 = TOP_SCORE * Integer.parseInt(topTextBox18.getText()) +
-                    Integer.parseInt(leftTextBox18.getText()) +
-                    Integer.parseInt(rightTextBox18.getText()) +
-                    Integer.parseInt(bottomTextBox18.getText());
-
-            int endPoints5 = TOP_SCORE * Integer.parseInt(topTextBox19.getText()) +
-                    Integer.parseInt(leftTextBox19.getText()) +
-                    Integer.parseInt(rightTextBox19.getText()) +
-                    Integer.parseInt(bottomTextBox19.getText());
+//            // Team Top Left
+//            int autoPoints = TOP_SCORE * Integer.parseInt(topTextBox.getText()) +
+//                    Integer.parseInt(leftTextBox.getText()) +
+//                    Integer.parseInt(rightTextBox.getText()) +
+//                    Integer.parseInt(bottomTextBox.getText());
+//
+//            int mainPoints = TOP_SCORE * Integer.parseInt(topTextBox1.getText()) +
+//                    Integer.parseInt(leftTextBox1.getText()) +
+//                    Integer.parseInt(rightTextBox1.getText()) +
+//                    Integer.parseInt(bottomTextBox1.getText());
+//
+//            int endPoints = TOP_SCORE * Integer.parseInt(topTextBox2.getText()) +
+//                    Integer.parseInt(leftTextBox2.getText()) +
+//                    Integer.parseInt(rightTextBox2.getText()) +
+//                    Integer.parseInt(bottomTextBox2.getText());
+//
+//            // Team Top Middle
+//            int autoPoints1 = TOP_SCORE * Integer.parseInt(topTextBox11.getText()) +
+//                    Integer.parseInt(leftTextBox11.getText()) +
+//                    Integer.parseInt(rightTextBox11.getText()) +
+//                    Integer.parseInt(bottomTextBox11.getText());
+//
+//            int mainPoints1 = TOP_SCORE * Integer.parseInt(topTextBox12.getText()) +
+//                    Integer.parseInt(leftTextBox12.getText()) +
+//                    Integer.parseInt(rightTextBox12.getText()) +
+//                    Integer.parseInt(bottomTextBox12.getText());
+//
+//            int endPoints1 = TOP_SCORE * Integer.parseInt(topTextBox13.getText()) +
+//                    Integer.parseInt(leftTextBox13.getText()) +
+//                    Integer.parseInt(rightTextBox13.getText()) +
+//                    Integer.parseInt(bottomTextBox13.getText());
+//
+//            // Team Top Right
+//            int autoPoints2 = TOP_SCORE * Integer.parseInt(topTextBox8.getText()) +
+//                    Integer.parseInt(leftTextBox8.getText()) +
+//                    Integer.parseInt(rightTextBox8.getText()) +
+//                    Integer.parseInt(bottomTextBox8.getText());
+//
+//            int mainPoints2 = TOP_SCORE * Integer.parseInt(topTextBox9.getText()) +
+//                    Integer.parseInt(leftTextBox9.getText()) +
+//                    Integer.parseInt(rightTextBox9.getText()) +
+//                    Integer.parseInt(bottomTextBox9.getText());
+//
+//            int endPoints2 = TOP_SCORE * Integer.parseInt(topTextBox10.getText()) +
+//                    Integer.parseInt(leftTextBox10.getText()) +
+//                    Integer.parseInt(rightTextBox10.getText()) +
+//                    Integer.parseInt(bottomTextBox10.getText());
+//
+//            // Team Bottom Left
+//            int autoPoints3 = TOP_SCORE * Integer.parseInt(topTextBox3.getText()) +
+//                    Integer.parseInt(leftTextBox3.getText()) +
+//                    Integer.parseInt(rightTextBox3.getText()) +
+//                    Integer.parseInt(bottomTextBox3.getText());
+//
+//            int mainPoints3 = TOP_SCORE * Integer.parseInt(topTextBox4.getText()) +
+//                    Integer.parseInt(leftTextBox4.getText()) +
+//                    Integer.parseInt(rightTextBox4.getText()) +
+//                    Integer.parseInt(bottomTextBox4.getText());
+//
+//            int endPoints3 = TOP_SCORE * Integer.parseInt(topTextBox5.getText()) +
+//                    Integer.parseInt(leftTextBox5.getText()) +
+//                    Integer.parseInt(rightTextBox5.getText()) +
+//                    Integer.parseInt(bottomTextBox5.getText());
+//
+//             // Team Bottom Middle
+//            int autoPoints4 = TOP_SCORE * Integer.parseInt(topTextBox14.getText()) +
+//                    Integer.parseInt(leftTextBox14.getText()) +
+//                    Integer.parseInt(rightTextBox14.getText()) +
+//                    Integer.parseInt(bottomTextBox14.getText());
+//
+//            int mainPoints4 = TOP_SCORE * Integer.parseInt(topTextBox15.getText()) +
+//                    Integer.parseInt(leftTextBox15.getText()) +
+//                    Integer.parseInt(rightTextBox15.getText()) +
+//                    Integer.parseInt(bottomTextBox15.getText());
+//
+//            int endPoints4 = TOP_SCORE * Integer.parseInt(topTextBox16.getText()) +
+//                    Integer.parseInt(leftTextBox16.getText()) +
+//                    Integer.parseInt(rightTextBox16.getText()) +
+//                    Integer.parseInt(bottomTextBox16.getText());
+//
+//             // Team Bottom Right
+//            int autoPoints5 = TOP_SCORE * Integer.parseInt(topTextBox17.getText()) +
+//                    Integer.parseInt(leftTextBox17.getText()) +
+//                    Integer.parseInt(rightTextBox17.getText()) +
+//                    Integer.parseInt(bottomTextBox17.getText());
+//
+//            int mainPoints5 = TOP_SCORE * Integer.parseInt(topTextBox18.getText()) +
+//                    Integer.parseInt(leftTextBox18.getText()) +
+//                    Integer.parseInt(rightTextBox18.getText()) +
+//                    Integer.parseInt(bottomTextBox18.getText());
+//
+//            int endPoints5 = TOP_SCORE * Integer.parseInt(topTextBox19.getText()) +
+//                    Integer.parseInt(leftTextBox19.getText()) +
+//                    Integer.parseInt(rightTextBox19.getText()) +
+//                    Integer.parseInt(bottomTextBox19.getText());
 
 
             // Set the flag to true
@@ -2160,6 +2166,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
+                System.err.println("Round Number Negative!");
                 throw new Exception();
             }
 
