@@ -416,12 +416,7 @@ public class Main
                 }
 
                 // Close and save the file
-                fileCreo.closeFile();
-
-                // Code monkey
-                // Johnathan Colton
-
-                
+                fileCreo.closeFile();                
             }
 
             // For Debug purposes
