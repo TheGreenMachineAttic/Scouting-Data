@@ -1995,31 +1995,32 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
             ScoreCruncher sc = new ScoreCruncher();
 
             int autoPoints = sc.getScores(ScoreCruncher.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints = sc.getScores(ScoreCruncher.MAIN, topTextBox1, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints = sc.getScores(ScoreCruncher.END, topTextBox2, leftTextBox, rightTextBox, bottomTextBox);
+            int mainPoints = sc.getScores(ScoreCruncher.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
+            int endPoints = sc.getScores(ScoreCruncher.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2);
 
-            int autoPoints1 = sc.getScores(ScoreCruncher.AUTO, topTextBox11, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints1 = sc.getScores(ScoreCruncher.MAIN, topTextBox12, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints1 = sc.getScores(ScoreCruncher.END, topTextBox13, leftTextBox, rightTextBox, bottomTextBox);
+            int autoPoints1 = sc.getScores(ScoreCruncher.AUTO, topTextBox11, leftTextBox11, rightTextBox11, bottomTextBox11);
+            int mainPoints1 = sc.getScores(ScoreCruncher.MAIN, topTextBox12, leftTextBox12, rightTextBox12, bottomTextBox12);
+            int endPoints1 = sc.getScores(ScoreCruncher.END, topTextBox13, leftTextBox13, rightTextBox13, bottomTextBox13);
 
-            int autoPoints2 = sc.getScores(ScoreCruncher.AUTO, topTextBox8, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints2 = sc.getScores(ScoreCruncher.MAIN, topTextBox9, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints2 = sc.getScores(ScoreCruncher.END, topTextBox10, leftTextBox, rightTextBox, bottomTextBox);
+            int autoPoints2 = sc.getScores(ScoreCruncher.AUTO, topTextBox8, leftTextBox8, rightTextBox8, bottomTextBox8);
+            int mainPoints2 = sc.getScores(ScoreCruncher.MAIN, topTextBox9, leftTextBox9, rightTextBox9, bottomTextBox9);
+            int endPoints2 = sc.getScores(ScoreCruncher.END, topTextBox10, leftTextBox10, rightTextBox10, bottomTextBox10);
 
-            int autoPoints3 = sc.getScores(ScoreCruncher.AUTO, topTextBox3, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints3 = sc.getScores(ScoreCruncher.MAIN, topTextBox4, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints3 = sc.getScores(ScoreCruncher.END, topTextBox5, leftTextBox, rightTextBox, bottomTextBox);
+            int autoPoints3 = sc.getScores(ScoreCruncher.AUTO, topTextBox3, leftTextBox3, rightTextBox3, bottomTextBox3);
+            int mainPoints3 = sc.getScores(ScoreCruncher.MAIN, topTextBox4, leftTextBox4, rightTextBox4, bottomTextBox4);
+            int endPoints3 = sc.getScores(ScoreCruncher.END, topTextBox5, leftTextBox5, rightTextBox5, bottomTextBox5);
 
-            int autoPoints4 = sc.getScores(ScoreCruncher.AUTO, topTextBox14, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints4 = sc.getScores(ScoreCruncher.MAIN, topTextBox15, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints4 = sc.getScores(ScoreCruncher.END, topTextBox16, leftTextBox, rightTextBox, bottomTextBox);
+            int autoPoints4 = sc.getScores(ScoreCruncher.AUTO, topTextBox14, leftTextBox14, rightTextBox14, bottomTextBox14);
+            int mainPoints4 = sc.getScores(ScoreCruncher.MAIN, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
+            int endPoints4 = sc.getScores(ScoreCruncher.END, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
             
-            int autoPoints5 = sc.getScores(ScoreCruncher.AUTO, topTextBox17, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints5 = sc.getScores(ScoreCruncher.MAIN, topTextBox18, leftTextBox, rightTextBox, bottomTextBox);
-            int endPoints5 = sc.getScores(ScoreCruncher.END, topTextBox19, leftTextBox, rightTextBox, bottomTextBox);
+            int autoPoints5 = sc.getScores(ScoreCruncher.AUTO, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17);
+            int mainPoints5 = sc.getScores(ScoreCruncher.MAIN, topTextBox18, leftTextBox18, rightTextBox18, bottomTextBox18);
+            int endPoints5 = sc.getScores(ScoreCruncher.END, topTextBox19, leftTextBox19, rightTextBox19, bottomTextBox19);
 
             System.out.println("Auto Score for Team " + teamNumber.getText() + ": " + autoPoints);
 
+// <editor-fold defaultstate="collapsed" desc="Old Code">
 //            // Team Top Left
 //            int autoPoints = TOP_SCORE * Integer.parseInt(topTextBox.getText()) +
 //                    Integer.parseInt(leftTextBox.getText()) +
@@ -2114,8 +2115,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 //            int endPoints5 = TOP_SCORE * Integer.parseInt(topTextBox19.getText()) +
 //                    Integer.parseInt(leftTextBox19.getText()) +
 //                    Integer.parseInt(rightTextBox19.getText()) +
-//                    Integer.parseInt(bottomTextBox19.getText());
-
+//                    Integer.parseInt(bottomTextBox19.getText());// </editor-fold>
 
             // Set the flag to true
             submitted = true;

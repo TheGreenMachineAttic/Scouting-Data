@@ -16,9 +16,6 @@ public class Main
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
-        TabbedTesting tt = new TabbedTesting();
-        tt.setVisible(true);
-
         // Initialize classes dealing with File operation
         FileCreator fileCreo = new FileCreator();
         FileCreator logger = new FileCreator();
