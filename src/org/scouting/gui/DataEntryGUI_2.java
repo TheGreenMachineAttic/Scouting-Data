@@ -27,6 +27,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private final static String endPointsDText = "End Game";
     private final static String mainPointsDText = "Main Game";
     private final static String penaltiesBoxDText = "Penalties";
+    private final static String NOTHING = "";
 
     // Declare caps for random number generation
     private final static int RAND_AUTO_POINT_CAP = 12;
@@ -366,7 +367,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(autoLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -431,7 +432,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(mainLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -496,7 +497,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(endLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -569,7 +570,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanelLayout.createSequentialGroup()
                         .add(tabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -629,7 +630,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -694,7 +695,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel4))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -759,7 +760,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -832,7 +833,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel1Layout.createSequentialGroup()
                         .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -885,7 +886,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel8))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -950,7 +951,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel9))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main2Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1015,7 +1016,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel10))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end2Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1088,7 +1089,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel4Layout.createSequentialGroup()
                         .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1141,7 +1142,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel11))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1206,7 +1207,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel12))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main3Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1271,7 +1272,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel13))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end3Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1344,7 +1345,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel5Layout.createSequentialGroup()
                         .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1397,7 +1398,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel14))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(auto6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto6Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1462,7 +1463,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel15))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1527,7 +1528,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel16))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1600,7 +1601,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel6Layout.createSequentialGroup()
                         .add(tabbedPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1653,7 +1654,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel17))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(auto7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto7Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1718,7 +1719,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel18))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1783,7 +1784,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel19))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1856,7 +1857,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel7Layout.createSequentialGroup()
                         .add(tabbedPane7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
                         .add(penaltiesBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1969,24 +1970,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // All of these methods with the ".setText(null)" remove the content from a feild if it is the
     // default filler from a mouse click (sometimes double click)
-    private void teamNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberMouseClicked
-        // TODO add your handling code here:
-        if(teamNumber.getText().equals(teamNumberDText))
-        {
-            teamNumber.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumberMouseClicked
-
-    private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBoxMouseClicked
-
     // This method is called when the submit button is pressed
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
@@ -1994,26 +1977,32 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         {
             ScoreCruncher sc = new ScoreCruncher();
 
+            // Team Top Left (#1)
             int autoPoints = sc.getScores(ScoreCruncher.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
             int mainPoints = sc.getScores(ScoreCruncher.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
             int endPoints = sc.getScores(ScoreCruncher.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2);
 
+            // Team Top Middle (#2)
             int autoPoints1 = sc.getScores(ScoreCruncher.AUTO, topTextBox11, leftTextBox11, rightTextBox11, bottomTextBox11);
             int mainPoints1 = sc.getScores(ScoreCruncher.MAIN, topTextBox12, leftTextBox12, rightTextBox12, bottomTextBox12);
             int endPoints1 = sc.getScores(ScoreCruncher.END, topTextBox13, leftTextBox13, rightTextBox13, bottomTextBox13);
 
+            // Team Top Right (#3)
             int autoPoints2 = sc.getScores(ScoreCruncher.AUTO, topTextBox8, leftTextBox8, rightTextBox8, bottomTextBox8);
             int mainPoints2 = sc.getScores(ScoreCruncher.MAIN, topTextBox9, leftTextBox9, rightTextBox9, bottomTextBox9);
             int endPoints2 = sc.getScores(ScoreCruncher.END, topTextBox10, leftTextBox10, rightTextBox10, bottomTextBox10);
 
+            // Team Bottom Left (#4)
             int autoPoints3 = sc.getScores(ScoreCruncher.AUTO, topTextBox3, leftTextBox3, rightTextBox3, bottomTextBox3);
             int mainPoints3 = sc.getScores(ScoreCruncher.MAIN, topTextBox4, leftTextBox4, rightTextBox4, bottomTextBox4);
             int endPoints3 = sc.getScores(ScoreCruncher.END, topTextBox5, leftTextBox5, rightTextBox5, bottomTextBox5);
 
+            // Team Bottom Middle (#5)
             int autoPoints4 = sc.getScores(ScoreCruncher.AUTO, topTextBox14, leftTextBox14, rightTextBox14, bottomTextBox14);
             int mainPoints4 = sc.getScores(ScoreCruncher.MAIN, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
             int endPoints4 = sc.getScores(ScoreCruncher.END, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
-            
+
+            // Team Bottom Right (#6)
             int autoPoints5 = sc.getScores(ScoreCruncher.AUTO, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17);
             int mainPoints5 = sc.getScores(ScoreCruncher.MAIN, topTextBox18, leftTextBox18, rightTextBox18, bottomTextBox18);
             int endPoints5 = sc.getScores(ScoreCruncher.END, topTextBox19, leftTextBox19, rightTextBox19, bottomTextBox19);
@@ -2123,65 +2112,65 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
             // Store Team numbers
             //System.out.println("Storing Teams...");
             teamNumberArray[0] = Integer.parseInt(teamNumber.getText());
-            teamNumberArray[1] = Integer.parseInt(teamNumber1.getText());
-            teamNumberArray[2] = Integer.parseInt(teamNumber2.getText());
-            teamNumberArray[3] = Integer.parseInt(teamNumber3.getText());
-            teamNumberArray[4] = Integer.parseInt(teamNumber4.getText());
-            teamNumberArray[5] = Integer.parseInt(teamNumber5.getText());
+            teamNumberArray[1] = Integer.parseInt(teamNumber5.getText());
+            teamNumberArray[2] = Integer.parseInt(teamNumber4.getText());
+            teamNumberArray[3] = Integer.parseInt(teamNumber1.getText());
+            teamNumberArray[4] = Integer.parseInt(teamNumber6.getText());
+            teamNumberArray[5] = Integer.parseInt(teamNumber7.getText());
 
             // Store scores for Team #1
             //System.out.println("Storing Scores for Team #1");
-            teamScoreArray[0][0] = Integer.parseInt(autoPoints.getText());
-            teamScoreArray[1][0] = Integer.parseInt(mainPoints.getText());
-            teamScoreArray[2][0] = Integer.parseInt(endPoints.getText());
+            teamScoreArray[0][0] = autoPoints;
+            teamScoreArray[1][0] = mainPoints;
+            teamScoreArray[2][0] = endPoints;
 
             // Store scores for Team #2
             //System.out.println("Storing Scores for Team #2");
-            teamScoreArray[0][1] = Integer.parseInt(autoPoints2.getText());
-            teamScoreArray[1][1] = Integer.parseInt(mainPoints2.getText());
-            teamScoreArray[2][1] = Integer.parseInt(endPoints2.getText());
+            teamScoreArray[0][1] = autoPoints1;
+            teamScoreArray[1][1] = mainPoints1;
+            teamScoreArray[2][1] = endPoints1;
 
             // Store scores for Team #3
             //System.out.println("Storing Scores for Team #3");
-            teamScoreArray[0][2] = Integer.parseInt(autoPoints3.getText());
-            teamScoreArray[1][2] = Integer.parseInt(mainPoints3.getText());
-            teamScoreArray[2][2] = Integer.parseInt(endPoints3.getText());
+            teamScoreArray[0][2] = autoPoints2;
+            teamScoreArray[1][2] = mainPoints2;
+            teamScoreArray[2][2] = endPoints2;
 
             // Store scores for Team #4
             //System.out.println("Storing Scores for Team #4");
-            teamScoreArray[0][3] = Integer.parseInt(autoPoints5.getText());
-            teamScoreArray[1][3] = Integer.parseInt(mainPoints5.getText());
-            teamScoreArray[2][3] = Integer.parseInt(endPoints5.getText());
+            teamScoreArray[0][3] = autoPoints3;
+            teamScoreArray[1][3] = mainPoints3;
+            teamScoreArray[2][3] = endPoints3;
 
             // Store scores for Team #5
             //System.out.println("Storing Scores for Team #5");
-            teamScoreArray[0][4] = Integer.parseInt(autoPoints6.getText());
-            teamScoreArray[1][4] = Integer.parseInt(mainPoints6.getText());
-            teamScoreArray[2][4] = Integer.parseInt(endPoints6.getText());
+            teamScoreArray[0][4] = autoPoints4;
+            teamScoreArray[1][4] = mainPoints4;
+            teamScoreArray[2][4] = endPoints4;
 
             // Store scores for Team #6
             //System.out.println("Storing Scores for Team #6");
-            teamScoreArray[0][5] = Integer.parseInt(autoPoints7.getText());
-            teamScoreArray[1][5] = Integer.parseInt(mainPoints7.getText());
-            teamScoreArray[2][5] = Integer.parseInt(endPoints7.getText());
+            teamScoreArray[0][5] = autoPoints5;
+            teamScoreArray[1][5] = mainPoints5;
+            teamScoreArray[2][5] = endPoints5;
 
             // Store penalties for all teams
             //System.out.println("Storing Penalties...");
             teamPenaltiesArray[0] = penaltiesBox.getText();
-            teamPenaltiesArray[1] = penaltiesBox1.getText();
-            teamPenaltiesArray[2] = penaltiesBox2.getText();
-            teamPenaltiesArray[3] = penaltiesBox3.getText();
-            teamPenaltiesArray[4] = penaltiesBox4.getText();
-            teamPenaltiesArray[5] = penaltiesBox5.getText();
+            teamPenaltiesArray[1] = penaltiesBox5.getText();
+            teamPenaltiesArray[2] = penaltiesBox4.getText();
+            teamPenaltiesArray[3] = penaltiesBox1.getText();
+            teamPenaltiesArray[4] = penaltiesBox6.getText();
+            teamPenaltiesArray[5] = penaltiesBox7.getText();
 
             // Store comments for all teams
             //System.out.println("Storing Comments...");
             commentsArray[0] = comments.getText();
-            commentsArray[1] = comments1.getText();
-            commentsArray[2] = comments2.getText();
-            commentsArray[3] = comments3.getText();
-            commentsArray[4] = comments4.getText();
-            commentsArray[5] = comments5.getText();
+            commentsArray[1] = comments5.getText();
+            commentsArray[2] = comments4.getText();
+            commentsArray[3] = comments1.getText();
+            commentsArray[4] = comments6.getText();
+            commentsArray[5] = comments7.getText();
 
             // Store the current match
             currentMatch = Integer.parseInt(roundInput.getText());
@@ -2251,45 +2240,67 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         fillFields();
     }//GEN-LAST:event_testOptionActionPerformed
 
+    private void teamNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberMouseClicked
+        // TODO add your handling code here:
+        textBoxSet(teamNumber, teamNumberDText);
+    }//GEN-LAST:event_teamNumberMouseClicked
+
+    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(teamNumber5, teamNumberDText);
+    }//GEN-LAST:event_teamNumber5MouseClicked
+
+    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(teamNumber4, teamNumberDText);
+    }//GEN-LAST:event_teamNumber4MouseClicked
+
     private void teamNumber1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber1MouseClicked
         // TODO add your handling code here:
+        textBoxSet(teamNumber1, teamNumberDText);
     }//GEN-LAST:event_teamNumber1MouseClicked
+
+    private void teamNumber6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber6MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(teamNumber6, teamNumberDText);
+    }//GEN-LAST:event_teamNumber6MouseClicked
+
+    private void teamNumber7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber7MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(teamNumber7, teamNumberDText);
+    }//GEN-LAST:event_teamNumber7MouseClicked
+
+
+
+    private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBoxMouseClicked
+
+    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox5, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox5MouseClicked
+
+    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox4, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox4MouseClicked
 
     private void penaltiesBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox1MouseClicked
         // TODO add your handling code here:
+        textBoxSet(penaltiesBox1, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox1MouseClicked
 
     private void penaltiesBox6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox6MouseClicked
         // TODO add your handling code here:
-}//GEN-LAST:event_penaltiesBox6MouseClicked
-
-    private void teamNumber6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber6MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_teamNumber6MouseClicked
+        textBoxSet(penaltiesBox6, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox6MouseClicked
 
     private void penaltiesBox7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox7MouseClicked
         // TODO add your handling code here:
-}//GEN-LAST:event_penaltiesBox7MouseClicked
-
-    private void teamNumber7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber7MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_teamNumber7MouseClicked
-
-    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_penaltiesBox4MouseClicked
-
-    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_teamNumber4MouseClicked
-
-    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_penaltiesBox5MouseClicked
-
-    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
-        // TODO add your handling code here:
-}//GEN-LAST:event_teamNumber5MouseClicked
+        textBoxSet(penaltiesBox7, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox7MouseClicked
 
     /**
     * @param args the command line arguments
@@ -2385,24 +2396,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     // Fills many of the fields with random numbers based on the cap for each feild
     public void fillFields()
     {
-        autoPoints.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints2.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints3.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints5.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints6.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints7.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        endPoints.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints2.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints3.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints5.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints6.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints7.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        mainPoints.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints2.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints3.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints5.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints6.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints7.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
+        
         penaltiesBox.setText(penaltiesBoxDText);
         penaltiesBox1.setText(penaltiesBoxDText);
         penaltiesBox2.setText(penaltiesBoxDText);
@@ -2417,12 +2411,16 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         teamNumber5.setText("1337");
     }
 
+    private void textBoxSet(javax.swing.JTextField box, String defaultText)
+    {
+        String previous = box.getText();
+        box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutOption;
     private javax.swing.JPanel auto;
     private javax.swing.JPanel auto1;
-    private javax.swing.JPanel auto2;
-    private javax.swing.JPanel auto3;
     private javax.swing.JPanel auto4;
     private javax.swing.JPanel auto5;
     private javax.swing.JPanel auto6;
@@ -2443,8 +2441,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JLabel bottomLabel3;
     private javax.swing.JLabel bottomLabel4;
     private javax.swing.JLabel bottomLabel5;
-    private javax.swing.JLabel bottomLabel6;
-    private javax.swing.JLabel bottomLabel7;
     private javax.swing.JLabel bottomLabel8;
     private javax.swing.JLabel bottomLabel9;
     private javax.swing.JTextField bottomTextBox;
@@ -2463,23 +2459,17 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JTextField bottomTextBox3;
     private javax.swing.JTextField bottomTextBox4;
     private javax.swing.JTextField bottomTextBox5;
-    private javax.swing.JTextField bottomTextBox6;
-    private javax.swing.JTextField bottomTextBox7;
     private javax.swing.JTextField bottomTextBox8;
     private javax.swing.JTextField bottomTextBox9;
     private javax.swing.JMenuItem clearOption;
     private javax.swing.JTextArea comments;
     private javax.swing.JTextArea comments1;
-    private javax.swing.JTextArea comments2;
-    private javax.swing.JTextArea comments3;
     private javax.swing.JTextArea comments4;
     private javax.swing.JTextArea comments5;
     private javax.swing.JTextArea comments6;
     private javax.swing.JTextArea comments7;
     private javax.swing.JLabel commentsLabel;
     private javax.swing.JLabel commentsLabel1;
-    private javax.swing.JLabel commentsLabel2;
-    private javax.swing.JLabel commentsLabel3;
     private javax.swing.JLabel commentsLabel4;
     private javax.swing.JLabel commentsLabel5;
     private javax.swing.JLabel commentsLabel6;
@@ -2487,8 +2477,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JMenuItem commentsOption;
     private javax.swing.JScrollPane commentsPane;
     private javax.swing.JScrollPane commentsPane1;
-    private javax.swing.JScrollPane commentsPane2;
-    private javax.swing.JScrollPane commentsPane3;
     private javax.swing.JScrollPane commentsPane4;
     private javax.swing.JScrollPane commentsPane5;
     private javax.swing.JScrollPane commentsPane6;
@@ -2518,8 +2506,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JLabel leftLabel3;
     private javax.swing.JLabel leftLabel4;
     private javax.swing.JLabel leftLabel5;
-    private javax.swing.JLabel leftLabel6;
-    private javax.swing.JLabel leftLabel7;
     private javax.swing.JLabel leftLabel8;
     private javax.swing.JLabel leftLabel9;
     private javax.swing.JTextField leftTextBox;
@@ -2538,8 +2524,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JTextField leftTextBox3;
     private javax.swing.JTextField leftTextBox4;
     private javax.swing.JTextField leftTextBox5;
-    private javax.swing.JTextField leftTextBox6;
-    private javax.swing.JTextField leftTextBox7;
     private javax.swing.JTextField leftTextBox8;
     private javax.swing.JTextField leftTextBox9;
     private javax.swing.JPanel main;
@@ -2551,8 +2535,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JMenuBar menu;
     private javax.swing.JTextField penaltiesBox;
     private javax.swing.JTextField penaltiesBox1;
-    private javax.swing.JTextField penaltiesBox2;
-    private javax.swing.JTextField penaltiesBox3;
     private javax.swing.JTextField penaltiesBox4;
     private javax.swing.JTextField penaltiesBox5;
     private javax.swing.JTextField penaltiesBox6;
@@ -2573,8 +2555,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JLabel rightLabel3;
     private javax.swing.JLabel rightLabel4;
     private javax.swing.JLabel rightLabel5;
-    private javax.swing.JLabel rightLabel6;
-    private javax.swing.JLabel rightLabel7;
     private javax.swing.JLabel rightLabel8;
     private javax.swing.JLabel rightLabel9;
     private javax.swing.JTextField rightTextBox;
@@ -2593,8 +2573,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JTextField rightTextBox3;
     private javax.swing.JTextField rightTextBox4;
     private javax.swing.JTextField rightTextBox5;
-    private javax.swing.JTextField rightTextBox6;
-    private javax.swing.JTextField rightTextBox7;
     private javax.swing.JTextField rightTextBox8;
     private javax.swing.JTextField rightTextBox9;
     private javax.swing.JTextField roundInput;
@@ -2603,24 +2581,18 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JButton submitButton;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTabbedPane tabbedPane1;
-    private javax.swing.JTabbedPane tabbedPane2;
-    private javax.swing.JTabbedPane tabbedPane3;
     private javax.swing.JTabbedPane tabbedPane4;
     private javax.swing.JTabbedPane tabbedPane5;
     private javax.swing.JTabbedPane tabbedPane6;
     private javax.swing.JTabbedPane tabbedPane7;
     private javax.swing.JTextField teamNumber;
     private javax.swing.JTextField teamNumber1;
-    private javax.swing.JTextField teamNumber2;
-    private javax.swing.JTextField teamNumber3;
     private javax.swing.JTextField teamNumber4;
     private javax.swing.JTextField teamNumber5;
     private javax.swing.JTextField teamNumber6;
     private javax.swing.JTextField teamNumber7;
     private javax.swing.JPanel teamPanel;
     private javax.swing.JPanel teamPanel1;
-    private javax.swing.JPanel teamPanel2;
-    private javax.swing.JPanel teamPanel3;
     private javax.swing.JPanel teamPanel4;
     private javax.swing.JPanel teamPanel5;
     private javax.swing.JPanel teamPanel6;
@@ -2642,8 +2614,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JLabel topLabel3;
     private javax.swing.JLabel topLabel4;
     private javax.swing.JLabel topLabel5;
-    private javax.swing.JLabel topLabel6;
-    private javax.swing.JLabel topLabel7;
     private javax.swing.JLabel topLabel8;
     private javax.swing.JLabel topLabel9;
     private javax.swing.JTextField topTextBox;
@@ -2662,8 +2632,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JTextField topTextBox3;
     private javax.swing.JTextField topTextBox4;
     private javax.swing.JTextField topTextBox5;
-    private javax.swing.JTextField topTextBox6;
-    private javax.swing.JTextField topTextBox7;
     private javax.swing.JTextField topTextBox8;
     private javax.swing.JTextField topTextBox9;
     // End of variables declaration//GEN-END:variables
