@@ -11,7 +11,7 @@
 
 package org.scouting.gui;
 
-import org.scouting.gui.ScoreCruncher;
+import org.scouting.gui.ScoreUtility;
 import java.lang.Exception;
 import java.util.Random;
 
@@ -27,12 +27,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private final static String endPointsDText = "End Game";
     private final static String mainPointsDText = "Main Game";
     private final static String penaltiesBoxDText = "Penalties";
-    private final static String NOTHING = "";
-
-    // Declare caps for random number generation
-    private final static int RAND_AUTO_POINT_CAP = 12;
-    private final static int RAND_END_POINT_CAP = 30;
-    private final static int RAND_MAIN_POINT_CAP = 80;
+    private final static String NOTHING = null;
 
     // Create arrays to store the data in the feilds
     private int teamNumberArray[] = new int[6];
@@ -1975,37 +1970,37 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         // TODO add your handling code here:
         try
         {
-            ScoreCruncher sc = new ScoreCruncher();
+            ScoreUtility su = new ScoreUtility();
 
             // Team Top Left (#1)
-            int autoPoints = sc.getScores(ScoreCruncher.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
-            int mainPoints = sc.getScores(ScoreCruncher.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
-            int endPoints = sc.getScores(ScoreCruncher.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2);
+            int autoPoints = su.getScores(ScoreUtility.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
+            int mainPoints = su.getScores(ScoreUtility.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
+            int endPoints = su.getScores(ScoreUtility.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2);
 
             // Team Top Middle (#2)
-            int autoPoints1 = sc.getScores(ScoreCruncher.AUTO, topTextBox11, leftTextBox11, rightTextBox11, bottomTextBox11);
-            int mainPoints1 = sc.getScores(ScoreCruncher.MAIN, topTextBox12, leftTextBox12, rightTextBox12, bottomTextBox12);
-            int endPoints1 = sc.getScores(ScoreCruncher.END, topTextBox13, leftTextBox13, rightTextBox13, bottomTextBox13);
+            int autoPoints1 = su.getScores(ScoreUtility.AUTO, topTextBox11, leftTextBox11, rightTextBox11, bottomTextBox11);
+            int mainPoints1 = su.getScores(ScoreUtility.MAIN, topTextBox12, leftTextBox12, rightTextBox12, bottomTextBox12);
+            int endPoints1 = su.getScores(ScoreUtility.END, topTextBox13, leftTextBox13, rightTextBox13, bottomTextBox13);
 
             // Team Top Right (#3)
-            int autoPoints2 = sc.getScores(ScoreCruncher.AUTO, topTextBox8, leftTextBox8, rightTextBox8, bottomTextBox8);
-            int mainPoints2 = sc.getScores(ScoreCruncher.MAIN, topTextBox9, leftTextBox9, rightTextBox9, bottomTextBox9);
-            int endPoints2 = sc.getScores(ScoreCruncher.END, topTextBox10, leftTextBox10, rightTextBox10, bottomTextBox10);
+            int autoPoints2 = su.getScores(ScoreUtility.AUTO, topTextBox8, leftTextBox8, rightTextBox8, bottomTextBox8);
+            int mainPoints2 = su.getScores(ScoreUtility.MAIN, topTextBox9, leftTextBox9, rightTextBox9, bottomTextBox9);
+            int endPoints2 = su.getScores(ScoreUtility.END, topTextBox10, leftTextBox10, rightTextBox10, bottomTextBox10);
 
             // Team Bottom Left (#4)
-            int autoPoints3 = sc.getScores(ScoreCruncher.AUTO, topTextBox3, leftTextBox3, rightTextBox3, bottomTextBox3);
-            int mainPoints3 = sc.getScores(ScoreCruncher.MAIN, topTextBox4, leftTextBox4, rightTextBox4, bottomTextBox4);
-            int endPoints3 = sc.getScores(ScoreCruncher.END, topTextBox5, leftTextBox5, rightTextBox5, bottomTextBox5);
+            int autoPoints3 = su.getScores(ScoreUtility.AUTO, topTextBox3, leftTextBox3, rightTextBox3, bottomTextBox3);
+            int mainPoints3 = su.getScores(ScoreUtility.MAIN, topTextBox4, leftTextBox4, rightTextBox4, bottomTextBox4);
+            int endPoints3 = su.getScores(ScoreUtility.END, topTextBox5, leftTextBox5, rightTextBox5, bottomTextBox5);
 
             // Team Bottom Middle (#5)
-            int autoPoints4 = sc.getScores(ScoreCruncher.AUTO, topTextBox14, leftTextBox14, rightTextBox14, bottomTextBox14);
-            int mainPoints4 = sc.getScores(ScoreCruncher.MAIN, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
-            int endPoints4 = sc.getScores(ScoreCruncher.END, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
+            int autoPoints4 = su.getScores(ScoreUtility.AUTO, topTextBox14, leftTextBox14, rightTextBox14, bottomTextBox14);
+            int mainPoints4 = su.getScores(ScoreUtility.MAIN, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
+            int endPoints4 = su.getScores(ScoreUtility.END, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
 
             // Team Bottom Right (#6)
-            int autoPoints5 = sc.getScores(ScoreCruncher.AUTO, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17);
-            int mainPoints5 = sc.getScores(ScoreCruncher.MAIN, topTextBox18, leftTextBox18, rightTextBox18, bottomTextBox18);
-            int endPoints5 = sc.getScores(ScoreCruncher.END, topTextBox19, leftTextBox19, rightTextBox19, bottomTextBox19);
+            int autoPoints5 = su.getScores(ScoreUtility.AUTO, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17);
+            int mainPoints5 = su.getScores(ScoreUtility.MAIN, topTextBox18, leftTextBox18, rightTextBox18, bottomTextBox18);
+            int endPoints5 = su.getScores(ScoreUtility.END, topTextBox19, leftTextBox19, rightTextBox19, bottomTextBox19);
 
             System.out.println("Auto Score for Team " + teamNumber.getText() + ": " + autoPoints);
 
@@ -2355,60 +2350,214 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     // Clears all f the feilds
     public void resetFields()
     {
-        autoPoints.setText(null);
-        autoPoints2.setText(null);
-        autoPoints3.setText(null);
-        autoPoints5.setText(null);
-        autoPoints6.setText(null);
-        autoPoints7.setText(null);
-        comments.setText(null);
-        comments1.setText(null);
-        comments2.setText(null);
-        comments3.setText(null);
-        comments4.setText(null);
-        comments5.setText(null);
-        endPoints.setText(null);
-        endPoints2.setText(null);
-        endPoints3.setText(null);
-        endPoints5.setText(null);
-        endPoints6.setText(null);
-        endPoints7.setText(null);
-        mainPoints.setText(null);
-        mainPoints2.setText(null);
-        mainPoints3.setText(null);
-        mainPoints5.setText(null);
-        mainPoints6.setText(null);
-        mainPoints7.setText(null);
+        topTextBox.setText(null);
+        topTextBox1.setText(null);
+        topTextBox2.setText(null);
+        topTextBox3.setText(null);
+        topTextBox4.setText(null);
+        topTextBox5.setText(null);
+        topTextBox8.setText(null);
+        topTextBox9.setText(null);
+        topTextBox10.setText(null);
+        topTextBox11.setText(null);
+        topTextBox12.setText(null);
+        topTextBox13.setText(null);
+        topTextBox14.setText(null);
+        topTextBox15.setText(null);
+        topTextBox16.setText(null);
+        topTextBox17.setText(null);
+        topTextBox18.setText(null);
+        topTextBox19.setText(null);
+
+        leftTextBox.setText(null);
+        leftTextBox1.setText(null);
+        leftTextBox2.setText(null);
+        leftTextBox3.setText(null);
+        leftTextBox4.setText(null);
+        leftTextBox5.setText(null);
+        leftTextBox8.setText(null);
+        leftTextBox9.setText(null);
+        leftTextBox10.setText(null);
+        leftTextBox11.setText(null);
+        leftTextBox12.setText(null);
+        leftTextBox13.setText(null);
+        leftTextBox14.setText(null);
+        leftTextBox15.setText(null);
+        leftTextBox16.setText(null);
+        leftTextBox17.setText(null);
+        leftTextBox18.setText(null);
+        leftTextBox19.setText(null);
+
+        rightTextBox.setText(null);
+        rightTextBox1.setText(null);
+        rightTextBox2.setText(null);
+        rightTextBox3.setText(null);
+        rightTextBox4.setText(null);
+        rightTextBox5.setText(null);
+        rightTextBox8.setText(null);
+        rightTextBox9.setText(null);
+        rightTextBox10.setText(null);
+        rightTextBox11.setText(null);
+        rightTextBox12.setText(null);
+        rightTextBox13.setText(null);
+        rightTextBox14.setText(null);
+        rightTextBox15.setText(null);
+        rightTextBox16.setText(null);
+        rightTextBox17.setText(null);
+        rightTextBox18.setText(null);
+        rightTextBox19.setText(null);
+
+        bottomTextBox.setText(null);
+        bottomTextBox1.setText(null);
+        bottomTextBox2.setText(null);
+        bottomTextBox3.setText(null);
+        bottomTextBox4.setText(null);
+        bottomTextBox5.setText(null);
+        bottomTextBox8.setText(null);
+        bottomTextBox9.setText(null);
+        bottomTextBox10.setText(null);
+        bottomTextBox11.setText(null);
+        bottomTextBox12.setText(null);
+        bottomTextBox13.setText(null);
+        bottomTextBox14.setText(null);
+        bottomTextBox15.setText(null);
+        bottomTextBox16.setText(null);
+        bottomTextBox17.setText(null);
+        bottomTextBox18.setText(null);
+        bottomTextBox19.setText(null);
+
         penaltiesBox.setText(null);
-        penaltiesBox1.setText(null);
-        penaltiesBox2.setText(null);
-        penaltiesBox3.setText(null);
-        penaltiesBox4.setText(null);
         penaltiesBox5.setText(null);
+        penaltiesBox4.setText(null);
+        penaltiesBox1.setText(null);
+        penaltiesBox6.setText(null);
+        penaltiesBox7.setText(null);
+
         teamNumber.setText(null);
-        teamNumber1.setText(null);
-        teamNumber2.setText(null);
-        teamNumber3.setText(null);
-        teamNumber4.setText(null);
         teamNumber5.setText(null);
+        teamNumber4.setText(null);
+        teamNumber1.setText(null);
+        teamNumber6.setText(null);
+        teamNumber7.setText(null);
     }
 
     // Fills many of the fields with random numbers based on the cap for each feild
     public void fillFields()
     {
-        
+        ScoreUtility su = new ScoreUtility();
+
+        su.randScore(ScoreUtility.AUTO, topTextBox);
+        su.randScore(ScoreUtility.AUTO, leftTextBox);
+        su.randScore(ScoreUtility.AUTO, rightTextBox);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox11);
+        su.randScore(ScoreUtility.AUTO, leftTextBox11);
+        su.randScore(ScoreUtility.AUTO, rightTextBox11);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox11);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox8);
+        su.randScore(ScoreUtility.AUTO, leftTextBox8);
+        su.randScore(ScoreUtility.AUTO, rightTextBox8);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox8);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox3);
+        su.randScore(ScoreUtility.AUTO, leftTextBox3);
+        su.randScore(ScoreUtility.AUTO, rightTextBox3);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox3);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox14);
+        su.randScore(ScoreUtility.AUTO, leftTextBox14);
+        su.randScore(ScoreUtility.AUTO, rightTextBox14);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox14);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox17);
+        su.randScore(ScoreUtility.AUTO, leftTextBox17);
+        su.randScore(ScoreUtility.AUTO, rightTextBox17);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox17);
+
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+
+        su.randScore(ScoreUtility.MAIN, topTextBox1);
+        su.randScore(ScoreUtility.MAIN, leftTextBox1);
+        su.randScore(ScoreUtility.MAIN, rightTextBox1);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox1);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox12);
+        su.randScore(ScoreUtility.MAIN, leftTextBox12);
+        su.randScore(ScoreUtility.MAIN, rightTextBox12);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox12);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox9);
+        su.randScore(ScoreUtility.MAIN, leftTextBox9);
+        su.randScore(ScoreUtility.MAIN, rightTextBox9);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox9);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox4);
+        su.randScore(ScoreUtility.MAIN, leftTextBox4);
+        su.randScore(ScoreUtility.MAIN, rightTextBox4);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox4);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox15);
+        su.randScore(ScoreUtility.MAIN, leftTextBox15);
+        su.randScore(ScoreUtility.MAIN, rightTextBox15);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox15);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox18);
+        su.randScore(ScoreUtility.MAIN, leftTextBox18);
+        su.randScore(ScoreUtility.MAIN, rightTextBox18);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox18);
+
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+
+        su.randScore(ScoreUtility.END, topTextBox2);
+        su.randScore(ScoreUtility.END, leftTextBox2);
+        su.randScore(ScoreUtility.END, rightTextBox2);
+        su.randScore(ScoreUtility.END, bottomTextBox2);
+
+        su.randScore(ScoreUtility.END, topTextBox13);
+        su.randScore(ScoreUtility.END, leftTextBox13);
+        su.randScore(ScoreUtility.END, rightTextBox13);
+        su.randScore(ScoreUtility.END, bottomTextBox13);
+
+        su.randScore(ScoreUtility.END, topTextBox10);
+        su.randScore(ScoreUtility.END, leftTextBox10);
+        su.randScore(ScoreUtility.END, rightTextBox10);
+        su.randScore(ScoreUtility.END, bottomTextBox10);
+
+        su.randScore(ScoreUtility.END, topTextBox5);
+        su.randScore(ScoreUtility.END, leftTextBox5);
+        su.randScore(ScoreUtility.END, rightTextBox5);
+        su.randScore(ScoreUtility.END, bottomTextBox5);
+
+        su.randScore(ScoreUtility.END, topTextBox16);
+        su.randScore(ScoreUtility.END, leftTextBox16);
+        su.randScore(ScoreUtility.END, rightTextBox16);
+        su.randScore(ScoreUtility.END, bottomTextBox16);
+
+        su.randScore(ScoreUtility.END, topTextBox19);
+        su.randScore(ScoreUtility.END, leftTextBox19);
+        su.randScore(ScoreUtility.END, rightTextBox19);
+        su.randScore(ScoreUtility.END, bottomTextBox19);
+
+
         penaltiesBox.setText(penaltiesBoxDText);
-        penaltiesBox1.setText(penaltiesBoxDText);
-        penaltiesBox2.setText(penaltiesBoxDText);
-        penaltiesBox3.setText(penaltiesBoxDText);
-        penaltiesBox4.setText(penaltiesBoxDText);
         penaltiesBox5.setText(penaltiesBoxDText);
+        penaltiesBox4.setText(penaltiesBoxDText);
+        penaltiesBox1.setText(penaltiesBoxDText);
+        penaltiesBox6.setText(penaltiesBoxDText);
+        penaltiesBox7.setText(penaltiesBoxDText);
+
         teamNumber.setText("2555");
-        teamNumber1.setText("2500");
-        teamNumber2.setText("111");
-        teamNumber3.setText("1816");
-        teamNumber4.setText("2169");
-        teamNumber5.setText("1337");
+        teamNumber5.setText("2500");
+        teamNumber4.setText("111");
+        teamNumber1.setText("1816");
+        teamNumber6.setText("2169");
+        teamNumber7.setText("1337");
     }
 
     private void textBoxSet(javax.swing.JTextField box, String defaultText)
