@@ -189,6 +189,7 @@ public class Main
         // Data Entry starts here
         // Initialize the Data Entry GUI
         DataEntryGUI deGUI = new DataEntryGUI(VERSION);
+        DataEntryGUI_2 deGUI2 = new DataEntryGUI_2(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
         Thread.currentThread().sleep(100);
