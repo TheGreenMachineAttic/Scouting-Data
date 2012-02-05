@@ -23,9 +23,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 {
     // Declare default feild fillers
     private final static String teamNumberDText = "Team ##";
-    private final static String autoPointsDText = "Autonomous";
-    private final static String endPointsDText = "End Game";
-    private final static String mainPointsDText = "Main Game";
     private final static String penaltiesBoxDText = "Penalties";
     private final static String NOTHING = null;
 
@@ -41,7 +38,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // Version String
     private static String VERSION = "versionError";
-    private int TOP_SCORE = 3;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI_2()
