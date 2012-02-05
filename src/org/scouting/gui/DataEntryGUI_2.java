@@ -358,7 +358,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(autoLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -423,7 +423,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(mainLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -488,7 +488,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(endLayout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -561,7 +561,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanelLayout.createSequentialGroup()
                         .add(tabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -573,7 +573,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
             }
         });
 
-        teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
+        teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
         teamNumber1.setText("Team ##");
         teamNumber1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -621,7 +621,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -686,7 +686,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel4))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -751,7 +751,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end1Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -824,7 +824,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel1Layout.createSequentialGroup()
                         .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -877,7 +877,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel8))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -942,7 +942,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel9))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main2Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1007,7 +1007,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel10))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end2Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1080,7 +1080,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel4Layout.createSequentialGroup()
                         .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1133,7 +1133,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel11))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1198,7 +1198,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel12))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main3Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1263,7 +1263,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel13))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end3Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1336,12 +1336,12 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel5Layout.createSequentialGroup()
                         .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        teamPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
+        teamPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
         teamNumber6.setText("Team ##");
         teamNumber6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1389,7 +1389,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel14))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(auto6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto6Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1454,7 +1454,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel15))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1519,7 +1519,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel16))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end4Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1592,12 +1592,12 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel6Layout.createSequentialGroup()
                         .add(tabbedPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        teamPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
+        teamPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
         teamNumber7.setText("Team ##");
         teamNumber7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1645,7 +1645,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(auto7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel17))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(auto7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(auto7Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1710,7 +1710,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel18))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(main5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1775,7 +1775,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(leftTextBox19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(leftLabel19))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(end5Layout.createSequentialGroup()
                         .add(9, 9, 9)
@@ -1848,7 +1848,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                     .add(commentsPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .add(teamPanel7Layout.createSequentialGroup()
                         .add(tabbedPane7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(penaltiesBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
