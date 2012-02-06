@@ -35,6 +35,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // Fla to store the state of the submit button
     private boolean submitted = false;
+    private boolean currentGUI;
 
     // Version String
     private static String VERSION = "versionError";
@@ -277,12 +278,14 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         topTextBox19 = new javax.swing.JTextField();
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        formatOption = new javax.swing.JMenuItem();
         commentsOption = new javax.swing.JMenuItem();
-        aboutOption = new javax.swing.JMenuItem();
+        switchOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        formatOption = new javax.swing.JMenuItem();
+        aboutOption = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Entry");
@@ -332,6 +335,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         commentsPane.setViewportView(comments);
 
         commentsLabel.setText("Additional Comments");
+
+        tabbedPane.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         topLabel.setText("Top");
 
@@ -596,6 +601,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         commentsLabel1.setText("Additional Comments");
 
+        tabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
         topLabel3.setText("Top");
 
         leftLabel3.setText("Left");
@@ -851,6 +858,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         commentsPane4.setViewportView(comments4);
 
         commentsLabel4.setText("Additional Comments");
+
+        tabbedPane4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         topLabel8.setText("Top");
 
@@ -1108,6 +1117,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         commentsLabel5.setText("Additional Comments");
 
+        tabbedPane5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
         topLabel11.setText("Top");
 
         leftLabel11.setText("Left");
@@ -1363,6 +1374,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         commentsPane6.setViewportView(comments6);
 
         commentsLabel6.setText("Additional Comments");
+
+        tabbedPane6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         topLabel14.setText("Top");
 
@@ -1620,6 +1633,8 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         commentsLabel7.setText("Additional Comments");
 
+        tabbedPane7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
         topLabel17.setText("Top");
 
         leftLabel17.setText("Left");
@@ -1855,14 +1870,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         fileMenu.setText("File");
 
-        formatOption.setText("Format");
-        formatOption.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                formatOptionActionPerformed(evt);
-            }
-        });
-        fileMenu.add(formatOption);
-
         commentsOption.setText("Comments");
         commentsOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1871,13 +1878,14 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         });
         fileMenu.add(commentsOption);
 
-        aboutOption.setText("About");
-        aboutOption.addActionListener(new java.awt.event.ActionListener() {
+        switchOption.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        switchOption.setText("Switch GUI ...");
+        switchOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutOptionActionPerformed(evt);
+                switchOptionActionPerformed(evt);
             }
         });
-        fileMenu.add(aboutOption);
+        fileMenu.add(switchOption);
 
         menu.add(fileMenu);
 
@@ -1900,6 +1908,26 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         editMenu.add(testOption);
 
         menu.add(editMenu);
+
+        helpMenu.setText("Help");
+
+        formatOption.setText("Format");
+        formatOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formatOptionActionPerformed(evt);
+            }
+        });
+        helpMenu.add(formatOption);
+
+        aboutOption.setText("About");
+        aboutOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutOptionActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutOption);
+
+        menu.add(helpMenu);
 
         setJMenuBar(menu);
 
@@ -2203,7 +2231,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     // If the Format menu option is clicked, pull up the FormatGUI
     private void formatOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatOptionActionPerformed
         // TODO add your handling code here:
-        FormatGUI fGUI = new FormatGUI();
+        FormatGUI_2 fGUI = new FormatGUI_2();
     }//GEN-LAST:event_formatOptionActionPerformed
 
     // If the Comments menu option is clicked, pull up the CommenteTipsGUI
@@ -2293,6 +2321,11 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         textBoxSet(penaltiesBox7, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox7MouseClicked
 
+    private void switchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchOptionActionPerformed
+        // TODO add your handling code here:
+        currentGUI = !currentGUI;
+    }//GEN-LAST:event_switchOptionActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2329,6 +2362,16 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     public String[] getComments()
     {
         return commentsArray;
+    }
+
+    public void setCurrentGUI(boolean b)
+    {
+        currentGUI = b;
+    }
+
+    public boolean getCurrentGUI()
+    {
+        return currentGUI;
     }
 
     public boolean getSubmittedFlag() throws InterruptedException
@@ -2635,6 +2678,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JPanel end5;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem formatOption;
+    private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel leftLabel;
     private javax.swing.JLabel leftLabel1;
     private javax.swing.JLabel leftLabel10;
@@ -2724,6 +2768,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JLabel roundLabel;
     private javax.swing.JPanel roundPanel;
     private javax.swing.JButton submitButton;
+    private javax.swing.JMenuItem switchOption;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTabbedPane tabbedPane1;
     private javax.swing.JTabbedPane tabbedPane4;

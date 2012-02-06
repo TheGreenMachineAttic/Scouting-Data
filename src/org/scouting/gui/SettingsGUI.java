@@ -93,9 +93,9 @@ public class SettingsGUI extends javax.swing.JFrame
             wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(wDirPanelLayout.createSequentialGroup()
                 .add(wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                    .add(teamDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, wDirPanelLayout.createSequentialGroup()
-                        .addContainerGap(521, Short.MAX_VALUE)
+                        .addContainerGap(542, Short.MAX_VALUE)
                         .add(chooseButton)))
                 .addContainerGap())
         );
@@ -126,7 +126,7 @@ public class SettingsGUI extends javax.swing.JFrame
         cDirPanel1Layout.setHorizontalGroup(
             cDirPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(cDirPanel1Layout.createSequentialGroup()
-                .addContainerGap(518, Short.MAX_VALUE)
+                .addContainerGap(539, Short.MAX_VALUE)
                 .add(chooseButton1)
                 .addContainerGap())
             .add(cDirPanel1Layout.createSequentialGroup()
