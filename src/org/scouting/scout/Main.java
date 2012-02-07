@@ -202,10 +202,12 @@ public class Main
             if(deGUI2.isVisible())
             {
                 newGUI = !deGUI2.getSwitch();
+                deGUI.resetSwitch();
             }
             else
             {
                 newGUI = !deGUI.getSwitch();
+                deGUI2.resetSwitch();
             }
 
             if(newGUI)
