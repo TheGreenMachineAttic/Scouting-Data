@@ -44,7 +44,6 @@ public class DataEntryGUI extends javax.swing.JFrame
 
     // Version String
     private static String VERSION = "versionError";
-    private boolean switchGUI = false;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI()
@@ -135,7 +134,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         commentsOption = new javax.swing.JMenuItem();
-        switchOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
@@ -786,15 +784,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         });
         fileMenu.add(commentsOption);
 
-        switchOption.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        switchOption.setText("Switch ...");
-        switchOption.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                switchOptionActionPerformed(evt);
-            }
-        });
-        fileMenu.add(switchOption);
-
         menu.add(fileMenu);
 
         editMenu.setText("Edit");
@@ -1303,11 +1292,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         fillFields();
     }//GEN-LAST:event_testOptionActionPerformed
 
-    private void switchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchOptionActionPerformed
-        // TODO add your handling code here:
-        switchGUI = true;
-    }//GEN-LAST:event_switchOptionActionPerformed
-
     /**
     * @param args the command line arguments
     */
@@ -1434,16 +1418,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamNumber5.setText("1337");
     }
 
-    public void resetSwitch()
-    {
-        switchGUI = false;
-    }
-
-    public boolean getSwitch()
-    {
-        return switchGUI;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutOption;
     private javax.swing.JTextField autoPoints;
@@ -1505,7 +1479,6 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JLabel roundLabel;
     private javax.swing.JPanel roundPanel;
     private javax.swing.JButton submitButton;
-    private javax.swing.JMenuItem switchOption;
     private javax.swing.JTextField teamNumber;
     private javax.swing.JTextField teamNumber1;
     private javax.swing.JTextField teamNumber2;
