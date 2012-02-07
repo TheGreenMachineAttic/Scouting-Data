@@ -44,6 +44,7 @@ public class DataEntryGUI extends javax.swing.JFrame
 
     // Version String
     private static String VERSION = "versionError";
+    private boolean switchGUI = false;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI()
@@ -1417,6 +1418,16 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamNumber3.setText("1816");
         teamNumber4.setText("2169");
         teamNumber5.setText("1337");
+    }
+
+    public void resetSwitch()
+    {
+        switchGUI = false;
+    }
+
+    public boolean getSwitch()
+    {
+        return switchGUI;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

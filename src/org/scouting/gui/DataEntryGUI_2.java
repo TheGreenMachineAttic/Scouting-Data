@@ -38,24 +38,20 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // Version String
     private static String VERSION = "versionError";
+    private boolean switchGUI = false;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI_2()
     {
         initComponents();
-
-        // Show the window
-        setVisible(true);
     }
 
     public DataEntryGUI_2(String version)
     {
         initComponents();
 
+        // Set the Version
         VERSION = version;
-
-        // Show the window
-        setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -2322,6 +2318,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     private void switchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchOptionActionPerformed
         // TODO add your handling code here:
+        switchGUI = true;
     }//GEN-LAST:event_switchOptionActionPerformed
 
     /**
@@ -2593,6 +2590,16 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
     }
 
+    public void resetSwitch()
+    {
+        switchGUI = false;
+    }
+
+    public boolean getSwitch()
+    {
+        return switchGUI;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutOption;
     private javax.swing.JPanel auto;
@@ -2813,5 +2820,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private javax.swing.JTextField topTextBox8;
     private javax.swing.JTextField topTextBox9;
     // End of variables declaration//GEN-END:variables
+
 
 }

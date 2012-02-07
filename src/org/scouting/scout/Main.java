@@ -13,6 +13,7 @@ import java.util.*;
 public class Main 
 {
     private static final String VERSION = "1.0";
+    private static boolean newGUI = true;
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
@@ -198,22 +199,59 @@ public class Main
         // The loop will exit once the user hits the 'x' button in the window
         while(true)
         {
-            // Wait for the submitted button to be pressed
-            while(!deGUI.getSubmittedFlag()) {}
+            if(deGUI.isVisible())
+            {
+                newGUI = deGUI.getSwitch();
+            }
+            else
+            {
+                newGUI = deGUI2.getSwitch();
+            }
 
-            // Reset the boolean to hold the state of the submitted button
-            deGUI.resetSubmittedFlag();
+            if(newGUI)
+            {
+                deGUI2.setVisible(true);
+                deGUI.setVisible(false);
 
-            // Wait for 100 miliseconds to let the computer think
-            // The program would have issues here, and giving it a small period to rest seemed to fix it
-            Thread.currentThread().sleep(100);
+                // Wait for the submitted button to be pressed
+                while(!deGUI2.getSubmittedFlag()) {}
 
-            // Store the data from the GUI to their respective arrays
-            currentMatch = deGUI.getMatch();
-            teamNumbers = deGUI.getTeamNumbers();
-            teamScores = deGUI.getScores();
-            teamPenalties = deGUI.getPenalties();
-            teamComments = deGUI.getComments();
+                // Reset the boolean to hold the state of the submitted button
+                deGUI2.resetSubmittedFlag();
+
+                // Wait for 100 miliseconds to let the computer think
+                // The program would have issues here, and giving it a small period to rest seemed to fix it
+                Thread.currentThread().sleep(100);
+
+                // Store the data from the GUI to their respective arrays
+                currentMatch = deGUI2.getMatch();
+                teamNumbers = deGUI2.getTeamNumbers();
+                teamScores = deGUI2.getScores();
+                teamPenalties = deGUI2.getPenalties();
+                teamComments = deGUI2.getComments();
+            }
+            else
+            {
+                deGUI.setVisible(true);
+                deGUI2.setVisible(false);
+
+                // Wait for the submitted button to be pressed
+                while(!deGUI.getSubmittedFlag()) {}
+
+                // Reset the boolean to hold the state of the submitted button
+                deGUI.resetSubmittedFlag();
+
+                // Wait for 100 miliseconds to let the computer think
+                // The program would have issues here, and giving it a small period to rest seemed to fix it
+                Thread.currentThread().sleep(100);
+
+                // Store the data from the GUI to their respective arrays
+                currentMatch = deGUI.getMatch();
+                teamNumbers = deGUI.getTeamNumbers();
+                teamScores = deGUI.getScores();
+                teamPenalties = deGUI.getPenalties();
+                teamComments = deGUI.getComments();
+            }            
 
             // Start the main for() loop for the 6 Teams represented in the GUI
             for(int i = 0; i < 6; i++)
