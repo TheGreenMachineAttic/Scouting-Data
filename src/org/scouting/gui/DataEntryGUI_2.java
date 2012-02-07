@@ -35,7 +35,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     // Fla to store the state of the submit button
     private boolean submitted = false;
-    private boolean currentGUI;
 
     // Version String
     private static String VERSION = "versionError";
@@ -2323,7 +2322,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     private void switchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchOptionActionPerformed
         // TODO add your handling code here:
-        currentGUI = !currentGUI;
     }//GEN-LAST:event_switchOptionActionPerformed
 
     /**
@@ -2362,16 +2360,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     public String[] getComments()
     {
         return commentsArray;
-    }
-
-    public void setCurrentGUI(boolean b)
-    {
-        currentGUI = b;
-    }
-
-    public boolean getCurrentGUI()
-    {
-        return currentGUI;
     }
 
     public boolean getSubmittedFlag() throws InterruptedException
