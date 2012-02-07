@@ -199,13 +199,13 @@ public class Main
         // The loop will exit once the user hits the 'x' button in the window
         while(true)
         {
-            if(deGUI.isVisible())
+            if(deGUI2.isVisible())
             {
-                newGUI = deGUI.getSwitch();
+                newGUI = !deGUI2.getSwitch();
             }
             else
             {
-                newGUI = deGUI2.getSwitch();
+                newGUI = !deGUI.getSwitch();
             }
 
             if(newGUI)

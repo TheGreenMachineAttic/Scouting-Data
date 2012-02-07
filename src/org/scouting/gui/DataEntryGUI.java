@@ -50,9 +50,6 @@ public class DataEntryGUI extends javax.swing.JFrame
     public DataEntryGUI()
     {
         initComponents();
-
-        // Show the window
-        setVisible(true);
     }
 
     public DataEntryGUI(String version)
@@ -60,9 +57,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         initComponents();
 
         VERSION = version;
-
-        // Show the window
-        setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -140,12 +134,14 @@ public class DataEntryGUI extends javax.swing.JFrame
         submitButton = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        formatOption = new javax.swing.JMenuItem();
         commentsOption = new javax.swing.JMenuItem();
-        aboutOption = new javax.swing.JMenuItem();
+        switchOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        formatOption = new javax.swing.JMenuItem();
+        aboutOption = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Entry");
@@ -225,7 +221,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox.setText("Penalties");
@@ -267,7 +263,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane)
                     .add(teamPanelLayout.createSequentialGroup()
-                        .add(pointsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -325,7 +321,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox1.setText("Penalties");
@@ -367,7 +363,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane1)
                     .add(teamPanel1Layout.createSequentialGroup()
-                        .add(pointsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -425,7 +421,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox2.setText("Penalties");
@@ -467,7 +463,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane2)
                     .add(teamPanel2Layout.createSequentialGroup()
-                        .add(pointsPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -525,7 +521,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox3.setText("Penalties");
@@ -567,7 +563,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane3)
                     .add(teamPanel3Layout.createSequentialGroup()
-                        .add(pointsPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -625,7 +621,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox4.setText("Penalties");
@@ -667,7 +663,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane4)
                     .add(teamPanel4Layout.createSequentialGroup()
-                        .add(pointsPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -725,7 +721,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                     .add(endPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(mainPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         penaltiesBox5.setText("Penalties");
@@ -767,7 +763,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane5)
                     .add(teamPanel5Layout.createSequentialGroup()
-                        .add(pointsPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(pointsPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -782,14 +778,6 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         fileMenu.setText("File");
 
-        formatOption.setText("Format");
-        formatOption.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                formatOptionActionPerformed(evt);
-            }
-        });
-        fileMenu.add(formatOption);
-
         commentsOption.setText("Comments");
         commentsOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -798,13 +786,14 @@ public class DataEntryGUI extends javax.swing.JFrame
         });
         fileMenu.add(commentsOption);
 
-        aboutOption.setText("About");
-        aboutOption.addActionListener(new java.awt.event.ActionListener() {
+        switchOption.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        switchOption.setText("Switch ...");
+        switchOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutOptionActionPerformed(evt);
+                switchOptionActionPerformed(evt);
             }
         });
-        fileMenu.add(aboutOption);
+        fileMenu.add(switchOption);
 
         menu.add(fileMenu);
 
@@ -827,6 +816,26 @@ public class DataEntryGUI extends javax.swing.JFrame
         editMenu.add(testOption);
 
         menu.add(editMenu);
+
+        helpMenu.setText("Help");
+
+        formatOption.setText("Format");
+        formatOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formatOptionActionPerformed(evt);
+            }
+        });
+        helpMenu.add(formatOption);
+
+        aboutOption.setText("About");
+        aboutOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutOptionActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutOption);
+
+        menu.add(helpMenu);
 
         setJMenuBar(menu);
 
@@ -1294,6 +1303,11 @@ public class DataEntryGUI extends javax.swing.JFrame
         fillFields();
     }//GEN-LAST:event_testOptionActionPerformed
 
+    private void switchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchOptionActionPerformed
+        // TODO add your handling code here:
+        switchGUI = true;
+    }//GEN-LAST:event_switchOptionActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1467,6 +1481,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JTextField endPoints7;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem formatOption;
+    private javax.swing.JMenu helpMenu;
     private javax.swing.JTextField mainPoints;
     private javax.swing.JTextField mainPoints2;
     private javax.swing.JTextField mainPoints3;
@@ -1490,6 +1505,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JLabel roundLabel;
     private javax.swing.JPanel roundPanel;
     private javax.swing.JButton submitButton;
+    private javax.swing.JMenuItem switchOption;
     private javax.swing.JTextField teamNumber;
     private javax.swing.JTextField teamNumber1;
     private javax.swing.JTextField teamNumber2;
