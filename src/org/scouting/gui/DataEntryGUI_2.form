@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -38,6 +38,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testOptionActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="test20Option">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Test Data Entry (x20)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="test20OptionActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -251,7 +259,7 @@
                       <Component id="commentsPane" pref="215" max="32767" attributes="1"/>
                       <Group type="102" attributes="0">
                           <Component id="tabbedPane" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -325,7 +333,7 @@
                               <Component id="leftTextBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -436,7 +444,7 @@
                               <Component id="leftTextBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel1" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -547,7 +555,7 @@
                               <Component id="leftTextBox2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel2" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -703,7 +711,7 @@
                       <Component id="commentsPane1" alignment="1" pref="215" max="32767" attributes="1"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tabbedPane1" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -777,7 +785,7 @@
                               <Component id="leftTextBox3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel3" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -888,7 +896,7 @@
                               <Component id="leftTextBox4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel4" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -999,7 +1007,7 @@
                               <Component id="leftTextBox5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel5" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1147,7 +1155,7 @@
                       <Component id="commentsPane4" alignment="1" pref="215" max="32767" attributes="1"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tabbedPane4" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox4" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1221,7 +1229,7 @@
                               <Component id="leftTextBox8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel8" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1332,7 +1340,7 @@
                               <Component id="leftTextBox9" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel9" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1443,7 +1451,7 @@
                               <Component id="leftTextBox10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel10" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1591,7 +1599,7 @@
                       <Component id="commentsPane5" alignment="1" pref="215" max="32767" attributes="1"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tabbedPane5" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1665,7 +1673,7 @@
                               <Component id="leftTextBox11" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel11" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1776,7 +1784,7 @@
                               <Component id="leftTextBox12" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel12" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -1887,7 +1895,7 @@
                               <Component id="leftTextBox13" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel13" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2035,7 +2043,7 @@
                       <Component id="commentsPane6" alignment="1" pref="215" max="32767" attributes="1"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tabbedPane6" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox6" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2109,7 +2117,7 @@
                               <Component id="leftTextBox14" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel14" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2220,7 +2228,7 @@
                               <Component id="leftTextBox15" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel15" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2331,7 +2339,7 @@
                               <Component id="leftTextBox16" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel16" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2479,7 +2487,7 @@
                       <Component id="commentsPane7" alignment="1" pref="215" max="32767" attributes="1"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tabbedPane7" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace pref="1" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="penaltiesBox7" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2553,7 +2561,7 @@
                               <Component id="leftTextBox17" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel17" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2664,7 +2672,7 @@
                               <Component id="leftTextBox18" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel18" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -2775,7 +2783,7 @@
                               <Component id="leftTextBox19" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="leftLabel19" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
