@@ -1,5 +1,6 @@
 package org.scouting.scout;
 
+import org.scouting.gui.utilities.TestNumberGUI;
 import org.scouting.filer.*;
 import org.scouting.gui.*;
 import java.io.*;
@@ -23,6 +24,8 @@ public class Main
         FileScanner teamListFileScanner = new FileScanner();
         FileScanner teamFileScanner = new FileScanner();
         Extracter extract = new Extracter();
+
+        TestNumberGUI tnGUI = new TestNumberGUI();
 
         // Assign a variable the current directory
         String currentDir = System.getProperty("user.dir");

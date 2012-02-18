@@ -11,10 +11,7 @@
 
 package org.scouting.gui;
 
-import java.awt.event.ActionEvent;
-import org.scouting.gui.ScoreUtility;
-import java.lang.Exception;
-import java.util.Random;
+import org.scouting.gui.utilities.*;
 
 /*
  * @author aoneill
@@ -2321,11 +2318,19 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
     private void test20OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test20OptionActionPerformed
         // TODO add your handling code here:
-        for(int i = 0; i < TEST_NUMBER; i++)
-        {
-            fillFields();
-            submitButtonActionPerformed(evt);
-        }
+        TestNumberGUI tnGUI = new TestNumberGUI();
+        
+
+//        int testNumber = tnGUI.getSubmittedInt();
+//
+//        System.out.println("Simulating " + testNumber + " competition entries");
+//
+//
+//        for(int i = 0; i < testNumber; i++)
+//        {
+//            fillFields();
+//            submitButtonActionPerformed(evt);
+//        }
     }//GEN-LAST:event_test20OptionActionPerformed
 
     /**
