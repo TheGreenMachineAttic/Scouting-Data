@@ -17,12 +17,16 @@ package org.scouting.gui.utilities;
  */
 public class TestNumberGUI extends javax.swing.JFrame
 {
+    private boolean submitted;
+    private int submitNum;
 
     /** Creates new form TestNumberGUI */
     public TestNumberGUI()
     {
         initComponents();
         setVisible(true);
+
+        submitted = false;
     }
 
     /** This method is called from within the constructor to
@@ -34,16 +38,14 @@ public class TestNumberGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        submit = new javax.swing.JButton();
         textBox = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setTitle("Test");
 
-        submit.setText("Go!");
-        submit.addActionListener(new java.awt.event.ActionListener() {
+        textBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitActionPerformed(evt);
+                textBoxActionPerformed(evt);
             }
         });
 
@@ -54,36 +56,44 @@ public class TestNumberGUI extends javax.swing.JFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(151, 151, 151)
-                .add(submit)
-                .addContainerGap(313, Short.MAX_VALUE))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
-                .add(textBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(53, 53, 53))
-            .add(layout.createSequentialGroup()
-                .add(39, 39, 39)
-                .add(jLabel1)
-                .addContainerGap(410, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel1))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(textBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(55, 55, 55)
+                .addContainerGap()
                 .add(jLabel1)
-                .add(26, 26, 26)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(textBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(47, 47, 47)
-                .add(submit)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+    private void textBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_submitActionPerformed
+        submitted = true;
+        submitNum = Integer.parseInt(textBox.getText());
+        setVisible(false);
+    }//GEN-LAST:event_textBoxActionPerformed
+
+    public boolean getSubmitted()
+    {
+        return submitted;
+    }
+
+    public int getNumber()
+    {
+        return submitNum;
+    }
 
     /**
     * @param args the command line arguments
@@ -99,7 +109,6 @@ public class TestNumberGUI extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton submit;
     private javax.swing.JTextField textBox;
     // End of variables declaration//GEN-END:variables
 

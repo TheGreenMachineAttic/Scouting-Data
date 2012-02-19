@@ -2319,18 +2319,17 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
     private void test20OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test20OptionActionPerformed
         // TODO add your handling code here:
         TestNumberGUI tnGUI = new TestNumberGUI();
-        
 
-//        int testNumber = tnGUI.getSubmittedInt();
-//
-//        System.out.println("Simulating " + testNumber + " competition entries");
-//
-//
-//        for(int i = 0; i < testNumber; i++)
-//        {
-//            fillFields();
-//            submitButtonActionPerformed(evt);
-//        }
+        int testNumber = tnGUI.getNumber();
+
+        System.out.println("Simulating " + testNumber + " competition entries");
+
+
+        for(int i = 0; i < testNumber; i++)
+        {
+            fillFields();
+            submitButtonActionPerformed(evt);
+        }
     }//GEN-LAST:event_test20OptionActionPerformed
 
     /**

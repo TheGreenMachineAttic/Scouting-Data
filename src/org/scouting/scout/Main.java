@@ -25,8 +25,6 @@ public class Main
         FileScanner teamFileScanner = new FileScanner();
         Extracter extract = new Extracter();
 
-        TestNumberGUI tnGUI = new TestNumberGUI();
-
         // Assign a variable the current directory
         String currentDir = System.getProperty("user.dir");
         System.out.println(currentDir);
