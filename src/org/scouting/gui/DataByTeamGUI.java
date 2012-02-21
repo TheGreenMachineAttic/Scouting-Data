@@ -17,11 +17,17 @@ package org.scouting.gui;
  */
 public class DataByTeamGUI extends javax.swing.JFrame
 {
+    String VERSION = "";
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI()
     {
         initComponents();
+    }
+
+    public DataByTeamGUI(String VERSION)
+    {
+        this.VERSION = VERSION;
     }
 
     /** This method is called from within the constructor to
@@ -34,17 +40,17 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        teamTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        dataTable = new javax.swing.JTable();
+        sortLabel = new javax.swing.JLabel();
+        sortComboBox = new javax.swing.JComboBox();
+        resultLabel = new javax.swing.JLabel();
+        resultComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        teamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -70,9 +76,9 @@ public class DataByTeamGUI extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(teamTable);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -104,15 +110,15 @@ public class DataByTeamGUI extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(dataTable);
 
-        jLabel1.setText("Sort By");
+        sortLabel.setText("Sort By");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Match", "Autonomous", "Main Game", "End Game", "Penalty Number" }));
+        sortComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Match", "Autonomous", "Main Game", "End Game", "Penalty Number" }));
 
-        jLabel2.setText("with results");
+        resultLabel.setText("with results");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
+        resultComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,13 +133,13 @@ public class DataByTeamGUI extends javax.swing.JFrame
                         .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 640, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(137, 137, 137)
-                        .add(jLabel1)
+                        .add(sortLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(sortComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jLabel2)
+                        .add(resultLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(resultComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,10 +149,10 @@ public class DataByTeamGUI extends javax.swing.JFrame
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel1)
-                            .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2)
-                            .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(sortLabel)
+                            .add(sortComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(resultLabel)
+                            .add(resultComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -155,6 +161,17 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void showData(int teamNumber)
+    {
+
+    }
+
+    public int getTeamNumber()
+    {
+        return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
+    }
+
 
     /**
     * @param args the command line arguments
@@ -169,14 +186,14 @@ public class DataByTeamGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTable dataTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JComboBox resultComboBox;
+    private javax.swing.JLabel resultLabel;
+    private javax.swing.JComboBox sortComboBox;
+    private javax.swing.JLabel sortLabel;
+    private javax.swing.JTable teamTable;
     // End of variables declaration//GEN-END:variables
 
 }
