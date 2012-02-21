@@ -1,6 +1,5 @@
 package org.scouting.scout;
 
-import org.scouting.gui.utilities.TestNumberGUI;
 import org.scouting.filer.*;
 import org.scouting.gui.*;
 import java.io.*;
