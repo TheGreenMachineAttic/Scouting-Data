@@ -372,9 +372,6 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
-                matchFile = "Match_" + String.valueOf(currentMatch);
-                System.out.println("Match File name is " + matchFile);
-
                 // Do the same process as the comments again, but with a different file...
                 // Open the Team List File
                 teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
@@ -433,6 +430,9 @@ public class Main
                 // Close and save the file
                 fileCreo.closeFile();
             }
+
+            matchFile = "Match_" + String.valueOf(currentMatch) + ".txt";
+            System.out.println("Match File name is " + matchFile);
 
             // For Debug purposes
             System.out.println("-----------------------------------------");
