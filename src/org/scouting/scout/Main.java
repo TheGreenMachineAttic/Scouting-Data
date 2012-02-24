@@ -20,6 +20,7 @@ public class Main
     private static FileScanner configScanner = new FileScanner();
     private static FileScanner teamListFileScanner = new FileScanner();
     private static FileScanner teamFileScanner = new FileScanner();
+    private static FileScanner matchFileScanner = new FileScanner();
     private static Extracter extract = new Extracter();
 
     // Assign a variable the current directory
@@ -248,7 +249,7 @@ public class Main
                 }
 
                 // If the team file exists, do the following
-                else
+                if(teamFileScanner.isFileCreated(teamFileDir, teamFile))
                 {
                     // Open the file for Reading
                     teamFileScanner.openFile(teamFileDir, teamFile);
@@ -320,8 +321,8 @@ public class Main
                     fileCreo.openFile(commentFileDir, teamFile);
                     fileCreo.addCommentHeader();
                 }
-                // If the team comments file already has content, go through the smae process for the team files
-                else if(!teamComments[i].equals(""))
+                // If the team comments file already has content, go through the same process for the team files
+                if(!teamComments[i].equals(""))
                 {
                     // Open the file for Reading
                     teamFileScanner.openFile(commentFileDir, teamFile);
@@ -433,6 +434,34 @@ public class Main
 
             matchFile = "Match_" + String.valueOf(currentMatch) + ".txt";
             System.out.println("Match File name is " + matchFile);
+
+            if(matchFileScanner.isFileCreated(workspaceFolderName + "/" + matchFolderName, matchFile))
+            {
+                fileCreo.openFile(workspaceFolderName + "/" + matchFolderName, matchFile);
+                fileCreo.addMatchHeader(currentMatch);
+
+                for(int i = 0; i < 6; i++)
+                {
+                    data = String.format("%d:%d:%d:%d:%s%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i], System.getProperty("line.separator"));
+                    fileCreo.addEntry(data);
+                }
+                fileCreo.closeFile();
+            }
+            else
+            {
+                fileCreo.createFile(workspaceFolderName + "/" + matchFolderName, matchFile);
+                fileCreo.openFile(workspaceFolderName + "/" + matchFolderName, matchFile);
+                fileCreo.addMatchHeader(currentMatch);
+
+                for(int i = 0; i < 6; i++)
+                {
+                    data = String.format("%d:%d:%d:%d:%s%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i], System.getProperty("line.separator"));
+                    fileCreo.addEntry(data);
+                }
+                fileCreo.closeFile();
+            }
+
+
 
             // For Debug purposes
             System.out.println("-----------------------------------------");

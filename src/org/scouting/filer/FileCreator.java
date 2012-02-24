@@ -99,4 +99,9 @@ public class FileCreator
         System.out.println("Formatter: Closing file");
         FMatter.close();
     }
+
+    public void addMatchHeader(int match)
+    {
+        FMatter.format("%s%d%s%s", "# Match ", match, " #", System.getProperty("line.separator"));
+    }
 }
