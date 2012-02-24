@@ -14,27 +14,31 @@ public class Main
 {
     private static final String VERSION = "1.0";
 
+    // Initialize classes dealing with File operation
+    private static FileCreator fileCreo = new FileCreator();
+    private static FileCreator logger = new FileCreator();
+    private static FileScanner configScanner = new FileScanner();
+    private static FileScanner teamListFileScanner = new FileScanner();
+    private static FileScanner teamFileScanner = new FileScanner();
+    private static Extracter extract = new Extracter();
+
+    // Assign a variable the current directory
+    private static String currentDir = System.getProperty("user.dir");
+
+    // Initialize important stings used througout the program
+    private static String configFile = "config.txt";
+    private static String teamListFile = "TeamList.txt";
+    private static String workspaceFolderName = "Workspace";
+    private static String teamFolderName = "TeamDir";
+    private static String commentFolderName = "Comments";
+    private static String matchFolderName = "Matches";
+    private static String teamFile = "team.txt";
+    private static String matchFile;
+
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
-        // Initialize classes dealing with File operation
-        FileCreator fileCreo = new FileCreator();
-        FileCreator logger = new FileCreator();
-        FileScanner configScanner = new FileScanner();
-        FileScanner teamListFileScanner = new FileScanner();
-        FileScanner teamFileScanner = new FileScanner();
-        Extracter extract = new Extracter();
-
-        // Assign a variable the current directory
-        String currentDir = System.getProperty("user.dir");
+        System.out.println("Working in");
         System.out.println(currentDir);
-
-        // Initialize important stings used througout the program
-        String configFile = "config.txt";
-        String teamListFile = "TeamList.txt";
-        String workspaceFolderName = "Workspace";
-        String teamFolderName = "TeamDir";
-        String commentFolderName = "Comments";
-        String teamFile = "team.txt";
 
         // This string holds misc. data at different points in the program
         String data;
@@ -94,6 +98,13 @@ public class Main
 
             fileCreo.addTeamListHeader();
             fileCreo.closeFile();
+        }
+
+        // if the Match folder is not created, create it.
+        if(!(new File(matchFolderName).isDirectory()))
+        {
+            System.out.println("Creating default Match Folder");
+            new File(matchFolderName).mkdir();
         }
 
         // Open the Config file to read defaults
@@ -192,7 +203,7 @@ public class Main
         DataEntryGUI_2 deGUI2 = new DataEntryGUI_2(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
-        Thread.currentThread().sleep(100);
+        Thread.sleep(100);
 
         // Start an infinite loop
         // The loop will exit once the user hits the 'x' button in the window
@@ -206,7 +217,7 @@ public class Main
 
             // Wait for 100 miliseconds to let the computer think
             // The program would have issues here, and giving it a small period to rest seemed to fix it
-            Thread.currentThread().sleep(100);
+            Thread.sleep(100);
 
             // Store the data from the GUI to their respective arrays
             currentMatch = deGUI2.getMatch();
@@ -361,9 +372,10 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
+                matchFile = "Match_" + String.valueOf(currentMatch);
+                System.out.println("Match File name is " + matchFile);
 
-                // Do the same process again, but with a different file...
-
+                // Do the same process as the comments again, but with a different file...
                 // Open the Team List File
                 teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
 
