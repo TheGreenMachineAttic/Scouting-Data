@@ -102,11 +102,13 @@ public class Main
         }
 
         // if the Match folder is not created, create it.
-        if(!(new File(matchFolderName).isDirectory()))
+        if(!(new File(workspaceFolderName + "/" + matchFolderName).isDirectory()))
         {
             System.out.println("Creating default Match Folder");
-            new File(matchFolderName).mkdir();
+            new File(workspaceFolderName + "/" + matchFolderName).mkdir();
         }
+
+        System.out.println("--------------------------------");
 
         // Open the Config file to read defaults
         configScanner.openFile(currentDir + "/" + workspaceFolderName, configFile);
@@ -179,9 +181,6 @@ public class Main
 
         // Wait for the User to hit the Scout button
         while(!sGUI.getScoutStatus()) {}
-
-        // Debug
-        System.out.println("Scout! Pressed");
 
         // Store the values from the SettingsGUI in case the user chnged a file path or something
         teamFileDir = sGUI.getTeamDirPath();
@@ -299,6 +298,8 @@ public class Main
                 // And leave nothing behind. So the existing data must be stored and written before
                 // Adding the next entry to avoid data loss.
 
+                System.out.println("--------------------------------");
+
 
                 // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
                 teamFile = Integer.toString(teamNumbers[i]) + "-Comments.txt";
@@ -373,6 +374,8 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
+                System.out.println("--------------------------------");
+
                 // Do the same process as the comments again, but with a different file...
                 // Open the Team List File
                 teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
@@ -430,38 +433,40 @@ public class Main
 
                 // Close and save the file
                 fileCreo.closeFile();
+                
+                System.out.println("--------------------------------");
             }
 
             matchFile = "Match_" + String.valueOf(currentMatch) + ".txt";
             System.out.println("Match File name is " + matchFile);
 
-            if(matchFileScanner.isFileCreated(workspaceFolderName + "/" + matchFolderName, matchFile))
+            if(matchFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile))
             {
-                fileCreo.openFile(workspaceFolderName + "/" + matchFolderName, matchFile);
+                System.out.println("Overwriting existing Match File wity new data...");
+                fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.addMatchHeader(currentMatch);
 
                 for(int i = 0; i < 6; i++)
                 {
-                    data = String.format("%d:%d:%d:%d:%s%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i], System.getProperty("line.separator"));
+                    data = String.format("%d:%d:%d:%d:%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i]);
                     fileCreo.addEntry(data);
                 }
                 fileCreo.closeFile();
             }
             else
             {
-                fileCreo.createFile(workspaceFolderName + "/" + matchFolderName, matchFile);
-                fileCreo.openFile(workspaceFolderName + "/" + matchFolderName, matchFile);
+                System.out.println("Creating new Match File");
+                fileCreo.createFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
+                fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.addMatchHeader(currentMatch);
 
                 for(int i = 0; i < 6; i++)
                 {
-                    data = String.format("%d:%d:%d:%d:%s%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i], System.getProperty("line.separator"));
+                    data = String.format("%d:%d:%d:%d:%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i]);
                     fileCreo.addEntry(data);
                 }
                 fileCreo.closeFile();
             }
-
-
 
             // For Debug purposes
             System.out.println("-----------------------------------------");

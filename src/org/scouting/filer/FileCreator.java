@@ -103,5 +103,6 @@ public class FileCreator
     public void addMatchHeader(int match)
     {
         FMatter.format("%s%d%s%s", "# Match ", match, " #", System.getProperty("line.separator"));
+        FMatter.format("%s%d%s", "match:", match, System.getProperty("line.separator"));
     }
 }
