@@ -105,4 +105,9 @@ public class FileCreator
         FMatter.format("%s%d%s%s", "# Match ", match, " #", System.getProperty("line.separator"));
         FMatter.format("%s%d%s", "match:", match, System.getProperty("line.separator"));
     }
+
+    public void addMatchListHeader()
+    {
+        FMatter.format("%s%s", "# Match List #", System.getProperty("line.separator"));
+    }
 }

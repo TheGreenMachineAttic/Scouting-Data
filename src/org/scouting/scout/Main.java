@@ -29,6 +29,7 @@ public class Main
     // Initialize important stings used througout the program
     private static String configFile = "config.txt";
     private static String teamListFile = "TeamList.txt";
+    private static String matchListFile = "Match-List.txt";
     private static String workspaceFolderName = "Workspace";
     private static String teamFolderName = "TeamDir";
     private static String commentFolderName = "Comments";
@@ -106,6 +107,17 @@ public class Main
         {
             System.out.println("Creating default Match Folder");
             new File(workspaceFolderName + "/" + matchFolderName).mkdir();
+        }
+
+        // If the Match List file is not created, create it.
+        if(!matchFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName, matchListFile))
+        {
+            System.out.println("Creating Match List");
+            fileCreo.createFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
+            fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
+
+            fileCreo.addMatchListHeader();
+            fileCreo.closeFile();
         }
 
         System.out.println("--------------------------------");
@@ -467,6 +479,37 @@ public class Main
                 }
                 fileCreo.closeFile();
             }
+
+
+
+
+            matchFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
+
+            int countLine = 0;
+            while(matchFileScanner.hasNextEntry())
+            {
+                countLine++;
+                matchFileScanner.getNextLine();
+            }
+
+            String dataArray[] = new String[countLine];
+
+            matchFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
+            countLine = 0;
+            while(matchFileScanner.hasNextEntry())
+            {
+                dataArray[countLine] = matchFileScanner.getNextLine();
+                countLine++;
+            }
+
+            fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
+            for(int j = 0; j < countLine; j++)
+            {
+                fileCreo.addEntry(dataArray[j]);
+            }
+
+            fileCreo.addEntry(String.valueOf(currentMatch));
+            fileCreo.closeFile();
 
             // For Debug purposes
             System.out.println("-----------------------------------------");
