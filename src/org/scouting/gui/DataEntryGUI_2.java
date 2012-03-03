@@ -101,7 +101,6 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         rightTextBox2 = new javax.swing.JTextField();
         bottomTextBox2 = new javax.swing.JTextField();
         topTextBox2 = new javax.swing.JTextField();
-        submitButton = new javax.swing.JButton();
         teamPanel1 = new javax.swing.JPanel();
         teamNumber1 = new javax.swing.JTextField();
         penaltiesBox1 = new javax.swing.JTextField();
@@ -272,6 +271,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
         rightTextBox19 = new javax.swing.JTextField();
         bottomTextBox19 = new javax.swing.JTextField();
         topTextBox19 = new javax.swing.JTextField();
+        submitButton = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         commentsOption = new javax.swing.JMenuItem();
@@ -310,6 +310,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         teamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
+        teamNumber.setColumns(6);
         teamNumber.setText("Team ##");
         teamNumber.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -566,15 +567,9 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
-
         teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
+        teamNumber1.setColumns(6);
         teamNumber1.setText("Team ##");
         teamNumber1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -833,6 +828,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         teamPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
+        teamNumber4.setColumns(6);
         teamNumber4.setText("Team ##");
         teamNumber4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1091,6 +1087,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         teamPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
+        teamNumber5.setColumns(6);
         teamNumber5.setText("Team ##");
         teamNumber5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1349,6 +1346,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         teamPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
+        teamNumber6.setColumns(6);
         teamNumber6.setText("Team ##");
         teamNumber6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1607,6 +1605,7 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
 
         teamPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
 
+        teamNumber7.setColumns(6);
         teamNumber7.setText("Team ##");
         teamNumber7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1862,6 +1861,13 @@ public class DataEntryGUI_2 extends javax.swing.JFrame
                         .add(penaltiesBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
         fileMenu.setText("File");
 

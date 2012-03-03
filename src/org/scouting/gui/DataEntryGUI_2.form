@@ -263,6 +263,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -644,14 +645,6 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="submitButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Submit"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitButtonActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JPanel" name="teamPanel1">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -715,6 +708,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber1">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -1159,6 +1153,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber4">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -1603,6 +1598,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber5">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -2047,6 +2043,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber6">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -2491,6 +2488,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="teamNumber7">
           <Properties>
+            <Property name="columns" type="int" value="6"/>
             <Property name="text" type="java.lang.String" value="Team ##"/>
           </Properties>
           <Events>
@@ -2872,5 +2870,13 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="submitButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Submit"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
