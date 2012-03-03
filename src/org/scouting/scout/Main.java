@@ -212,7 +212,7 @@ public class Main
         // Data Entry starts here
         // Initialize the Data Entry GUI
         // DataEntryGUI deGUI = new DataEntryGUI(VERSION);
-        DataEntryGUI_2 deGUI2 = new DataEntryGUI_2(VERSION);
+        DataEntryGUI_3 deGUI3 = new DataEntryGUI_3(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
         Thread.sleep(100);
@@ -222,21 +222,21 @@ public class Main
         while(true)
         {
             // Wait for the submitted button to be pressed
-            while(!deGUI2.getSubmittedFlag()) {}
+            while(!deGUI3.getSubmittedFlag()) {}
 
             // Reset the boolean to hold the state of the submitted button
-            deGUI2.resetSubmittedFlag();
+            deGUI3.resetSubmittedFlag();
 
             // Wait for 100 miliseconds to let the computer think
             // The program would have issues here, and giving it a small period to rest seemed to fix it
             Thread.sleep(100);
 
             // Store the data from the GUI to their respective arrays
-            currentMatch = deGUI2.getMatch();
-            teamNumbers = deGUI2.getTeamNumbers();
-            teamScores = deGUI2.getScores();
-            teamPenalties = deGUI2.getPenalties();
-            teamComments = deGUI2.getComments();
+            currentMatch = deGUI3.getMatch();
+            teamNumbers = deGUI3.getTeamNumbers();
+            teamScores = deGUI3.getScores();
+            teamPenalties = deGUI3.getPenalties();
+            teamComments = deGUI3.getComments();
 
             // Start the main for() loop for the 6 Teams represented in the GUI
             for(int i = 0; i < 6; i++)
