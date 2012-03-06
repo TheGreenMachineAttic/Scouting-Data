@@ -13,6 +13,7 @@ import java.util.*;
 public class Main 
 {
     private static final String VERSION = "1.0";
+    public static final String DATA_SEPERATOR = ":";
 
     // Initialize classes dealing with File operation
     private static FileCreator fileCreo = new FileCreator();

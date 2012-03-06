@@ -10,8 +10,8 @@
  */
 
 package org.scouting.gui;
-
 import org.scouting.gui.utilities.*;
+
 
 /*
  * @author aoneill
@@ -2186,7 +2186,14 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
     // If the Test Data Entry option is clicked, fill the feilds
     private void testOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testOptionActionPerformed
         // TODO add your handling code here:
-        fillFields();
+        if(!roundInput.getText().equals(NOTHING))
+        {
+            for(int i = 0; i < TEST_NUMBER; i++)
+            {
+                fillFields();
+                submitButtonActionPerformed(evt);
+            }
+        }
     }//GEN-LAST:event_testOptionActionPerformed
 
     private void teamNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberMouseClicked
@@ -2290,7 +2297,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
     public boolean getSubmittedFlag() throws InterruptedException
     {
         // The sleep helps the computer think
-        Thread.currentThread().sleep(10);
+        Thread.sleep(10);
         return submitted;
     }
 
@@ -2464,31 +2471,37 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         su.randScore(ScoreUtility.END, leftTextBox2);
         su.randScore(ScoreUtility.END, rightTextBox2);
         su.randScore(ScoreUtility.END, bottomTextBox2);
+        su.randScore(balanceCheck);
 
         su.randScore(ScoreUtility.END, topTextBox5);
         su.randScore(ScoreUtility.END, leftTextBox5);
         su.randScore(ScoreUtility.END, rightTextBox5);
         su.randScore(ScoreUtility.END, bottomTextBox5);
+        su.randScore(balanceCheck1);
 
         su.randScore(ScoreUtility.END, topTextBox8);
         su.randScore(ScoreUtility.END, leftTextBox8);
         su.randScore(ScoreUtility.END, rightTextBox8);
         su.randScore(ScoreUtility.END, bottomTextBox8);
+        su.randScore(balanceCheck2);
 
         su.randScore(ScoreUtility.END, topTextBox11);
         su.randScore(ScoreUtility.END, leftTextBox11);
         su.randScore(ScoreUtility.END, rightTextBox11);
         su.randScore(ScoreUtility.END, bottomTextBox11);
+        su.randScore(balanceCheck3);
 
         su.randScore(ScoreUtility.END, topTextBox14);
         su.randScore(ScoreUtility.END, leftTextBox14);
         su.randScore(ScoreUtility.END, rightTextBox14);
         su.randScore(ScoreUtility.END, bottomTextBox14);
+        su.randScore(balanceCheck4);
 
         su.randScore(ScoreUtility.END, topTextBox17);
         su.randScore(ScoreUtility.END, leftTextBox17);
         su.randScore(ScoreUtility.END, rightTextBox17);
         su.randScore(ScoreUtility.END, bottomTextBox17);
+        su.randScore(balanceCheck5);
 
 
         penaltiesBox.setText(penaltiesBoxDText);

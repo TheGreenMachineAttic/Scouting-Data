@@ -232,4 +232,9 @@ public class ScoreUtility
 
         box.setText(String.valueOf(result));
     }
+
+    public void randScore(JCheckBox box)
+    {
+        box.setSelected(new Random().nextBoolean());
+    }
 }
