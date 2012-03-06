@@ -1,6 +1,6 @@
-package org.scouting.filer;
+package com.edinarobotics.filer;
 
-import org.scouting.scout.Main;
+import com.edinarobotics.scout.Main;
 
 /**
  * @author Alex O'Neill

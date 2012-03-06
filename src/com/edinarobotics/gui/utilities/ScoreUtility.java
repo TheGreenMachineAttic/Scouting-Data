@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.scouting.gui.utilities;
+package com.edinarobotics.gui.utilities;
 
 import java.util.Random;
 import javax.swing.JCheckBox;

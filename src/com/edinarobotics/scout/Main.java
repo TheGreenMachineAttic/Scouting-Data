@@ -1,7 +1,7 @@
-package org.scouting.scout;
+package com.edinarobotics.scout;
 
-import org.scouting.filer.*;
-import org.scouting.gui.*;
+import com.edinarobotics.filer.*;
+import com.edinarobotics.gui.*;
 import java.io.*;
 import java.util.*;
 
@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Main 
 {
-    private static final String VERSION = "1.0";
+    private static final String VERSION = "1.0.1";
     public static final String DATA_SEPARATOR = ":";
 
     // Initialize classes dealing with File operation

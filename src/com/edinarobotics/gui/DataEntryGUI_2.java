@@ -9,9 +9,9 @@
  * Created on Oct 30, 2011, 3:29:28 PM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
-import org.scouting.gui.utilities.*;
+import com.edinarobotics.gui.utilities.*;
 
 /*
  * @author aoneill

@@ -9,7 +9,7 @@
  * Created on Oct 30, 2011, 6:15:16 PM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
 /*
  * @author aoneill

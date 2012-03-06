@@ -1,7 +1,7 @@
-package org.scouting.filer;
+package com.edinarobotics.filer;
 
 import java.util.Formatter;
-import org.scouting.scout.Main;
+import com.edinarobotics.scout.Main;
 
 /**
  * @author Alex O'Neill
