@@ -1,5 +1,7 @@
 package org.scouting.filer;
 
+import org.scouting.scout.Main;
+
 /**
  * @author Alex O'Neill
  * @breif A class to manage taking data from a string by following a simple 
@@ -8,7 +10,7 @@ package org.scouting.filer;
 public class Extracter 
 {
     // Store the separator in a common place
-    char defaultSeparator = ':';
+    char defaultSeparator = Main.DATA_SEPARATOR.charAt(0);
 
     // Setter / getter Methods for the defaultSeparator
     public void setSeparator(char separator)

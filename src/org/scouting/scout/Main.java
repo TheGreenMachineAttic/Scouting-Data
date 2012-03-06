@@ -13,7 +13,7 @@ import java.util.*;
 public class Main 
 {
     private static final String VERSION = "1.0";
-    public static final String DATA_SEPERATOR = ":";
+    public static final String DATA_SEPARATOR = ":";
 
     // Initialize classes dealing with File operation
     private static FileCreator fileCreo = new FileCreator();
@@ -38,7 +38,7 @@ public class Main
     private static String teamFile = "team.txt";
     private static String matchFile;
 
-    public static void main(String[] args) throws InterruptedException, FileNotFoundException
+    public static void main(String[] args) throws InterruptedException
     {
         System.out.println("Working in");
         System.out.println(currentDir);
@@ -300,7 +300,7 @@ public class Main
                     }
                 }
                 // Add the new entry fro the round
-                data = String.format("%d:%d:%d:%d:%s%s", currentMatch, teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i], System.getProperty("line.separator"));
+                data = String.format("%d%s%d%s%d%s%d%s%s%s", currentMatch, DATA_SEPARATOR, teamScores[0][i], DATA_SEPARATOR, teamScores[1][i], DATA_SEPARATOR, teamScores[2][i], DATA_SEPARATOR, teamPenalties[i], System.getProperty("line.separator"));
                 fileCreo.addEntry(data);
 
                 // Close the file to save changes
@@ -326,7 +326,7 @@ public class Main
                     // Remember the changeLogActivate? This is where it would be implimented
                     if(logActivate) 
                     {
-                        System.out.printf("Creating Team %d's Commnets File\n", teamNumbers[i]);
+                        System.out.printf("Creating Team %d's Commnent File\n", teamNumbers[i]);
                         //logger.addEntry(String.format("Creating Team %d's Commnets File", teamNumbers[i]));
                     }
 
@@ -455,13 +455,13 @@ public class Main
 
             if(matchFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile))
             {
-                System.out.println("Overwriting existing Match File wity new data...");
+                System.out.println("Overwriting existing Match File with new data...");
                 fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.addMatchHeader(currentMatch);
 
                 for(int i = 0; i < 6; i++)
                 {
-                    data = String.format("%d:%d:%d:%d:%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i]);
+                    data = String.format("%d%s%d%s%d%s%d%s%s", teamNumbers[i], DATA_SEPARATOR, teamScores[0][i], DATA_SEPARATOR, teamScores[1][i], DATA_SEPARATOR, teamScores[2][i], DATA_SEPARATOR, teamPenalties[i]);
                     fileCreo.addEntry(data);
                 }
                 fileCreo.closeFile();
@@ -475,7 +475,7 @@ public class Main
 
                 for(int i = 0; i < 6; i++)
                 {
-                    data = String.format("%d:%d:%d:%d:%s", teamNumbers[i], teamScores[0][i], teamScores[1][i], teamScores[2][i], teamPenalties[i]);
+                    data = String.format("%d%s%d%s%d%s%d%s%s", teamNumbers[i], DATA_SEPARATOR, teamScores[0][i], DATA_SEPARATOR, teamScores[1][i], DATA_SEPARATOR, teamScores[2][i], DATA_SEPARATOR, teamPenalties[i]);
                     fileCreo.addEntry(data);
                 }
                 fileCreo.closeFile();
