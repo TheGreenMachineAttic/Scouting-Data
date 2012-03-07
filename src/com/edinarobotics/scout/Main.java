@@ -1,7 +1,8 @@
 package com.edinarobotics.scout;
-
 import com.edinarobotics.filer.*;
 import com.edinarobotics.gui.*;
+import com.edinarobotics.logger.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -14,6 +15,8 @@ public class Main
 {
     private static final String VERSION = "1.0.1";
     public static final String DATA_SEPARATOR = ":";
+
+    public static Logger log = new Logger();
 
     // Initialize classes dealing with File operation
     private static FileCreator fileCreo = new FileCreator();
@@ -40,8 +43,8 @@ public class Main
 
     public static void main(String[] args) throws InterruptedException
     {
-        System.out.println("Working in");
-        System.out.println(currentDir);
+        log.log("Main", "Working in");
+        log.log("Main", currentDir);
 
         // This string holds misc. data at different points in the program
         String data;
@@ -63,28 +66,28 @@ public class Main
         // If the default Workspace folder is not created, create it.
         if(!(new File(workspaceFolderName).isDirectory()))
         {
-            System.out.println("Creating default Work Space");
+            log.log("Main", "Creating default Work Space");
             new File(workspaceFolderName).mkdir();
         }
 
         // If the default Team folder is not created, create it.
         if(!(new File(workspaceFolderName + "/" + teamFolderName).isDirectory()))
         {
-            System.out.println("Creating default Team Folder");
+            log.log("Main", "Creating default Team Folder");
             new File(workspaceFolderName + "/" + teamFolderName).mkdir();
         }
 
         // If the default Comments folder is not created, create it.
         if(!(new File(workspaceFolderName + "/" + commentFolderName).isDirectory()))
         {
-            System.out.println("Creating default Comment Folder");
+            log.log("Main", "Creating default Comment Folder");
             new File(workspaceFolderName + "/" + commentFolderName).mkdir();
         }
 
         // If the Config file is not created, create it.
         if(!configScanner.isFileCreated(currentDir + "/" + workspaceFolderName, configFile))
         {
-            System.out.println("Creating Config File");
+            log.log("Main", "Creating Config File");
             fileCreo.createFile(currentDir + "/" + workspaceFolderName, configFile);
             fileCreo.openFile(currentDir + "/" + workspaceFolderName, configFile);
             
@@ -95,7 +98,7 @@ public class Main
         // If the Team List file is not created, create it.
         if(!teamListFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName, teamListFile))
         {
-            System.out.println("Creating Team List");
+            log.log("Main", "Creating Team List");
             fileCreo.createFile(currentDir + "/" + workspaceFolderName, teamListFile);
             fileCreo.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
 
@@ -106,14 +109,14 @@ public class Main
         // if the Match folder is not created, create it.
         if(!(new File(workspaceFolderName + "/" + matchFolderName).isDirectory()))
         {
-            System.out.println("Creating default Match Folder");
+            log.log("Main", "Creating default Match Folder");
             new File(workspaceFolderName + "/" + matchFolderName).mkdir();
         }
 
         // If the Match List file is not created, create it.
         if(!matchFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName, matchListFile))
         {
-            System.out.println("Creating Match List");
+            log.log("Main", "Creating Match List");
             fileCreo.createFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
             fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
 
@@ -121,7 +124,7 @@ public class Main
             fileCreo.closeFile();
         }
 
-        System.out.println("--------------------------------");
+        log.log("Main", "--------------------------------");
 
         // Open the Config file to read defaults
         configScanner.openFile(currentDir + "/" + workspaceFolderName, configFile);
@@ -311,7 +314,7 @@ public class Main
                 // And leave nothing behind. So the existing data must be stored and written before
                 // Adding the next entry to avoid data loss.
 
-                System.out.println("--------------------------------");
+                log.log("Main", "--------------------------------");
 
 
                 // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
@@ -387,7 +390,7 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
-                System.out.println("--------------------------------");
+                log.log("Main", "--------------------------------");
 
                 // Do the same process as the comments again, but with a different file...
                 // Open the Team List File
@@ -415,7 +418,7 @@ public class Main
                 while(teamListFileScanner.hasNextEntry())
                 {
                     dataArray[countLine] = teamListFileScanner.getNextLine();
-                    //System.out.println("           [" + dataArray[countLine] + "]\t[" + teamNumbers[i] + "]");
+                    //log.log("Main", "           [" + dataArray[countLine] + "]\t[" + teamNumbers[i] + "]");
 
                     countLine++;
                 }
@@ -433,7 +436,7 @@ public class Main
                     // If the team is already present in the Team File, cange the flag
                     if(dataArray[j].equals(Integer.toString(teamNumbers[i])))
                     {
-                        System.out.println("Found Team " + dataArray[j] + " in TeamFile!");
+                        log.log("Main", "Found Team " + dataArray[j] + " in TeamFile!");
                         teamAlreadyPresent = true;
                     }
                 }
@@ -447,15 +450,15 @@ public class Main
                 // Close and save the file
                 fileCreo.closeFile();
                 
-                System.out.println("--------------------------------");
+                log.log("Main", "--------------------------------");
             }
 
             matchFile = "Match_" + String.valueOf(currentMatch) + ".txt";
-            System.out.println("Match File name is " + matchFile);
+            log.log("Main", "Match File name is " + matchFile);
 
             if(matchFileScanner.isFileCreated(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile))
             {
-                System.out.println("Overwriting existing Match File with new data...");
+                log.log("Main", "Overwriting existing Match File with new data...");
                 fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.addMatchHeader(currentMatch);
 
@@ -468,7 +471,7 @@ public class Main
             }
             else
             {
-                System.out.println("Creating new Match File");
+                log.log("Main", "Creating new Match File");
                 fileCreo.createFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.openFile(currentDir + "/" + workspaceFolderName + "/" + matchFolderName, matchFile);
                 fileCreo.addMatchHeader(currentMatch);
@@ -513,7 +516,7 @@ public class Main
             fileCreo.closeFile();
 
             // For Debug purposes
-            System.out.println("-----------------------------------------");
+            log.log("Main", "-----------------------------------------");
         }
     }
 }
