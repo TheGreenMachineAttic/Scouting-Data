@@ -2125,8 +2125,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
-                System.err.println("Round Number Negative!");
-                throw new Exception();
+                ErrorGUI eGUI = new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_SEVERE);
             }
 
             // Incriment the current match
@@ -2151,7 +2150,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         // If a feild was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
-            System.out.println("Bad Submission!");
+            ErrorGUI eGUI = new ErrorGUI("Bad Submission!", ErrorGUI.ERROR_LOW);
             submitted = false;
         }
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -2313,7 +2312,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         submitted = false;
     }
 
-    // Clears all f the feilds
+    // Clears all of the feilds
     public void resetFields()
     {
         topTextBox.setText(NOTHING);
