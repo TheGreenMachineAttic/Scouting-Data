@@ -62,7 +62,6 @@ public class SettingsGUI extends javax.swing.JFrame
         setResizable(false);
 
         logCheckBox.setText("Log Session");
-        logCheckBox.setEnabled(false);
         logCheckBox.setFocusable(false);
 
         scoutButton.setText("Scout!");
@@ -93,7 +92,7 @@ public class SettingsGUI extends javax.swing.JFrame
             wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(wDirPanelLayout.createSequentialGroup()
                 .add(wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                    .add(teamDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, wDirPanelLayout.createSequentialGroup()
                         .addContainerGap(542, Short.MAX_VALUE)
                         .add(chooseButton)))
@@ -130,7 +129,7 @@ public class SettingsGUI extends javax.swing.JFrame
                 .add(chooseButton1)
                 .addContainerGap())
             .add(cDirPanel1Layout.createSequentialGroup()
-                .add(commentDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                .add(commentDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                 .add(27, 27, 27))
         );
         cDirPanel1Layout.setVerticalGroup(

@@ -1,4 +1,6 @@
 package com.edinarobotics.filer;
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Main;
 
 import java.io.File;
 import java.util.Scanner;
@@ -11,6 +13,8 @@ import java.util.Scanner;
 public class FileScanner
 {
     private Scanner read;
+    private Logger log = Main.log;
+    private static final String LOG_TAG = "File Scanner";
 
     // Used to open the text file in the Scanner
     public void openFile(String path, String name)
@@ -18,14 +22,14 @@ public class FileScanner
         // Try to open the file at the path specified, and warn the user if it
         // fails
 
-        System.out.println("Scanner: Opening " + name + " in " + path);
+        log.log(LOG_TAG, "Opening " + name + " in " + path);
         try
         {
             read = new Scanner(new File(path + "/" + name));
         }
         catch(Exception e)
         {
-            System.out.println("Could not open " + name + "... D:");
+            log.log(LOG_TAG, "Could not open " + name + " in " + path);
         }
     }
 
@@ -47,7 +51,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            System.out.println("File not found...");
+            log.log(LOG_TAG, name + " not found in " + path);
         }
         return res;
     }
@@ -75,7 +79,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            System.out.print("Error getting next line");
+           log.log(LOG_TAG, "Error getting next line");
         }
         return result;
     }

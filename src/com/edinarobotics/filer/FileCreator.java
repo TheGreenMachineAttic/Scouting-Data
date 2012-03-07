@@ -1,7 +1,8 @@
 package com.edinarobotics.filer;
 
-import java.util.Formatter;
+import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
+import java.util.Formatter;
 
 /**
  * @author Alex O'Neill
@@ -11,6 +12,11 @@ public class FileCreator
 {
     private Formatter format;
     private String SEPARATOR = Main.DATA_SEPARATOR;
+    private Logger log = Main.log;
+    private static final String LOG_TAG = "File Creator";
+
+    private String currentFile = "";
+    private String currentPath = "";
 
     // Used to create the text file
     public void createFile(String path, String name)
@@ -18,12 +24,12 @@ public class FileCreator
         // Try to create the file, and warn the user if it fails
         try
         {
-            System.out.println("Formatter: Creating " + name + " in " + path);
+            log.log(LOG_TAG, "Formatter: Creating " + name + " in " + path);
             format = new Formatter(path + "/" + name);
         }
         catch(Exception e)
         {
-            System.out.println("Could not create file... D:");
+            log.log(LOG_TAG, "Could not create " + name + " in " + path);
         }
     }
 
@@ -33,12 +39,15 @@ public class FileCreator
         // Try to open the file for editing, and warn the user if it fails
         try
         {
-            System.out.println("Formatter: Opening " + name + " in " + path);
+            log.log(LOG_TAG, "Formatter: Opening " + name + " in " + path);
             format = new Formatter(path + "/" + name);
+
+            currentFile = name;
+            currentPath = path;
         }
         catch(Exception e)
         {
-            System.out.println("Could not open file... D:");
+            log.log(LOG_TAG, "Could not open " + name + " in " + path);
         }
     }
 
@@ -98,7 +107,7 @@ public class FileCreator
     public void closeFile()
     {
         // Close the Formatter when you are done
-        System.out.println("Formatter: Closing file");
+        log.log(LOG_TAG, "Closing " + currentFile + " in " + currentPath);
         format.close();
     }
 

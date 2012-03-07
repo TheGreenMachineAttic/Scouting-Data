@@ -2053,8 +2053,6 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
             int mainPoints5 = su.getScores(ScoreUtility.MAIN, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
             int endPoints5 = su.getScores(ScoreUtility.END, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17, balanceCheck5);
 
-            System.out.println("Auto Score for Team " + teamNumber.getText() + ": " + autoPoints);
-
             // Set the flag to true
             submitted = true;
 
@@ -2186,7 +2184,16 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
     // If the Test Data Entry option is clicked, fill the feilds
     private void testOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testOptionActionPerformed
         // TODO add your handling code here:
-        if(!roundInput.getText().equals(NOTHING))
+        boolean valid = false;
+
+        try
+        {
+            Integer.parseInt(roundInput.getText());
+            valid = true;
+        }
+        catch (Exception e) {}
+
+        if(valid)
         {
             for(int i = 0; i < TEST_NUMBER; i++)
             {

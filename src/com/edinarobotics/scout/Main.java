@@ -43,8 +43,8 @@ public class Main
 
     public static void main(String[] args) throws InterruptedException
     {
-        log.log("Main", "Working in");
-        log.log("Main", currentDir);
+        log.setEnabled(true);
+        log.log("Main", "Working in " +  currentDir);
 
         // This string holds misc. data at different points in the program
         String data;
@@ -124,7 +124,7 @@ public class Main
             fileCreo.closeFile();
         }
 
-        log.log("Main", "--------------------------------");
+        log.log();
 
         // Open the Config file to read defaults
         configScanner.openFile(currentDir + "/" + workspaceFolderName, configFile);
@@ -157,7 +157,7 @@ public class Main
 
             // This method is deprecated. It will be implimented in the future. Its purpose is
             // to print to a file what the System.out.print() methods would show on the console.
-            if(nextLine.startsWith("changeLogActivate"))
+            if(nextLine.startsWith("changelskjdflakjf"))
             {
                 if(extract.extractEntry(nextLine, 2).equals("true"))
                 {
@@ -202,6 +202,7 @@ public class Main
         teamFileDir = sGUI.getTeamDirPath();
         commentFileDir = sGUI.getCommentDirPath();
         logActivate = sGUI.getLogBox();
+        log.setEnabled(logActivate);
 
         // Hide the GUI
         sGUI.setVisible(false);
@@ -251,12 +252,8 @@ public class Main
                 // If the team's file is not created, create the team's file, and add some standard content
                 if(!teamFileScanner.isFileCreated(teamFileDir, teamFile))
                 {
-                    // Remember the changeLogActivate? This is where it would be implimented
-                    if(logActivate) 
-                    {
-                        System.out.printf("Creating Team %d's Data File\n", teamNumbers[i]);
-                        logger.addEntry(String.format("Creating Team %d's Data File", teamNumbers[i]));
-                    }
+                    // Remember the changelskjdflakjf? This is where it would be implimented
+                    System.out.println("Creating Team " + teamNumbers[i] + "'s Data File");
 
                     // Create the File
                     fileCreo.createFile(teamFileDir, teamFile);
@@ -314,7 +311,7 @@ public class Main
                 // And leave nothing behind. So the existing data must be stored and written before
                 // Adding the next entry to avoid data loss.
 
-                log.log("Main", "--------------------------------");
+                log.log();
 
 
                 // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
@@ -326,12 +323,8 @@ public class Main
                 // If the file does not exist, create the file, and add a standard header
                 if(!teamFileScanner.isFileCreated(commentFileDir, teamFile))
                 {
-                    // Remember the changeLogActivate? This is where it would be implimented
-                    if(logActivate) 
-                    {
-                        System.out.printf("Creating Team %d's Commnent File\n", teamNumbers[i]);
-                        //logger.addEntry(String.format("Creating Team %d's Commnets File", teamNumbers[i]));
-                    }
+                    // Remember the changelskjdflakjf? This is where it would be implimented
+                    System.out.println("Creating Team " + teamNumbers[i] + "'s Commnent File");
 
                     // Create the file, add content, and close it
                     fileCreo.createFile(commentFileDir, teamFile);
@@ -390,7 +383,7 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
-                log.log("Main", "--------------------------------");
+                log.log();
 
                 // Do the same process as the comments again, but with a different file...
                 // Open the Team List File
@@ -450,7 +443,7 @@ public class Main
                 // Close and save the file
                 fileCreo.closeFile();
                 
-                log.log("Main", "--------------------------------");
+                log.log();
             }
 
             matchFile = "Match_" + String.valueOf(currentMatch) + ".txt";
@@ -516,7 +509,7 @@ public class Main
             fileCreo.closeFile();
 
             // For Debug purposes
-            log.log("Main", "-----------------------------------------");
+            log.log();
         }
     }
 }
