@@ -281,6 +281,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         commentsOption = new javax.swing.JMenuItem();
+        oneTeamOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
@@ -291,6 +292,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Entry");
         setBackground(new java.awt.Color(0, 204, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
         roundPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -1922,6 +1924,14 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         });
         fileMenu.add(commentsOption);
 
+        oneTeamOption.setText("Data Input for One Team");
+        oneTeamOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oneTeamOptionActionPerformed(evt);
+            }
+        });
+        fileMenu.add(oneTeamOption);
+
         menu.add(fileMenu);
 
         editMenu.setText("Edit");
@@ -2261,6 +2271,11 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         // TODO add your handling code here:
         textBoxSet(penaltiesBox5, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox5MouseClicked
+
+    private void oneTeamOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneTeamOptionActionPerformed
+        // TODO add your handling code here:
+        IndividualGUI iGUI = new IndividualGUI();
+    }//GEN-LAST:event_oneTeamOptionActionPerformed
 
     /**
     * @param args the command line arguments
@@ -2654,6 +2669,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
     private javax.swing.JPanel main4;
     private javax.swing.JPanel main5;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem oneTeamOption;
     private javax.swing.JTextField penaltiesBox;
     private javax.swing.JTextField penaltiesBox1;
     private javax.swing.JTextField penaltiesBox2;

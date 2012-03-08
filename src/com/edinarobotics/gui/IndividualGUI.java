@@ -11,8 +11,11 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.gui.utilities.ErrorGUI;
-import com.edinarobotics.gui.utilities.ScoreUtility;
+import com.edinarobotics.filer.*;
+import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.scout.Main;
+import com.sun.org.apache.bcel.internal.generic.ISTORE;
+import java.util.ArrayList;
 
 /*
  * @author aoneill
@@ -25,17 +28,24 @@ public class IndividualGUI extends javax.swing.JFrame
     private final static String penaltiesBoxDText = "Penalties";
     private final static String NOTHING = null;
 
+    private static final String DATA_SEPARATOR = Main.DATA_SEPARATOR;
+    private static final String teamDir = Main.teamFileDir;
+    private static final String commentDir = Main.commentFileDir;
+
     // Create arrays to store the data in the feilds
-    private int teamNumberArray;
+    private int teamNumber;
     private int teamScoreArray[] = new int[3];
-    private String teamPenaltiesArray;
-    private String commentsArray;
+    private String teamPenalties;
+    private String comments;
+    private int matchCount = 0;
     private int currentMatch = 0;
+
 
     /** Creates new form IndividualGUI */
     public IndividualGUI()
     {
         initComponents();
+        setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -48,10 +58,10 @@ public class IndividualGUI extends javax.swing.JFrame
     private void initComponents() {
 
         teamPanel = new javax.swing.JPanel();
-        teamNumber = new javax.swing.JTextField();
+        teamNumberBox = new javax.swing.JTextField();
         penaltiesBox = new javax.swing.JTextField();
         commentsPane = new javax.swing.JScrollPane();
-        comments = new javax.swing.JTextArea();
+        commentsArea = new javax.swing.JTextArea();
         commentsLabel = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         auto = new javax.swing.JPanel();
@@ -87,15 +97,15 @@ public class IndividualGUI extends javax.swing.JFrame
         roundInput = new javax.swing.JTextField();
         submitButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         teamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 3));
 
-        teamNumber.setColumns(6);
-        teamNumber.setText("Team ##");
-        teamNumber.addMouseListener(new java.awt.event.MouseAdapter() {
+        teamNumberBox.setColumns(6);
+        teamNumberBox.setText("Team ##");
+        teamNumberBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumberMouseClicked(evt);
+                teamNumberBoxMouseClicked(evt);
             }
         });
 
@@ -106,10 +116,10 @@ public class IndividualGUI extends javax.swing.JFrame
             }
         });
 
-        comments.setColumns(20);
-        comments.setLineWrap(true);
-        comments.setRows(5);
-        commentsPane.setViewportView(comments);
+        commentsArea.setColumns(20);
+        commentsArea.setLineWrap(true);
+        commentsArea.setRows(5);
+        commentsPane.setViewportView(commentsArea);
 
         commentsLabel.setText("Additional Comments");
 
@@ -323,7 +333,7 @@ public class IndividualGUI extends javax.swing.JFrame
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(teamPanelLayout.createSequentialGroup()
                         .add(12, 12, 12)
-                        .add(teamNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(teamNumberBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanelLayout.createSequentialGroup()
                             .add(11, 11, 11)
@@ -343,7 +353,7 @@ public class IndividualGUI extends javax.swing.JFrame
                 .addContainerGap()
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(commentsLabel)
-                    .add(teamNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamNumberBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanelLayout.createSequentialGroup()
@@ -420,10 +430,10 @@ public class IndividualGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void teamNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberMouseClicked
+    private void teamNumberBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberBoxMouseClicked
         // TODO add your handling code here:
-        textBoxSet(teamNumber, teamNumberDText);
-}//GEN-LAST:event_teamNumberMouseClicked
+        textBoxSet(teamNumberBox, teamNumberDText);
+}//GEN-LAST:event_teamNumberBoxMouseClicked
 
     private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
         // TODO add your handling code here:
@@ -436,12 +446,13 @@ public class IndividualGUI extends javax.swing.JFrame
         {
             ScoreUtility su = new ScoreUtility();
 
-            // Team Top Left (#1)
+            // Get points for the teams
             int autoPoints = su.getScores(ScoreUtility.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
             int mainPoints = su.getScores(ScoreUtility.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
             int endPoints = su.getScores(ScoreUtility.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2, balanceCheck);
 
-            teamNumberArray = Integer.parseInt(teamNumber.getText());
+            teamNumber = Integer.parseInt(teamNumberBox.getText());
+
             // Store scores for Team #1
             //System.out.println("Storing Scores for Team #1");
             teamScoreArray[0] = autoPoints;
@@ -450,11 +461,11 @@ public class IndividualGUI extends javax.swing.JFrame
 
             // Store penalties for all teams
             //System.out.println("Storing Penalties...");
-            teamPenaltiesArray = penaltiesBox.getText();
+            teamPenalties = penaltiesBox.getText();
 
-            // Store comments for all teams
+            // Store commentsArea for all teams
             //System.out.println("Storing Comments...");
-            commentsArray = comments.getText();
+            comments = commentsArea.getText();
 
             // Store the current match
             currentMatch = Integer.parseInt(roundInput.getText());
@@ -465,8 +476,17 @@ public class IndividualGUI extends javax.swing.JFrame
                 ErrorGUI eGUI = new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_SEVERE);
             }
 
-            // Incriment the current match
-            currentMatch++;
+            matchCount++;
+
+            // If the number of teams recorded is at least 6, reset the count and increase the match` number
+            if(matchCount > 5)
+            {
+                // Incriment the current match
+                currentMatch++;
+
+                // Reset the internal team count
+                matchCount = 0;
+            }
 
             // reset all the fields!
             resetFields();
@@ -475,23 +495,24 @@ public class IndividualGUI extends javax.swing.JFrame
             roundInput.setText(Integer.toString(currentMatch));
 
             // If the penalties for a team equal null or the default text, replace the penalties with "none"
-            if(teamPenaltiesArray.equals(penaltiesBoxDText) || teamPenaltiesArray.equals(""))
+            if(teamPenalties.equals(penaltiesBoxDText) || teamPenalties.equals(""))
             {
-                teamPenaltiesArray = "none";
+                teamPenalties = "none";
             }
+
+            addScoreData();
+            addCommentData();
         }
 
         // If a feild was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
+            e.printStackTrace();
             ErrorGUI eGUI = new ErrorGUI("Bad Submission!", ErrorGUI.ERROR_LOW);
-            submitted = false;
         }
-
-
 }//GEN-LAST:event_submitButtonActionPerformed
 
-        public void resetFields()
+    public void resetFields()
     {
         topTextBox.setText(NOTHING);
         topTextBox1.setText(NOTHING);
@@ -511,7 +532,7 @@ public class IndividualGUI extends javax.swing.JFrame
 
         penaltiesBox.setText(NOTHING);
 
-        teamNumber.setText(NOTHING);
+        teamNumberBox.setText(NOTHING);
     }
 
     private void textBoxSet(javax.swing.JTextField box, String defaultText)
@@ -519,7 +540,98 @@ public class IndividualGUI extends javax.swing.JFrame
         String previous = box.getText();
         box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
     }
-    
+
+    private void addScoreData()
+    {
+        FileScanner scan = new FileScanner();
+        FileCreator fileCreo = new FileCreator();
+
+        String teamFile = teamNumber + ".txt";
+
+        if(scan.isFileCreated(teamDir, teamFile))
+        {
+            scan.openFile(teamDir, teamNumber + ".txt");
+        }
+        else
+        {
+            fileCreo.createFile(teamDir, teamNumber + ".txt");
+            fileCreo.addTeamHeader();
+            fileCreo.closeFile();
+
+            scan.openFile(teamDir, teamFile);
+        }
+
+        ArrayList<String> list = new ArrayList<String>();
+
+        while(scan.hasNextEntry())
+        {
+            list.add(scan.getNextLine());
+        }
+
+        list.add(String.format("%d%s%d%s%d%s%d%s%s%s", currentMatch, DATA_SEPARATOR, teamScoreArray[0], DATA_SEPARATOR, teamScoreArray[1], DATA_SEPARATOR, teamScoreArray[2], DATA_SEPARATOR, teamPenalties, System.getProperty("line.separator")));
+
+
+        fileCreo.openFile(teamDir, teamFile);
+        for(int i = 0; i < list.size(); i++)
+        {
+            System.out.println((String) list.get(i).toString());
+            fileCreo.addEntry((String) list.get(i).toString());
+        }
+        
+        fileCreo.closeFile();
+    }
+
+    private void addCommentData()
+    {
+        FileScanner scan = new FileScanner();
+        FileCreator fileCreo = new FileCreator();
+
+        String teamFile = teamNumber + "-Comments.txt";
+
+        if(scan.isFileCreated(commentDir, teamFile))
+        {
+            scan.openFile(commentDir, teamNumber + ".txt");
+
+            ArrayList<String> list = new ArrayList<String>();
+
+            while(scan.hasNextEntry())
+            {
+                list.add(scan.getNextLine());
+            }
+
+            list.add(NOTHING);
+            list.add("#########################");
+            list.add(String.format("Round: %d", currentMatch));
+            list.add(NOTHING);
+
+            list.add(comments);
+
+            fileCreo.addEntry((String[]) list.toArray());
+            fileCreo.closeFile();
+        }
+        else
+        {
+            fileCreo.createFile(commentDir, teamFile);
+            fileCreo.addCommentHeader();
+            fileCreo.closeFile();
+
+            scan.openFile(teamDir, teamFile);
+
+            ArrayList<String> list = new ArrayList<String>();
+
+            while(scan.hasNextEntry())
+            {
+                list.add(scan.getNextLine());
+            }
+
+            list.add(comments);
+
+            fileCreo.openFile(commentDir, teamFile);
+            fileCreo.addEntry((String[]) list.toArray());
+            fileCreo.closeFile();
+        }
+    }
+
     /**
     * @param args the command line arguments
     */
@@ -541,7 +653,7 @@ public class IndividualGUI extends javax.swing.JFrame
     private javax.swing.JTextField bottomTextBox;
     private javax.swing.JTextField bottomTextBox1;
     private javax.swing.JTextField bottomTextBox2;
-    private javax.swing.JTextArea comments;
+    private javax.swing.JTextArea commentsArea;
     private javax.swing.JLabel commentsLabel;
     private javax.swing.JScrollPane commentsPane;
     private javax.swing.JPanel end;
@@ -564,7 +676,7 @@ public class IndividualGUI extends javax.swing.JFrame
     private javax.swing.JPanel roundPanel;
     private javax.swing.JButton submitButton;
     private javax.swing.JTabbedPane tabbedPane;
-    private javax.swing.JTextField teamNumber;
+    private javax.swing.JTextField teamNumberBox;
     private javax.swing.JPanel teamPanel;
     private javax.swing.JLabel topLabel;
     private javax.swing.JLabel topLabel1;

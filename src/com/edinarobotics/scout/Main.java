@@ -30,6 +30,11 @@ public class Main
     // Assign a variable the current directory
     private static String currentDir = System.getProperty("user.dir");
 
+
+    public static String teamFileDir = "C:/";
+    public static String commentFileDir = "C:/";
+    public static boolean logActivate = false;
+
     // Initialize important stings used througout the program
     private static String configFile = "config.txt";
     private static String teamListFile = "TeamList.txt";
@@ -50,9 +55,6 @@ public class Main
         String data;
 
         // Set default values for the Directories of the different user-set options
-        String teamFileDir = "C:/";
-        String commentFileDir = "C:/";
-        boolean logActivate = false;
 
         // Initialize Arrays / Variables to store team data input
         int teamNumbers[] = new int[6];
