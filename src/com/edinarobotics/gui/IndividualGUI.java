@@ -479,7 +479,7 @@ public class IndividualGUI extends javax.swing.JFrame
             matchCount++;
 
             // If the number of teams recorded is at least 6, reset the count and increase the match` number
-            if(matchCount > 5)
+            if(matchCount > 6)
             {
                 // Incriment the current match
                 currentMatch++;
@@ -531,6 +531,7 @@ public class IndividualGUI extends javax.swing.JFrame
         bottomTextBox2.setText(NOTHING);
 
         penaltiesBox.setText(NOTHING);
+        commentsArea.setText(NOTHING);
 
         teamNumberBox.setText(NOTHING);
     }
@@ -548,18 +549,14 @@ public class IndividualGUI extends javax.swing.JFrame
 
         String teamFile = teamNumber + ".txt";
 
-        if(scan.isFileCreated(teamDir, teamFile))
+        if(!scan.isFileCreated(teamDir, teamFile))
         {
-            scan.openFile(teamDir, teamNumber + ".txt");
-        }
-        else
-        {
-            fileCreo.createFile(teamDir, teamNumber + ".txt");
+            fileCreo.createFile(teamDir, teamFile);
             fileCreo.addTeamHeader();
             fileCreo.closeFile();
-
-            scan.openFile(teamDir, teamFile);
         }
+
+        scan.openFile(teamDir, teamFile);
 
         ArrayList<String> list = new ArrayList<String>();
 
@@ -570,12 +567,11 @@ public class IndividualGUI extends javax.swing.JFrame
 
         list.add(String.format("%d%s%d%s%d%s%d%s%s%s", currentMatch, DATA_SEPARATOR, teamScoreArray[0], DATA_SEPARATOR, teamScoreArray[1], DATA_SEPARATOR, teamScoreArray[2], DATA_SEPARATOR, teamPenalties, System.getProperty("line.separator")));
 
-
         fileCreo.openFile(teamDir, teamFile);
         for(int i = 0; i < list.size(); i++)
         {
-            System.out.println((String) list.get(i).toString());
-            fileCreo.addEntry((String) list.get(i).toString());
+            String entry = (String) list.get(i).toString();
+            fileCreo.addEntry(entry);
         }
         
         fileCreo.closeFile();
@@ -590,7 +586,7 @@ public class IndividualGUI extends javax.swing.JFrame
 
         if(scan.isFileCreated(commentDir, teamFile))
         {
-            scan.openFile(commentDir, teamNumber + ".txt");
+            scan.openFile(commentDir, teamFile);
 
             ArrayList<String> list = new ArrayList<String>();
 
@@ -606,7 +602,13 @@ public class IndividualGUI extends javax.swing.JFrame
 
             list.add(comments);
 
-            fileCreo.addEntry((String[]) list.toArray());
+            fileCreo.openFile(commentDir, teamFile);
+            for(int i = 0; i < list.size(); i++)
+            {
+                String entry = (String) list.get(i).toString();
+                fileCreo.addEntry(entry);
+            }
+
             fileCreo.closeFile();
         }
         else
@@ -615,7 +617,7 @@ public class IndividualGUI extends javax.swing.JFrame
             fileCreo.addCommentHeader();
             fileCreo.closeFile();
 
-            scan.openFile(teamDir, teamFile);
+            scan.openFile(commentDir, teamFile);
 
             ArrayList<String> list = new ArrayList<String>();
 
@@ -627,7 +629,12 @@ public class IndividualGUI extends javax.swing.JFrame
             list.add(comments);
 
             fileCreo.openFile(commentDir, teamFile);
-            fileCreo.addEntry((String[]) list.toArray());
+            for(int i = 0; i < list.size(); i++)
+            {
+                String entry = (String) list.get(i).toString();
+                fileCreo.addEntry(entry);
+            }
+            
             fileCreo.closeFile();
         }
     }
