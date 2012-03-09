@@ -2400,12 +2400,26 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         bottomTextBox16.setText(NOTHING);
         bottomTextBox17.setText(NOTHING);
 
+        balanceCheck.setSelected(false);
+        balanceCheck1.setSelected(false);
+        balanceCheck2.setSelected(false);
+        balanceCheck3.setSelected(false);
+        balanceCheck4.setSelected(false);
+        balanceCheck5.setSelected(false);
+
         penaltiesBox.setText(NOTHING);
         penaltiesBox1.setText(NOTHING);
         penaltiesBox2.setText(NOTHING);
         penaltiesBox3.setText(NOTHING);
         penaltiesBox4.setText(NOTHING);
         penaltiesBox5.setText(NOTHING);
+
+        comments.setText(NOTHING);
+        comments1.setText(NOTHING);
+        comments2.setText(NOTHING);
+        comments3.setText(NOTHING);
+        comments4.setText(NOTHING);
+        comments5.setText(NOTHING);
 
         teamNumber.setText(NOTHING);
         teamNumber1.setText(NOTHING);
