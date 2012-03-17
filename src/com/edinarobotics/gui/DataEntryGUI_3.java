@@ -1945,6 +1945,7 @@ public class DataEntryGUI_3 extends javax.swing.JFrame
         editMenu.add(clearOption);
 
         testOption.setText("Test Data Entry");
+        testOption.setEnabled(false);
         testOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 testOptionActionPerformed(evt);
