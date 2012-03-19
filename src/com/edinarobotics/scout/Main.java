@@ -70,6 +70,8 @@ public class Main
             new File(workspaceFolderName).mkdir();
         }
 
+        workspaceDir = currentDir + "/" + workspaceFolderName;
+
         // If the default Team folder is not created, create it.
         if(!(new File(workspaceFolderName + "/" + teamFolderName).isDirectory()))
         {
@@ -217,7 +219,7 @@ public class Main
         // Data Entry starts here
         // Initialize the Data Entry GUI
         // DataEntryGUI deGUI = new DataEntryGUI(VERSION);
-        DataEntryGUI_3 deGUI3 = new DataEntryGUI_3(VERSION);
+        DataEntryGUI_4 deGUI3 = new DataEntryGUI_4(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
         Thread.sleep(100);

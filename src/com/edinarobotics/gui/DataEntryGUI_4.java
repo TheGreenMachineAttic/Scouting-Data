@@ -49,10 +49,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     public DataEntryGUI_4()
     {
         initComponents();
-
         init();
-
-        setVisible(true);
     }
 
     public DataEntryGUI_4(String version)
@@ -61,7 +58,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         // Set the Version
         VERSION = version;
-        setVisible(true);
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -2267,6 +2264,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     {
         teamList = getTeamList(Main.workspaceDir);
         setTeamOptions(teamList);
+        setVisible(true);
     }
 
     /**
@@ -2294,7 +2292,13 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         list.remove(0);
         list.add(unselectedOptionIndex, comboBoxDText);
 
-        return (String[]) list.toArray();
+        String result[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            result[i] = list.get(i);
+        }
+
+        return result;
     }
 
     private void setTeamOptions(String[] list)
