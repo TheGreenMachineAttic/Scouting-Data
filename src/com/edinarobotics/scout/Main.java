@@ -13,14 +13,13 @@ import java.util.*;
 
 public class Main 
 {
-    private static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.1";
     public static final String DATA_SEPARATOR = ":";
 
     public static Logger log = new Logger();
 
     // Initialize classes dealing with File operation
     private static FileCreator fileCreo = new FileCreator();
-    private static FileCreator logger = new FileCreator();
     private static FileScanner configScanner = new FileScanner();
     private static FileScanner teamListFileScanner = new FileScanner();
     private static FileScanner teamFileScanner = new FileScanner();
@@ -31,20 +30,21 @@ public class Main
     private static String currentDir = System.getProperty("user.dir");
 
 
+    public static String workspaceDir = "C:/";
     public static String teamFileDir = "C:/";
     public static String commentFileDir = "C:/";
     public static boolean logActivate = false;
 
     // Initialize important stings used througout the program
-    private static String configFile = "config.txt";
-    private static String teamListFile = "TeamList.txt";
-    private static String matchListFile = "Match-List.txt";
-    private static String workspaceFolderName = "Workspace";
-    private static String teamFolderName = "TeamDir";
-    private static String commentFolderName = "Comments";
-    private static String matchFolderName = "Matches";
-    private static String teamFile = "team.txt";
-    private static String matchFile;
+    public static String configFile = "config.txt";
+    public static String teamListFile = "TeamList.txt";
+    public static String matchListFile = "Match-List.txt";
+    public static String workspaceFolderName = "Workspace";
+    public static String teamFolderName = "TeamDir";
+    public static String commentFolderName = "Comments";
+    public static String matchFolderName = "Matches";
+    public static String teamFile = "team.txt";
+    public static String matchFile;
 
     public static void main(String[] args) throws InterruptedException
     {
@@ -53,8 +53,6 @@ public class Main
 
         // This string holds misc. data at different points in the program
         String data;
-
-        // Set default values for the Directories of the different user-set options
 
         // Initialize Arrays / Variables to store team data input
         int teamNumbers[] = new int[6];
@@ -189,7 +187,7 @@ public class Main
             }
         }
 
-        // Initialize the Settings GUI
+        // Initialize the Settings GUI,.
         SettingsGUI sGUI = new SettingsGUI();
 
         // Set the feilds in the Settings GUI
@@ -315,7 +313,6 @@ public class Main
 
                 log.log();
 
-
                 // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
                 teamFile = Integer.toString(teamNumbers[i]) + "-Comments.txt";
 
@@ -385,66 +382,6 @@ public class Main
                 // Close the team file to save changes
                 fileCreo.closeFile();
 
-                log.log();
-
-                // Do the same process as the comments again, but with a different file...
-                // Open the Team List File
-                teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
-
-                // Find how many lines there are in the Team List File
-                int countLine = 0;
-                while(teamListFileScanner.hasNextEntry())
-                {
-                    countLine++;
-                    teamListFileScanner.getNextLine();
-                }
-
-                // Create an array to hold the already existing Data with a length
-                // determined by the number of lines in the file
-                String dataArray[] = new String[countLine];
-
-                // Open the file again to start scanning from the beginning of the file
-                teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
-
-                // Reset the line count
-                countLine = 0;
-
-                // While the file has content, add it to the newly created array
-                while(teamListFileScanner.hasNextEntry())
-                {
-                    dataArray[countLine] = teamListFileScanner.getNextLine();
-                    //log.log("Main", "           [" + dataArray[countLine] + "]\t[" + teamNumbers[i] + "]");
-
-                    countLine++;
-                }
-
-                // Create a flag to check if a team is already present in the Team List File
-                boolean teamAlreadyPresent = false;
-
-                // Open the teams file with the File Creator
-                fileCreo.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
-                for(int j = 0; j < countLine; j++)
-                {
-                    // Add the old entries
-                    fileCreo.addEntry(dataArray[j]);
-
-                    // If the team is already present in the Team File, cange the flag
-                    if(dataArray[j].equals(Integer.toString(teamNumbers[i])))
-                    {
-                        log.log("Main", "Found Team " + dataArray[j] + " in TeamFile!");
-                        teamAlreadyPresent = true;
-                    }
-                }
-
-                // As long as the team is not present in the FIle, add the team
-                if(!teamAlreadyPresent)
-                {
-                    fileCreo.addEntry(Integer.toString(teamNumbers[i]));
-                }
-
-                // Close and save the file
-                fileCreo.closeFile();
-                
                 log.log();
             }
 

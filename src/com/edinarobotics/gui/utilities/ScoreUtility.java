@@ -7,6 +7,7 @@ package com.edinarobotics.gui.utilities;
 
 import java.util.Random;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 /*
@@ -30,9 +31,9 @@ public class ScoreUtility
     private static final int BALANCE_POINTS = 20;
 
     // Declare caps for random number generation
-    private final static int RAND_AUTO_POINT_CAP = 3;
-    private final static int RAND_END_POINT_CAP = 30;
-    private final static int RAND_MAIN_POINT_CAP = 80;
+    private final static int RAND_AUTO_POINT_CAP = 1;
+    private final static int RAND_END_POINT_CAP = 12;
+    private final static int RAND_MAIN_POINT_CAP = 6;
 
     public int getScores(int period, JTextField top, JTextField left, JTextField right, JTextField bottom)
     {
@@ -236,5 +237,11 @@ public class ScoreUtility
     public void randScore(JCheckBox box)
     {
         box.setSelected(new Random().nextBoolean());
+    }
+
+    public void randScore(JComboBox box, int lowerLimit, int upperLimit)
+    {
+        int num = lowerLimit + new Random().nextInt(upperLimit - lowerLimit);
+        box.setSelectedIndex(num);
     }
 }

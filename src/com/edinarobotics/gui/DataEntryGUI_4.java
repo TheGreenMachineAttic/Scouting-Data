@@ -10,7 +10,12 @@
  */
 
 package com.edinarobotics.gui;
+import com.edinarobotics.filer.*;
 import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.scout.*;
+
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 
 /*
@@ -20,16 +25,18 @@ import com.edinarobotics.gui.utilities.*;
 public class DataEntryGUI_4 extends javax.swing.JFrame
 {
     // Declare default feild fillers
-    private final static String teamNumberDText = "Team ##";
     private final static String penaltiesBoxDText = "Penalties";
+    private final static String comboBoxDText = "Select...";
     private final static String NOTHING = null;
     private final static int TEST_NUMBER = 20;
+    private final static int unselectedOptionIndex = 0;
 
     // Create arrays to store the data in the feilds
     private int teamNumberArray[] = new int[6];
     private int teamScoreArray[][] = new int[3][6];
     private String teamPenaltiesArray[] = new String[6];
     private String commentsArray[] = new String[6];
+    private String teamList[];
     private int currentMatch = 0;
 
     // Fla to store the state of the submit button
@@ -42,6 +49,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     public DataEntryGUI_4()
     {
         initComponents();
+
+        init();
+
         setVisible(true);
     }
 
@@ -51,7 +61,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         // Set the Version
         VERSION = version;
-
         setVisible(true);
     }
 
@@ -101,8 +110,8 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox2 = new javax.swing.JTextField();
         topTextBox2 = new javax.swing.JTextField();
         balanceCheck = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        teamNumComboBox = new javax.swing.JComboBox();
+        teamLabel = new javax.swing.JLabel();
         teamPanel1 = new javax.swing.JPanel();
         penaltiesBox1 = new javax.swing.JTextField();
         commentsPane1 = new javax.swing.JScrollPane();
@@ -137,8 +146,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox5 = new javax.swing.JTextField();
         topTextBox5 = new javax.swing.JTextField();
         balanceCheck1 = new javax.swing.JCheckBox();
+        teamNumComboBox1 = new javax.swing.JComboBox();
+        teamLabel1 = new javax.swing.JLabel();
         teamPanel2 = new javax.swing.JPanel();
-        teamNumber2 = new javax.swing.JTextField();
         penaltiesBox2 = new javax.swing.JTextField();
         commentsPane2 = new javax.swing.JScrollPane();
         comments2 = new javax.swing.JTextArea();
@@ -172,8 +182,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox8 = new javax.swing.JTextField();
         topTextBox8 = new javax.swing.JTextField();
         balanceCheck2 = new javax.swing.JCheckBox();
+        teamNumComboBox2 = new javax.swing.JComboBox();
+        teamLabel2 = new javax.swing.JLabel();
         teamPanel3 = new javax.swing.JPanel();
-        teamNumber3 = new javax.swing.JTextField();
         penaltiesBox3 = new javax.swing.JTextField();
         commentsPane3 = new javax.swing.JScrollPane();
         comments3 = new javax.swing.JTextArea();
@@ -207,8 +218,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox11 = new javax.swing.JTextField();
         topTextBox11 = new javax.swing.JTextField();
         balanceCheck3 = new javax.swing.JCheckBox();
+        teamNumComboBox3 = new javax.swing.JComboBox();
+        teamLabel3 = new javax.swing.JLabel();
         teamPanel4 = new javax.swing.JPanel();
-        teamNumber4 = new javax.swing.JTextField();
         penaltiesBox4 = new javax.swing.JTextField();
         commentsPane4 = new javax.swing.JScrollPane();
         comments4 = new javax.swing.JTextArea();
@@ -242,8 +254,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox14 = new javax.swing.JTextField();
         topTextBox14 = new javax.swing.JTextField();
         balanceCheck4 = new javax.swing.JCheckBox();
+        teamNumComboBox4 = new javax.swing.JComboBox();
+        teamLabel4 = new javax.swing.JLabel();
         teamPanel5 = new javax.swing.JPanel();
-        teamNumber5 = new javax.swing.JTextField();
         penaltiesBox5 = new javax.swing.JTextField();
         commentsPane5 = new javax.swing.JScrollPane();
         comments5 = new javax.swing.JTextArea();
@@ -277,6 +290,8 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         bottomTextBox17 = new javax.swing.JTextField();
         topTextBox17 = new javax.swing.JTextField();
         balanceCheck5 = new javax.swing.JCheckBox();
+        teamNumComboBox5 = new javax.swing.JComboBox();
+        teamLabel5 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -535,9 +550,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane.addTab("End Game", end);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+        teamNumComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
 
-        jLabel1.setText("Team");
+        teamLabel.setText("Team");
 
         org.jdesktop.layout.GroupLayout teamPanelLayout = new org.jdesktop.layout.GroupLayout(teamPanel);
         teamPanel.setLayout(teamPanelLayout);
@@ -554,9 +569,9 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                             .add(tabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(teamPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jLabel1)
+                        .add(teamLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(teamNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel)
@@ -570,8 +585,8 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(commentsLabel)
                     .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel1)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(teamLabel)
+                        .add(teamNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanelLayout.createSequentialGroup()
@@ -800,18 +815,28 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane1.addTab("End Game", end1);
 
+        teamNumComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel1.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel1Layout = new org.jdesktop.layout.GroupLayout(teamPanel1);
         teamPanel1.setLayout(teamPanel1Layout);
         teamPanel1Layout.setHorizontalGroup(
             teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel1Layout.createSequentialGroup()
-                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
-                        .add(11, 11, 11)
-                        .add(penaltiesBox1))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
+                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox1))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(teamLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel1)
@@ -822,7 +847,11 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(commentsLabel1)
+                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(commentsLabel1)
+                    .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel1)
+                        .add(teamNumComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel1Layout.createSequentialGroup()
@@ -834,14 +863,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         );
 
         teamPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
-
-        teamNumber2.setColumns(6);
-        teamNumber2.setText("Team ##");
-        teamNumber2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber2MouseClicked(evt);
-            }
-        });
 
         penaltiesBox2.setText("Penalties");
         penaltiesBox2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1059,22 +1080,28 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane2.addTab("End Game", end2);
 
+        teamNumComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel2.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel2Layout = new org.jdesktop.layout.GroupLayout(teamPanel2);
         teamPanel2.setLayout(teamPanel2Layout);
         teamPanel2Layout.setHorizontalGroup(
             teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel2Layout.createSequentialGroup()
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel2Layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(teamNumber2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel2Layout.createSequentialGroup()
                             .add(11, 11, 11)
                             .add(penaltiesBox2))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel2Layout.createSequentialGroup()
                             .addContainerGap()
-                            .add(tabbedPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(tabbedPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel2)
@@ -1085,9 +1112,11 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(commentsLabel2)
-                    .add(teamNumber2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel2)
+                        .add(teamNumComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel2Layout.createSequentialGroup()
@@ -1099,14 +1128,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         );
 
         teamPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber3.setColumns(6);
-        teamNumber3.setText("Team ##");
-        teamNumber3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber3MouseClicked(evt);
-            }
-        });
 
         penaltiesBox3.setText("Penalties");
         penaltiesBox3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1324,22 +1345,28 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane3.addTab("End Game", end3);
 
+        teamNumComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel3.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel3Layout = new org.jdesktop.layout.GroupLayout(teamPanel3);
         teamPanel3.setLayout(teamPanel3Layout);
         teamPanel3Layout.setHorizontalGroup(
             teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel3Layout.createSequentialGroup()
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel3Layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(teamNumber3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel3Layout.createSequentialGroup()
                             .add(11, 11, 11)
                             .add(penaltiesBox3))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel3Layout.createSequentialGroup()
                             .addContainerGap()
-                            .add(tabbedPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(tabbedPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel3)
@@ -1349,10 +1376,12 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         teamPanel3Layout.setVerticalGroup(
             teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(20, 20, 20)
+                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(commentsLabel3)
-                    .add(teamNumber3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel3)
+                        .add(teamNumComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel3Layout.createSequentialGroup()
@@ -1364,14 +1393,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         );
 
         teamPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber4.setColumns(6);
-        teamNumber4.setText("Team ##");
-        teamNumber4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber4MouseClicked(evt);
-            }
-        });
 
         penaltiesBox4.setText("Penalties");
         penaltiesBox4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1589,35 +1610,43 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane4.addTab("End Game", end4);
 
+        teamNumComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel4.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel4Layout = new org.jdesktop.layout.GroupLayout(teamPanel4);
         teamPanel4.setLayout(teamPanel4Layout);
         teamPanel4Layout.setHorizontalGroup(
             teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel4Layout.createSequentialGroup()
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel4Layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(teamNumber4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel4Layout.createSequentialGroup()
                             .add(11, 11, 11)
                             .add(penaltiesBox4))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel4Layout.createSequentialGroup()
                             .addContainerGap()
-                            .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(commentsLabel4)
-                    .add(commentsPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(commentsLabel4))
                 .addContainerGap())
         );
         teamPanel4Layout.setVerticalGroup(
             teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(commentsLabel4)
-                    .add(teamNumber4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(16, 16, 16)
+                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel4)
+                        .add(teamNumComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsLabel4))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel4Layout.createSequentialGroup()
@@ -1629,14 +1658,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         );
 
         teamPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber5.setColumns(6);
-        teamNumber5.setText("Team ##");
-        teamNumber5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber5MouseClicked(evt);
-            }
-        });
 
         penaltiesBox5.setText("Penalties");
         penaltiesBox5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1854,35 +1875,43 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
         tabbedPane5.addTab("End Game", end5);
 
+        teamNumComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel5.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel5Layout = new org.jdesktop.layout.GroupLayout(teamPanel5);
         teamPanel5.setLayout(teamPanel5Layout);
         teamPanel5Layout.setHorizontalGroup(
             teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel5Layout.createSequentialGroup()
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel5Layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(teamNumber5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel5Layout.createSequentialGroup()
                             .add(11, 11, 11)
                             .add(penaltiesBox5))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel5Layout.createSequentialGroup()
                             .addContainerGap()
-                            .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel5)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(commentsLabel5)
-                    .add(commentsPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(commentsLabel5))
                 .addContainerGap())
         );
         teamPanel5Layout.setVerticalGroup(
             teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(commentsLabel5)
-                    .add(teamNumber5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(16, 16, 16)
+                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel5)
+                        .add(teamNumComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsLabel5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel5Layout.createSequentialGroup()
@@ -2055,12 +2084,12 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
             // Store Team numbers
             //System.out.println("Storing Teams...");
-            teamNumberArray[0] = Integer.parseInt(teamNumber.getText());
-            teamNumberArray[1] = Integer.parseInt(teamNumber1.getText());
-            teamNumberArray[2] = Integer.parseInt(teamNumber2.getText());
-            teamNumberArray[3] = Integer.parseInt(teamNumber3.getText());
-            teamNumberArray[4] = Integer.parseInt(teamNumber4.getText());
-            teamNumberArray[5] = Integer.parseInt(teamNumber5.getText());
+            teamNumberArray[0] = Integer.parseInt(teamNumComboBox.getSelectedItem().toString());
+            teamNumberArray[1] = Integer.parseInt(teamNumComboBox1.getSelectedItem().toString());
+            teamNumberArray[2] = Integer.parseInt(teamNumComboBox2.getSelectedItem().toString());
+            teamNumberArray[3] = Integer.parseInt(teamNumComboBox3.getSelectedItem().toString());
+            teamNumberArray[4] = Integer.parseInt(teamNumComboBox4.getSelectedItem().toString());
+            teamNumberArray[5] = Integer.parseInt(teamNumComboBox5.getSelectedItem().toString());
 
             // Store scores for Team #1
             //System.out.println("Storing Scores for Team #1");
@@ -2209,40 +2238,20 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         textBoxSet(penaltiesBox1, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox1MouseClicked
 
-    private void teamNumber2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber2MouseClicked
-        // TODO add your handling code here:
-        textBoxSet(teamNumber2, teamNumberDText);
-    }//GEN-LAST:event_teamNumber2MouseClicked
-
     private void penaltiesBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox2MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox2, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox2MouseClicked
-
-    private void teamNumber3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber3MouseClicked
-        // TODO add your handling code here:
-        textBoxSet(teamNumber3, teamNumberDText);
-    }//GEN-LAST:event_teamNumber3MouseClicked
 
     private void penaltiesBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox3MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox3, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox3MouseClicked
 
-    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
-        // TODO add your handling code here:
-        textBoxSet(teamNumber4, teamNumberDText);
-    }//GEN-LAST:event_teamNumber4MouseClicked
-
     private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox4, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox4MouseClicked
-
-    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
-        // TODO add your handling code here:
-        textBoxSet(teamNumber5, teamNumberDText);
-    }//GEN-LAST:event_teamNumber5MouseClicked
 
     private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
         // TODO add your handling code here:
@@ -2254,6 +2263,12 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         IndividualGUI iGUI = new IndividualGUI();
     }//GEN-LAST:event_oneTeamOptionActionPerformed
 
+    private void init()
+    {
+        teamList = getTeamList(Main.workspaceDir);
+        setTeamOptions(teamList);
+    }
+
     /**
     * @param args the command line arguments
     */
@@ -2264,6 +2279,32 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                 new DataEntryGUI_4().setVisible(true);
             }
         });
+    }
+
+    private String[] getTeamList(String workspaceDir)
+    {
+        FileScanner scan = new FileScanner();
+        scan.openFile(workspaceDir, Main.teamListFile);
+
+        ArrayList<String> list = new ArrayList<String>();
+        while(scan.hasNextEntry())
+        {
+            list.add(scan.getNextLine());
+        }
+        list.remove(0);
+        list.add(unselectedOptionIndex, comboBoxDText);
+
+        return (String[]) list.toArray();
+    }
+
+    private void setTeamOptions(String[] list)
+    {
+        teamNumComboBox.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox1.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox2.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox3.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox4.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox5.setModel(new DefaultComboBoxModel(list));
     }
 
     // Return methods for the data
@@ -2398,12 +2439,12 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         comments4.setText(NOTHING);
         comments5.setText(NOTHING);
 
-        teamNumber.setText(NOTHING);
-        teamNumber1.setText(NOTHING);
-        teamNumber2.setText(NOTHING);
-        teamNumber3.setText(NOTHING);
-        teamNumber4.setText(NOTHING);
-        teamNumber5.setText(NOTHING);
+        teamNumComboBox.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox1.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox2.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox3.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox4.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox5.setSelectedIndex(unselectedOptionIndex);
     }
 
     // Fills many of the fields with random numbers based on the cap for each feild
@@ -2523,12 +2564,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         penaltiesBox4.setText(penaltiesBoxDText);
         penaltiesBox5.setText(penaltiesBoxDText);
 
-        teamNumber.setText("2555");
-        teamNumber1.setText("2500");
-        teamNumber2.setText("111");
-        teamNumber3.setText("1816");
-        teamNumber4.setText("2169");
-        teamNumber5.setText("1337");
+        su.randScore(teamNumComboBox, unselectedOptionIndex + 1, teamList.length);
     }
 
     private void textBoxSet(javax.swing.JTextField box, String defaultText)
@@ -2617,8 +2653,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem formatOption;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel leftLabel;
     private javax.swing.JLabel leftLabel1;
     private javax.swing.JLabel leftLabel10;
@@ -2715,10 +2749,18 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     private javax.swing.JTabbedPane tabbedPane3;
     private javax.swing.JTabbedPane tabbedPane4;
     private javax.swing.JTabbedPane tabbedPane5;
-    private javax.swing.JTextField teamNumber2;
-    private javax.swing.JTextField teamNumber3;
-    private javax.swing.JTextField teamNumber4;
-    private javax.swing.JTextField teamNumber5;
+    private javax.swing.JLabel teamLabel;
+    private javax.swing.JLabel teamLabel1;
+    private javax.swing.JLabel teamLabel2;
+    private javax.swing.JLabel teamLabel3;
+    private javax.swing.JLabel teamLabel4;
+    private javax.swing.JLabel teamLabel5;
+    private javax.swing.JComboBox teamNumComboBox;
+    private javax.swing.JComboBox teamNumComboBox1;
+    private javax.swing.JComboBox teamNumComboBox2;
+    private javax.swing.JComboBox teamNumComboBox3;
+    private javax.swing.JComboBox teamNumComboBox4;
+    private javax.swing.JComboBox teamNumComboBox5;
     private javax.swing.JPanel teamPanel;
     private javax.swing.JPanel teamPanel1;
     private javax.swing.JPanel teamPanel2;

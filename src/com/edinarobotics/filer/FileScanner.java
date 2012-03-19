@@ -83,4 +83,17 @@ public class FileScanner
         }
         return result;
     }
+
+    // Close the file to prevent memory leaks
+    public void close()
+    {
+        try
+        {
+            read.close();
+        }
+        catch(Exception e)
+        {
+            log.log(LOG_TAG, "Error closing the stream");
+        }
+    }
 }
