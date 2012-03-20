@@ -144,12 +144,12 @@
                   <Component id="teamPanel2" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="teamPanel4" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Component id="teamPanel3" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Component id="teamPanel5" min="-2" max="-2" attributes="1"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="teamPanel4" alignment="0" max="32767" attributes="1"/>
+                  <Component id="teamPanel5" alignment="0" max="32767" attributes="1"/>
+                  <Component id="teamPanel3" alignment="0" min="0" pref="303" max="32767" attributes="1"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="roundPanel" min="-2" max="-2" attributes="0"/>
                   <Component id="submitButton" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
@@ -1660,7 +1660,7 @@
                       </Group>
                       <Component id="commentsPane3" alignment="0" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

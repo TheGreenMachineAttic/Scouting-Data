@@ -1386,7 +1386,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(commentsPane3))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         teamPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
@@ -2023,11 +2023,11 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                     .add(teamPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(teamPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(teamPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(teamPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(teamPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(teamPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(teamPanel3, 0, 303, Short.MAX_VALUE))
+                .add(11, 11, 11)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(roundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(submitButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -2075,9 +2075,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             int autoPoints5 = su.getScores(ScoreUtility.AUTO, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
             int mainPoints5 = su.getScores(ScoreUtility.MAIN, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
             int endPoints5 = su.getScores(ScoreUtility.END, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17, balanceCheck5);
-
-            // Set the flag to true
-            submitted = true;
 
             // Store Team numbers
             //System.out.println("Storing Teams...");
@@ -2148,7 +2145,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
-                ErrorGUI eGUI = new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_SEVERE);
+                new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_SEVERE);
             }
 
             // Incriment the current match
@@ -2168,12 +2165,15 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                     teamPenaltiesArray[i] = "none";
                 }
             }
+
+            // Set the flag to true
+            submitted = true;
         }
 
         // If a feild was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
-            ErrorGUI eGUI = new ErrorGUI("Bad Submission!", ErrorGUI.ERROR_LOW);
+            new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
             submitted = false;
         }
     }//GEN-LAST:event_submitButtonActionPerformed
