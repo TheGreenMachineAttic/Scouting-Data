@@ -2042,6 +2042,8 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     // This method is called when the submit button is pressed
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
+        boolean error = false;
+
         try
         {
             ScoreUtility su = new ScoreUtility();
@@ -2084,6 +2086,12 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             teamNumberArray[3] = Integer.parseInt(teamNumComboBox3.getSelectedItem().toString());
             teamNumberArray[4] = Integer.parseInt(teamNumComboBox4.getSelectedItem().toString());
             teamNumberArray[5] = Integer.parseInt(teamNumComboBox5.getSelectedItem().toString());
+
+            if(hasRepeatEntry(teamNumberArray))
+            {
+                new ErrorGUI("Repetition of team numbers!", ErrorGUI.ERROR_LOW);
+                error = true;
+            }
 
             // Store scores for Team #1
             //System.out.println("Storing Scores for Team #1");
@@ -2145,7 +2153,8 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
-                new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_SEVERE);
+                new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_LOW);
+                error = true;
             }
 
             // Incriment the current match
@@ -2166,16 +2175,18 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                 }
             }
 
-            // Set the flag to true
-            submitted = true;
+            // Set the flag to the opposite of the error status
+            submitted = !error;
         }
 
-        // If a feild was empty or something failed, reset the submitted button, and tell the console
+        // If a field was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
             new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
             submitted = false;
         }
+
+        
     }//GEN-LAST:event_submitButtonActionPerformed
 
     // If the Format menu option is clicked, pull up the FormatGUI
@@ -2290,6 +2301,27 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             list.add(scan.getNextLine());
         }
         list.remove(0);
+
+        String sortList[][] = new String[list.size()][1];
+        for(int i = 0; i < list.size(); i++)
+        {
+            sortList[i][0] = list.get(i);
+        }
+
+        Sorter sort = new Sorter(1);
+        sortList = sort.sortBest(sortList, 0, Sorter.LOW_TO_HIGH);
+
+        String sortResult[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            sortResult[i] = sortList[i][0];
+        }
+
+        list.clear();
+        for(int i = 0; i < sortResult.length; i++)
+        {
+            list.add(sortResult[i]);
+        }
         list.add(unselectedOptionIndex, comboBoxDText);
 
         String result[] = new String[list.size()];
@@ -2309,6 +2341,18 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         teamNumComboBox3.setModel(new DefaultComboBoxModel(list));
         teamNumComboBox4.setModel(new DefaultComboBoxModel(list));
         teamNumComboBox5.setModel(new DefaultComboBoxModel(list));
+    }
+
+    private boolean hasRepeatEntry(int[] list)
+    {
+        for(int i = 1; i < list.length; i++)
+        {
+            if(list[0] == (list[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Return methods for the data
