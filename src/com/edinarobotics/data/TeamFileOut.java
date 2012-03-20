@@ -11,6 +11,8 @@ package com.edinarobotics.data;
 
 public class TeamFileOut 
 {
+    public TeamFileOut()
+    {
         // Store the Team's text file as their team number plus the .txt extension
         teamFile = Integer.toString(teamNumbers[i]) + ".txt";
 
@@ -75,4 +77,5 @@ public class TeamFileOut
         // when you open the file with the file creator, it seems to wipe the data already there
         // And leave nothing behind. So the existing data must be stored and written before
         // Adding the next entry to avoid data loss.
+    }
 }

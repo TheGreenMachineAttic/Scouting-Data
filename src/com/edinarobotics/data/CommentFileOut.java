@@ -11,6 +11,8 @@ package com.edinarobotics.data;
 
 public class CommentFileOut 
 {
+    public CommentFileOut()
+    {
         // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
         teamFile = Integer.toString(teamNumbers[i]) + "-Comments.txt";
 
@@ -81,7 +83,5 @@ public class CommentFileOut
         fileCreo.closeFile();
 
         log.log();
-
-    
-
+    }
 }
