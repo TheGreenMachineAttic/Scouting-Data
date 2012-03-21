@@ -4,6 +4,13 @@
  */
 
 package com.edinarobotics.data;
+
+import com.edinarobotics.filer.*;
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Main;
+
+import java.util.ArrayList;
+
 /*
  * @author aoneill
  * @breif
@@ -11,77 +18,63 @@ package com.edinarobotics.data;
 
 public class CommentFileOut 
 {
-    public CommentFileOut()
+    private static String commentFileDir = Main.commentFileDir;
+
+    private static FileScanner teamFileScanner = new FileScanner();
+    private static FileCreator fileCreo = new FileCreator();
+
+    private static Logger log = Main.log;
+
+    public CommentFileOut(int teamNumber, int matchNumber, String comments)
     {
         // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
-        teamFile = Integer.toString(teamNumbers[i]) + "-Comments.txt";
+        String teamFile = Integer.toString(teamNumber) + "-Comments.txt";
 
-        // Try to open the file
-        teamFileScanner.openFile(commentFileDir, teamFile);
+        // Create a list to store the information to be written to the comments file
+        ArrayList<String> list = new ArrayList<String>();
 
         // If the file does not exist, create the file, and add a standard header
         if(!teamFileScanner.isFileCreated(commentFileDir, teamFile))
         {
             // Remember the changelskjdflakjf? This is where it would be implimented
-            System.out.println("Creating Team " + teamNumbers[i] + "'s Commnent File");
+            log.log("Comment File", "Creating Team " + teamNumber + "'s Commnent File");
 
             // Create the file, add content, and close it
             fileCreo.createFile(commentFileDir, teamFile);
             fileCreo.openFile(commentFileDir, teamFile);
             fileCreo.addCommentHeader();
+            fileCreo.closeFile();
         }
+
         // If the team comments file already has content, go through the same process for the team files
-        if(!teamComments[i].equals(""))
+        if(!comments.equals(""))
         {
+            // Debug statement
+            log.log("Comments", "Adding content to Team " + teamNumber + "'s Commnent File");
+
             // Open the file for Reading
             teamFileScanner.openFile(commentFileDir, teamFile);
 
-            // Find how many lines there are in the team's file
-            int countLine = 0;
+            // Add the existing content to the list of information
             while(teamFileScanner.hasNextEntry())
             {
-                countLine++;
-                teamFileScanner.getNextLine();
-            }
-
-            // Create an array to hold the already existing Data with a length
-            // determined by the number of lines in the file
-            String dataArray[] = new String[countLine];
-
-            // Open the file again to start scanning from the beginning of the file
-            teamFileScanner.openFile(commentFileDir, teamFile);
-
-            // Reset the line count
-            countLine = 0;
-
-            // While the file has content, add it to the newly created array
-            while(teamFileScanner.hasNextEntry())
-            {
-                dataArray[countLine] = teamFileScanner.getNextLine();
-                countLine++;
-            }
-
-            // Open the teams file with the File Creator
-            fileCreo.openFile(commentFileDir, teamFile);
-            for(int j = 0; j < countLine; j++)
-            {
-                // Add old entries
-                fileCreo.addEntry(dataArray[j]);
+                list.add(teamFileScanner.getNextLine());
             }
 
             // Add a seperator to the comments file to clearly mark where comments start and stop
-            fileCreo.addEntry();
-            fileCreo.addEntry("#########################");
-            fileCreo.addEntry(String.format("Round: %d", currentMatch));
-            fileCreo.addEntry();
+            list.add("");
+            list.add("#########################");
+            list.add(String.format("Round: %d", matchNumber));
+            list.add("");
 
             // Add the next entry
-            fileCreo.addEntry(teamComments[i]);
+            list.add(comments);
 
+            // Write the entry out
+            fileCreo.addEntry(list);
         }
+
         // Close the team file to save changes
         fileCreo.closeFile();
-
-        log.log();
     }
 }

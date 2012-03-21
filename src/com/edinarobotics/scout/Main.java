@@ -158,7 +158,7 @@ public class Main
 
             // This method is deprecated. It will be implimented in the future. Its purpose is
             // to print to a file what the System.out.print() methods would show on the console.
-            if(nextLine.startsWith("changelskjdflakjf"))
+            if(nextLine.startsWith("changeLogActivate"))
             {
                 if(extract.extractEntry(nextLine, 2).equals("true"))
                 {
@@ -213,12 +213,10 @@ public class Main
         fileCreo.addUpdatedConfigEntries(teamFileDir, commentFileDir, logActivate);
         fileCreo.closeFile();
 
-
-
         // Data Entry starts here
         // Initialize the Data Entry GUI
         // DataEntryGUI deGUI = new DataEntryGUI(VERSION);
-        DataEntryGUI_4 deGUI3 = new DataEntryGUI_4(VERSION);
+        new DataEntryGUI_4(VERSION);
 
         // Wait for 100 Miliseconds to let the GUI load
         Thread.sleep(100);

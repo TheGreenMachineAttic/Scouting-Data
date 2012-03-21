@@ -110,6 +110,14 @@ public class FileCreator
         }
     }
 
+    public void addEntry(ArrayList<String> list)
+    {
+        for(int i = 0; i < list.size(); i++)
+        {
+            format.format("%s%s", list.get(i), System.getProperty("line.separator"));
+        }
+    }
+
     // Add only a new line if there is no content
     public void addEntry()
     {
