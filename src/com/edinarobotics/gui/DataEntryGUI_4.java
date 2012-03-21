@@ -10,6 +10,7 @@
  */
 
 package com.edinarobotics.gui;
+import com.edinarobotics.data.*;
 import com.edinarobotics.filer.*;
 import com.edinarobotics.gui.utilities.*;
 import com.edinarobotics.scout.*;
@@ -38,9 +39,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     private String commentsArray[] = new String[6];
     private String teamList[];
     private int currentMatch = 0;
-
-    // Fla to store the state of the submit button
-    private boolean submitted = false;
 
     // Version String
     private static String VERSION = "versionError";
@@ -2174,19 +2172,20 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                     teamPenaltiesArray[i] = "none";
                 }
             }
-
-            // Set the flag to the opposite of the error status
-            submitted = !error;
         }
 
         // If a field was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
             new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
-            submitted = false;
+            error = true;
         }
 
-        
+        // If there was not an error record the data
+        if(!error)
+        {
+            writeOut();
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     // If the Format menu option is clicked, pull up the FormatGUI
@@ -2278,18 +2277,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         setVisible(true);
     }
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DataEntryGUI_4().setVisible(true);
-            }
-        });
-    }
-
     private String[] getTeamList(String workspaceDir)
     {
         FileScanner scan = new FileScanner();
@@ -2355,46 +2342,25 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         return false;
     }
 
-    // Return methods for the data
-    public int[] getTeamNumbers()
+    private void writeOut()
     {
-        return teamNumberArray;
-    }
+        for(int i = 0; i < 6; i++)
+        {
+            new TeamFileOut(teamNumberArray[i], 
+                    currentMatch,
+                    teamScoreArray[0][i],
+                    teamScoreArray[1][i],
+                    teamScoreArray[2][i],
+                    teamPenaltiesArray[i]);
 
-    public int[][] getScores()
-    {
-        return teamScoreArray;
-    }
+            new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
+        }
 
-    public String[] getPenalties()
-    {
-        return teamPenaltiesArray;
-    }
-
-    public int getMatch()
-    {
-        return currentMatch - 1;
-    }
-
-    public String[] getComments()
-    {
-        return commentsArray;
-    }
-
-    public boolean getSubmittedFlag() throws InterruptedException
-    {
-        // The sleep helps the computer think
-        Thread.sleep(10);
-        return submitted;
-    }
-
-    public void resetSubmittedFlag()
-    {
-        submitted = false;
+        new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
     }
 
     // Clears all of the feilds
-    public void resetFields()
+    private void resetFields()
     {
         topTextBox.setText(NOTHING);
         topTextBox1.setText(NOTHING);
@@ -2496,7 +2462,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     }
 
     // Fills many of the fields with random numbers based on the cap for each feild
-    public void fillFields()
+    private void fillFields()
     {
         ScoreUtility su = new ScoreUtility();
 
@@ -2619,6 +2585,18 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     {
         String previous = box.getText();
         box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
+    }
+
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new DataEntryGUI_4().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
