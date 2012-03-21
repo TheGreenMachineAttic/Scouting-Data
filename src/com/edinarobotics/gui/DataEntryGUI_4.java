@@ -2191,7 +2191,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     // If the Format menu option is clicked, pull up the FormatGUI
     private void formatOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatOptionActionPerformed
         // TODO add your handling code here:
-        FormatGUI_2 fGUI = new FormatGUI_2();
+        FormatGUI_3 fGUI = new FormatGUI_3();
     }//GEN-LAST:event_formatOptionActionPerformed
 
     // If the Comments menu option is clicked, pull up the CommenteTipsGUI

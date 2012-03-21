@@ -36,31 +36,23 @@ public class Main
 
     // Initialize important stings used througout the program
     public static String configFile = "config.txt";
+    public static String configFileDir = currentDir;
+
     public static String teamListFile = "TeamList.txt";
-    public static String matchListFile = "Match-List.txt";
-    public static String workspaceFolderName = "Workspace";
-    public static String teamFolderName = "TeamDir";
-    public static String commentFolderName = "Comments";
-    public static String matchFolderName = "Matches";
     public static String teamFile = "team.txt";
+    
+    public static String matchListFile = "Match-List.txt";
+    public static String matchFolderName = "Matches";
     public static String matchFile;
+
+    public static String workspaceFolderName = "Workspace";
+    public static String commentFolderName = "Comments";
+    public static String teamFolderName = "TeamDir";
 
     public static void main(String[] args) throws InterruptedException
     {
         log.setEnabled(true);
         log.log("Main", "Working in " +  currentDir);
-
-        // This string holds misc. data at different points in the program
-        String data;
-
-        // Initialize Arrays / Variables to store team data input
-        int teamNumbers[] = new int[6];
-        int teamScores[][] = new int[3][6];
-        String teamPenalties[] = new String[6];
-        String teamComments[] = new String[6];
-
-        // Variable to store the Current Match
-        int currentMatch = 0;
 
         // If the default Workspace folder is not created, create it.
         if(!(new File(workspaceFolderName).isDirectory()))
@@ -126,67 +118,6 @@ public class Main
         }
 
         log.log();
-
-        // Open the Config file to read defaults
-        configScanner.openFile(currentDir + "/" + workspaceFolderName, configFile);
-
-        // Read the config file until the line does not start with '#"
-        // Used to skip a header comment on the file
-        String nextLine = configScanner.getNextLine();
-        while(nextLine.startsWith("#"))
-        {
-            nextLine = configScanner.getNextLine();
-        }
-
-        // Once you have found the content of the config file, take the data you need
-        boolean abort = false;
-        while(!abort)
-        {
-            // If the next line found in the scanner indicates the default Team Dir.
-            // Extract the second entry and store it as the defaultTeaDir
-            if(nextLine.startsWith("defaultTeamDir"))
-            {
-                teamFileDir = extract.extractEntry(nextLine, 2);
-
-                // Due to the file structure of Windows, we need to also extract entry 3 because of the colon
-                // in C:/
-                if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-                {
-                    teamFileDir = teamFileDir + ":" + extract.extractEntry(nextLine, 3);
-                }
-            }
-
-            // This method is deprecated. It will be implimented in the future. Its purpose is
-            // to print to a file what the System.out.print() methods would show on the console.
-            if(nextLine.startsWith("changeLogActivate"))
-            {
-                if(extract.extractEntry(nextLine, 2).equals("true"))
-                {
-                    logActivate = true;
-                }
-            }
-
-            // If the next line found in the scanner indicates the default Comment Dir.
-            // Extract the second entry and store it as the defaultTeaDir
-            if(nextLine.startsWith("defaultCommentDir"))
-            {
-                commentFileDir = extract.extractEntry(nextLine, 2);
-                if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-                {
-                    commentFileDir = commentFileDir + ":" + extract.extractEntry(nextLine, 3);
-                }
-            }
-
-            // Once the configScanner runs out of lines, abort the loop, else, get the next line
-            if(!configScanner.hasNextEntry())
-            {
-                abort = true;
-            }
-            else
-            {
-                nextLine = configScanner.getNextLine();
-            }
-        }
 
         // Initialize the Settings GUI,.
         SettingsGUI sGUI = new SettingsGUI();

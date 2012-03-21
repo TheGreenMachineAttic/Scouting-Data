@@ -59,7 +59,7 @@ public class FileCreator
     public void addConfigEntries()
     {
         // Once the file is open in the Formatter, put in the directions
-        format.format("%s", "# Default Settings" + System.getProperty("line.separator"));
+        format.format("%s", "# Default Settings #" + System.getProperty("line.separator"));
         format.format("%s%s%s%s%s", "defaultTeamDir", SEPARATOR, System.getProperty("user.dir"), "/Workspace/TeamDir", System.getProperty("line.separator"));
         format.format("%s%s%s%s%s", "defaultCommentDir", SEPARATOR, System.getProperty("user.dir"), "/Workspace/Comments", System.getProperty("line.separator"));
         format.format("%s%s%s%s", "changeLogActivate", SEPARATOR, "false", System.getProperty("line.separator"));
@@ -97,7 +97,7 @@ public class FileCreator
     // Adds a generic entry with a carriage return
     public void addEntry(String entry)
     {
-        format.format("%s", entry + System.getProperty("line.separator"));
+        format.format("%s%s", entry, System.getProperty("line.separator"));
     }
     
     public void addEntry(String list[])
@@ -106,7 +106,7 @@ public class FileCreator
         for(int i = 0; i < list.length; i++)
         {
             System.out.println("Formatting: " + list[i]);
-            format.format("%s", list[i]);
+            format.format("%s%s", list[i], System.getProperty("line.separator"));
         }
     }
 
