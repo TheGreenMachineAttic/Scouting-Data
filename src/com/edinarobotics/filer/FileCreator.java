@@ -55,25 +55,6 @@ public class FileCreator
         }
     }
 
-    // Used to add directions to the config text file
-    public void addConfigEntries()
-    {
-        // Once the file is open in the Formatter, put in the directions
-        format.format("%s", "# Default Settings #" + System.getProperty("line.separator"));
-        format.format("%s%s%s%s%s", "defaultTeamDir", SEPARATOR, System.getProperty("user.dir"), "/Workspace/TeamDir", System.getProperty("line.separator"));
-        format.format("%s%s%s%s%s", "defaultCommentDir", SEPARATOR, System.getProperty("user.dir"), "/Workspace/Comments", System.getProperty("line.separator"));
-        format.format("%s%s%s%s", "changeLogActivate", SEPARATOR, "false", System.getProperty("line.separator"));
-    }
-
-    // Used to update data in the config text file
-    public void addUpdatedConfigEntries(String teamFileDir, String commentFileDir, boolean changeLogActivate)
-    {
-        format.format("%s", "# Default Settings" + SEPARATOR + System.getProperty("line.separator"));
-        format.format("%s", "defaultTeamDir" + SEPARATOR  + teamFileDir + System.getProperty("line.separator"));
-        format.format("%s", "defaultCommentDir" + SEPARATOR  + commentFileDir + System.getProperty("line.separator"));
-        format.format("%s%b%s", "changeLogActivate" + SEPARATOR , changeLogActivate, System.getProperty("line.separator"));
-    }
-
     // Used to add a header to the team text file
     public void addTeamHeader()
     {

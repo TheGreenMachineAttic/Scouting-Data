@@ -65,66 +65,11 @@ public class ConfigFile
 
             return configValues;
         }
+    }
 
-
-
-
-//        // Read the config file until the line does not start with '#"
-//        // Used to skip a header comment on the file
-//        String nextLine = configScanner.getNextLine();
-//        while(nextLine.startsWith("#"))
-//        {
-//            nextLine = configScanner.getNextLine();
-//        }
-//
-//        // Once you have found the content of the config file, take the data you need
-//        boolean abort = false;
-//        while(!abort)
-//        {
-//            // If the next line found in the scanner indicates the default Team Dir.
-//            // Extract the second entry and store it as the defaultTeaDir
-//            if(nextLine.startsWith("defaultTeamDir"))
-//            {
-//                teamFileDir = extract.extractEntry(nextLine, 2);
-//
-//                // Due to the file structure of Windows, we need to also extract entry 3 because of the colon
-//                // in C:/
-//                if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-//                {
-//                    teamFileDir = teamFileDir + ":" + extract.extractEntry(nextLine, 3);
-//                }
-//            }
-//
-//
-//            if(nextLine.startsWith("changeLogActivate"))
-//            {
-//                if(extract.extractEntry(nextLine, 2).equals("true"))
-//                {
-//                    logActivate = true;
-//                }
-//            }
-//
-//            // If the next line found in the scanner indicates the default Comment Dir.
-//            // Extract the second entry and store it as the defaultTeaDir
-//            if(nextLine.startsWith("defaultCommentDir"))
-//            {
-//                commentFileDir = extract.extractEntry(nextLine, 2);
-//                if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-//                {
-//                    commentFileDir = commentFileDir + ":" + extract.extractEntry(nextLine, 3);
-//                }
-//            }
-//
-//            // Once the configScanner runs out of lines, abort the loop, else, get the next line
-//            if(!configScanner.hasNextEntry())
-//            {
-//                abort = true;
-//            }
-//            else
-//            {
-//                nextLine = configScanner.getNextLine();
-//            }
-//        }
+    public void configWrite(String[] value)
+    {
+        configWrite(configFormat, value);
     }
 
     private void configWrite(String[] id, String[] value)
@@ -132,31 +77,11 @@ public class ConfigFile
         if(id.length == value.length)
         {
             fileCreo.createFile(configDir, configFile);
-            fileCreo.addEntry("# Default Settings #");
+            fileCreo.addEntry("# Settings #");
 
             for(int i = 0; i < id.length; i++)
             {
                 fileCreo.addEntry(id[i] + DATA_SEPARATOR + value[i]);
-            }
-
-            fileCreo.closeFile();
-        }
-        else
-        {
-            log.log(LOG_TAG, "Error in config write out! (Id not equal to content)");
-        }
-    }
-
-    public void configWrite(String[] value)
-    {
-        if(configFormat.length == value.length)
-        {
-            fileCreo.createFile(configDir, configFile);
-            fileCreo.addEntry("# Default Settings #");
-
-            for(int i = 0; i < configFormat.length; i++)
-            {
-                fileCreo.addEntry(configFormat[i] + DATA_SEPARATOR + value[i]);
             }
 
             fileCreo.closeFile();
