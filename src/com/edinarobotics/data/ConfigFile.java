@@ -20,6 +20,7 @@ public class ConfigFile
 {
     private static FileScanner configScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
+    private static Extracter extract = new Extracter();
     private static Logger log = Main.log;
 
     private static String LOG_TAG = "Config File";
@@ -53,7 +54,6 @@ public class ConfigFile
         {
             log.log(LOG_TAG, "Error in Config File! (Too many entries)");
             log.log(LOG_TAG, "Creating new file with default values");
-
             configWrite(configFormat, defaultConfigValues);
 
             return defaultConfigValues;
@@ -62,6 +62,8 @@ public class ConfigFile
         {
             String[] configData = listToArray(list);
             configValues = extractConfigValues(configData);
+
+            return configValues;
         }
 
 
@@ -123,11 +125,9 @@ public class ConfigFile
 //                nextLine = configScanner.getNextLine();
 //            }
 //        }
-        String[] lol = new String[1];
-        return lol;
     }
 
-    public void configWrite(String[] id, String[] value)
+    private void configWrite(String[] id, String[] value)
     {
         if(id.length == value.length)
         {
@@ -147,12 +147,32 @@ public class ConfigFile
         }
     }
 
+    public void configWrite(String[] value)
+    {
+        if(configFormat.length == value.length)
+        {
+            fileCreo.createFile(configDir, configFile);
+            fileCreo.addEntry("# Default Settings #");
+
+            for(int i = 0; i < configFormat.length; i++)
+            {
+                fileCreo.addEntry(configFormat[i] + DATA_SEPARATOR + value[i]);
+            }
+
+            fileCreo.closeFile();
+        }
+        else
+        {
+            log.log(LOG_TAG, "Error in config write out! (Id not equal to content)");
+        }
+    }
+
     private String[] extractConfigValues(String[] data)
     {
         String[] result = new String[configEntries];
         for(int i = 0; i < data.length; i++)
         {
-            result[i] = data[i];
+            result[i] = extract.contentPast(data[i], 1);
         }
 
         return result;

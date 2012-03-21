@@ -1,4 +1,5 @@
 package com.edinarobotics.scout;
+import com.edinarobotics.data.ConfigFile;
 import com.edinarobotics.filer.*;
 import com.edinarobotics.gui.*;
 import com.edinarobotics.logger.*;
@@ -118,6 +119,15 @@ public class Main
         }
 
         log.log();
+
+        ConfigFile config = new ConfigFile();
+        String[] configData = config.configRead();
+        workspaceDir = configData[0];
+
+        teamFileDir = workspaceDir + "/" + teamFolderName;
+        commentFileDir = workspaceDir + "/" + commentFolderName;
+
+        logActivate = Boolean.parseBoolean(configData[1]);
 
         // Initialize the Settings GUI,.
         SettingsGUI sGUI = new SettingsGUI();
