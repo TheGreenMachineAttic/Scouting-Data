@@ -14,53 +14,90 @@ import com.edinarobotics.scout.Main;
 
 public class DataRow 
 {
-    private String dataRow[];
-    private static Logger dataRowLog = Main.log;
+    // Logger for the class
+    private static Logger log = Main.log;
     private static String LOG_ID = "Data Row";
+    
+    // Variable to store the passed in information
+    private String dataRow[];
 
+    /**
+     * Construct the class without passed in data for parsing
+     */
     public DataRow() {}
-
+    
+    /**
+     * Construct the class with the passed in data
+     * @param array the data to be put into a row
+     */
     public DataRow(String array[])
     {
         dataRow = array;
     }
 
-    // Assumes that the first dimension is the column count
+    /**
+     * Construct the class with passed in data. 
+     * Converts A 2d array to a 1d array
+     * @param array the data to be 
+     * @param rowNumber the row number in the array to be extracted
+     * @param arrayWidth the width of the array
+     */
     public DataRow(String array[][], int rowNumber, int arrayWidth)
     {
+        // Assumes that the first dimension is the column count
+        
+        // String array to store the data
         String result[] = new String[arrayWidth];
+        
+        // Copy over the array
+        System.arraycopy(array[rowNumber], 0, result, 0, arrayWidth);
 
-        for(int i = 0; i < arrayWidth; i++)
-        {
-            result[i] = array[rowNumber][i];
-        }
-
+        // retrun the result
         dataRow = result;
     }
 
+    /**
+     * Return the value of the array at the specified member
+     * @param member the location to recall
+     * @return the value of the array at the member
+     */
     public String valueAt(int member)
     {
         return dataRow[member];
     }
 
+    /**
+     * Print the data of the Data Row
+     * For use in debugging
+     */
     public void printRowData()
     {
-        dataRowLog.log(LOG_ID, "--------------");
-        dataRowLog.log(LOG_ID, "Data Row Data:");
-        dataRowLog.log(LOG_ID, "== Length: " + dataRow.length);
-        dataRowLog.log(LOG_ID, "== Data:");
+        log.log(LOG_ID, "--------------");
+        log.log(LOG_ID, "Data Row Data:");
+        log.log(LOG_ID, "== Length: " + dataRow.length);
+        log.log(LOG_ID, "== Data:");
         for(int i = 0; i < dataRow.length; i++)
         {
-            dataRowLog.log(LOG_ID, "== Row[" + i + "]: " + dataRow[i]);
+            log.log(LOG_ID, "== Row[" + i + "]: " + dataRow[i]);
         }
-        dataRowLog.log(LOG_ID, "--------------");
+        log.log(LOG_ID, "--------------");
     }
 
-    public String[][] dataRowArrayToStringArray(DataRow array[], int finalWidth)
+    /**
+     * Converts an array of Data Rows into a 2d array
+     * @param array the Data Row Array
+     * @return the 2d array
+     */
+    public String[][] dataRowArrayToStringArray(DataRow array[])
     {
+        // Establish length and width data
         int finalLength = array.length;
+        int finalWidth = dataRow.length;
+        
+        // Initiaize the variable to be returned
         String result[][] = new String[finalLength][finalWidth];
 
+        // Iterate through the Data Row list and convert the data
         for(int i = 0; i < finalLength; i++)
         {
             for(int j = 0; j < finalWidth; j++)
@@ -69,6 +106,7 @@ public class DataRow
             }
         }
 
+        // Return the resulting array
         return result;
     }
 }

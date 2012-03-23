@@ -11,30 +11,49 @@
 
 package com.edinarobotics.gui.utilities;
 
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Main;
+
 /*
  * @author aoneill
  * @note Made by the Netbeans built-in GUI creator
  */
 public class ErrorGUI extends javax.swing.JFrame
 {
+    // Logger for the class
+    private static Logger log = Main.log;
+    private static String LOG_TAG = "Error";
+    
+    // Error level possibilities
     public static final int ERROR_LOW = 1;
     public static final int ERROR_MEDUIM = 2;
     public static final int ERROR_HIGH = 3;
     public static final int ERROR_SEVERE = 4;
 
+    // Variables to store the message's error information
     private String errorMessage;
     private int level;
     
+    /**
+     * Constructor used in the main function of this class
+     */
     private ErrorGUI() {}
 
-    /** Creates new form ErrorGUI */
+    /**
+     * Creates a new Error GUI
+     * @param errorMessage the message to be displayed
+     * @param level the level of the error
+     */
     public ErrorGUI(String errorMessage, int level)
     {
+        // Init components
         initComponents();
 
+        // Update the global variables with the values wanted
         this.errorMessage = errorMessage;
         this.level = level;
-
+        
+        // Show the Error Data
         init();
     }
 
@@ -77,8 +96,12 @@ public class ErrorGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Init various things
+     */
     private void init()
     {
+        // Update the title with the text speciifed based on the Error level
         switch(level)
         {
             case ERROR_LOW:
@@ -93,6 +116,8 @@ public class ErrorGUI extends javax.swing.JFrame
                 updateTitle("High");
                 break;
 
+            // In the severe case, stop the program once that window closes, and
+            // always keep th GUI on top
             case ERROR_SEVERE:
                 updateTitle("SEVERE");
 
@@ -100,21 +125,36 @@ public class ErrorGUI extends javax.swing.JFrame
                 setAlwaysOnTop(true);
 
                 break;
+                
+            // If the level specified does not match, name it generic
+            default:
+                updateTitle("Generic");
+                break;
         }
 
+        // Set the display text with the error message
         textArea.setText(errorMessage);
+        
+        // Log the Error
+        log.log(LOG_TAG, errorMessage);
 
+        // Set the GUI Visible
         setVisible(true);
     }
 
+    /**
+     * Update the title of the GUI with the specified text
+     * @param text the String to be added to the title
+     */
     private void updateTitle(String text)
     {
         setTitle("Error: " + text + " Level");
     }
 
     /**
-    * @param args the command line arguments
-    */
+     * The Main runnable function
+     * @param args the command line arguments
+     */
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {

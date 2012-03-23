@@ -1,10 +1,8 @@
 package com.edinarobotics.scout;
-import com.edinarobotics.data.ConfigFile;
-import com.edinarobotics.filer.*;
-import com.edinarobotics.gui.*;
-import com.edinarobotics.logger.*;
 
-import java.io.*;
+import com.edinarobotics.gui.SettingsGUI;
+import com.edinarobotics.logger.Logger;
+
 
 /*
  * @author aoneill
@@ -26,9 +24,9 @@ public class Main
     public static String commentFileDir = "C:/";
     public static boolean logActivate = false;
 
-    // Initialize important stings used througout the program
+    // Initialize important strings used througout the program
     public static String configFile = "config.txt";
-    public static String configFileDir = currentDir;
+    public static String configFileDir = System.getProperty("user.dir");
 
     public static String teamListFile = "TeamList.txt";
     public static String teamFile = "team.txt";
@@ -41,12 +39,17 @@ public class Main
     public static String commentFolderName = "Comments";
     public static String teamFolderName = "TeamDir";
 
-    public static void main(String[] args) throws InterruptedException
+    /**
+     * Class which runs on start-up
+     * @param args arguments passed in
+     */
+    public static void main(String[] args)
     {
+        // Set the logger to be enabled just for init
         log.setEnabled(true);
         log.log("Main", "Working in " +  currentDir);
-
+        
         // Initialize the Settings GUI
-        new SettingsGUI();
+        SettingsGUI settingsGUI = new SettingsGUI();
     }
 }
