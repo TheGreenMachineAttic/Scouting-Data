@@ -241,7 +241,11 @@ public class ScoreUtility
 
     public void randScore(JComboBox box, int lowerLimit, int upperLimit)
     {
-        int num = lowerLimit + new Random().nextInt(upperLimit - lowerLimit);
-        box.setSelectedIndex(num);
+        if(upperLimit - lowerLimit > 0)
+        {
+            int num = lowerLimit + new Random().nextInt(upperLimit - lowerLimit);
+
+            box.setSelectedIndex(num);
+        }
     }
 }

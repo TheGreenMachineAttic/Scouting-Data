@@ -16,11 +16,17 @@ public class FileScanner
     private Logger log = Main.log;
     private static final String LOG_TAG = "File Scanner";
 
+    private String recentName;
+    private String recentPath;
+
     // Used to open the text file in the Scanner
     public void openFile(String path, String name)
     {
         // Try to open the file at the path specified, and warn the user if it
         // fails
+
+        recentName = name;
+        recentPath = path;
 
         log.log(LOG_TAG, "Opening " + name + " in " + path);
         try
@@ -89,6 +95,7 @@ public class FileScanner
     {
         try
         {
+            log.log(LOG_TAG, "Closing " + recentName + " in " + recentPath);
             read.close();
         }
         catch(Exception e)

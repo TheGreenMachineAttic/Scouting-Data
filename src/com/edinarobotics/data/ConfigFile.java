@@ -37,22 +37,9 @@ public class ConfigFile
 
     public String[] configRead()
     {
-        // Open the ConfigFile file to read defaults
-        configScanner.openFile(configDir, configFile);
-
-        ArrayList<String> list = new ArrayList<String>();
-
-        while(configScanner.hasNextEntry())
+        if(!configScanner.isFileCreated(configDir, configFile))
         {
-            list.add(configScanner.getNextLine());
-        }
-        configScanner.close();
-
-        list.remove(0);
-
-        if(list.size() > configEntries)
-        {
-            log.log(LOG_TAG, "Error in Config File! (Too many entries)");
+            log.log(LOG_TAG, "Error in Config File! (Not found)");
             log.log(LOG_TAG, "Creating new file with default values");
             configWrite(configFormat, defaultConfigValues);
 
@@ -60,10 +47,34 @@ public class ConfigFile
         }
         else
         {
-            String[] configData = listToArray(list);
-            configValues = extractConfigValues(configData);
+            // Open the ConfigFile file to read defaults
+            configScanner.openFile(configDir, configFile);
 
-            return configValues;
+            ArrayList<String> list = new ArrayList<String>();
+
+            while(configScanner.hasNextEntry())
+            {
+                list.add(configScanner.getNextLine());
+            }
+            configScanner.close();
+
+            list.remove(0);
+
+            if(list.size() > configEntries)
+            {
+                log.log(LOG_TAG, "Error in Config File! (Too many entries)");
+                log.log(LOG_TAG, "Creating new file with default values");
+                configWrite(configFormat, defaultConfigValues);
+
+                return defaultConfigValues;
+            }
+            else
+            {
+                String[] configData = listToArray(list);
+                configValues = extractConfigValues(configData);
+
+                return configValues;
+            }
         }
     }
 
@@ -77,6 +88,7 @@ public class ConfigFile
         if(id.length == value.length)
         {
             fileCreo.createFile(configDir, configFile);
+            fileCreo.openFile(configDir, configFile);
             fileCreo.addEntry("# Settings #");
 
             for(int i = 0; i < id.length; i++)
@@ -97,7 +109,8 @@ public class ConfigFile
         String[] result = new String[configEntries];
         for(int i = 0; i < data.length; i++)
         {
-            result[i] = extract.contentPast(data[i], 1);
+            result[i] = extract.contentPast(data[i], 2);
+            log.log(LOG_TAG, "Data Line " + i + ": "  + result[i]);
         }
 
         return result;

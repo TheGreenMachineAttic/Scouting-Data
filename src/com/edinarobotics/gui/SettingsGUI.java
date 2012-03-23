@@ -11,11 +11,10 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.data.ConfigFile;
+import com.edinarobotics.data.*;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
 import java.io.File;
-import java.util.logging.Level;
 
 /*
  * @author aoneill
@@ -36,22 +35,22 @@ public class SettingsGUI extends javax.swing.JFrame
     /** Creates new form SettingsGUI */
     public SettingsGUI()
     {
+        initComponents();
+        
         String[] configData = config.configRead();
         selectedWorkspaceDir = configData[0];
+
         logSetting = Boolean.parseBoolean(configData[1]);
 
         setTeamDirField(selectedWorkspaceDir);
         setLogBox(logSetting);
 
-        initComponents();
-
         fileExplorer = new javax.swing.JFileChooser();
         fileExplorer.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-        
-        setVisible(true);
 
         log.setEnabled(logSetting);
-        log.log();
+
+        setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -65,9 +64,10 @@ public class SettingsGUI extends javax.swing.JFrame
 
         logCheckBox = new javax.swing.JCheckBox();
         scoutButton = new javax.swing.JButton();
-        wDirPanel = new javax.swing.JPanel();
-        teamDirLocation = new javax.swing.JTextField();
+        workspaceDirPanel = new javax.swing.JPanel();
+        workspaceDirBox = new javax.swing.JTextField();
         chooseButton = new javax.swing.JButton();
+        createWorkspaceBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -83,11 +83,11 @@ public class SettingsGUI extends javax.swing.JFrame
             }
         });
 
-        wDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Workspace Directory"));
+        workspaceDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Workspace Directory"));
 
-        teamDirLocation.setColumns(50);
-        teamDirLocation.setFont(new java.awt.Font("Lucida Grande", 0, 10));
-        teamDirLocation.setFocusable(false);
+        workspaceDirBox.setColumns(50);
+        workspaceDirBox.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        workspaceDirBox.setFocusable(false);
 
         chooseButton.setText("Choose ...");
         chooseButton.setFocusable(false);
@@ -97,24 +97,31 @@ public class SettingsGUI extends javax.swing.JFrame
             }
         });
 
-        org.jdesktop.layout.GroupLayout wDirPanelLayout = new org.jdesktop.layout.GroupLayout(wDirPanel);
-        wDirPanel.setLayout(wDirPanelLayout);
-        wDirPanelLayout.setHorizontalGroup(
-            wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(wDirPanelLayout.createSequentialGroup()
-                .add(wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamDirLocation, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, wDirPanelLayout.createSequentialGroup()
-                        .addContainerGap(542, Short.MAX_VALUE)
+        createWorkspaceBox.setText("Create Workspace within selected Folder");
+        createWorkspaceBox.setFocusable(false);
+
+        org.jdesktop.layout.GroupLayout workspaceDirPanelLayout = new org.jdesktop.layout.GroupLayout(workspaceDirPanel);
+        workspaceDirPanel.setLayout(workspaceDirPanelLayout);
+        workspaceDirPanelLayout.setHorizontalGroup(
+            workspaceDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(workspaceDirPanelLayout.createSequentialGroup()
+                .add(workspaceDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(workspaceDirBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .add(workspaceDirPanelLayout.createSequentialGroup()
+                        .add(8, 8, 8)
+                        .add(createWorkspaceBox)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 136, Short.MAX_VALUE)
                         .add(chooseButton)))
                 .addContainerGap())
         );
-        wDirPanelLayout.setVerticalGroup(
-            wDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(wDirPanelLayout.createSequentialGroup()
-                .add(teamDirLocation, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        workspaceDirPanelLayout.setVerticalGroup(
+            workspaceDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(workspaceDirPanelLayout.createSequentialGroup()
+                .add(workspaceDirBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(chooseButton))
+                .add(workspaceDirPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(createWorkspaceBox)
+                    .add(chooseButton)))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -124,20 +131,20 @@ public class SettingsGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(workspaceDirPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
                         .add(logCheckBox)
-                        .add(173, 173, 173)
-                        .add(scoutButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(wDirPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(97, 97, 97)
+                        .add(scoutButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(wDirPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(workspaceDirPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(logCheckBox)
                     .add(scoutButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -149,6 +156,10 @@ public class SettingsGUI extends javax.swing.JFrame
     private void scoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoutButtonActionPerformed
         // TODO add your handling code here:
 
+        // Update variable states
+        selectedWorkspaceDir = workspaceDirBox.getText();
+        logSetting = logCheckBox.isSelected();
+
         // Hide the GUI
         setVisible(false);
 
@@ -156,8 +167,32 @@ public class SettingsGUI extends javax.swing.JFrame
         String[] update = {selectedWorkspaceDir, String.valueOf(logSetting)};
         config.configWrite(update);
 
+        // Update the global Variables
+        Main.workspaceDir = selectedWorkspaceDir;
+        Main.teamFileDir = selectedWorkspaceDir + "/" + Main.teamFolderName;
+        Main.commentFileDir = selectedWorkspaceDir + "/" + Main.commentFolderName;
+        Main.logActivate = logSetting;
+
+        // Enable the logger if requested
+        log.setEnabled(logSetting);
+
+        // Debug
+        log.log();
+
+        // Check to see if the Workspace folder is legit
+        DefaultWorkspace defWork = new DefaultWorkspace();
+        if(createWorkspaceBox.isSelected() || !defWork.isEverythingPresent())
+        {
+            log.log(LOG_TAG, "Creating missing files in Workspace Dir");
+            defWork.checkWorkspace();
+        }
+        else
+        {
+            log.log(LOG_TAG, "Workspace folder checks out");
+        }
+
         // Data Entry starts here
-        new DataEntryGUI_4(Main.VERSION);
+        new DataEntryGUI_4();
     }//GEN-LAST:event_scoutButtonActionPerformed
 
     private void chooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseButtonActionPerformed
@@ -170,7 +205,7 @@ public class SettingsGUI extends javax.swing.JFrame
             try
             {
                 selectedWorkspaceDir = fileExplorer.getSelectedFile().getPath();
-                teamDirLocation.setText(selectedWorkspaceDir);
+                workspaceDirBox.setText(selectedWorkspaceDir);
             }
             catch(Exception e)
             {
@@ -182,7 +217,7 @@ public class SettingsGUI extends javax.swing.JFrame
     private void setTeamDirField(String dirPath)
     {
         selectedWorkspaceDir = dirPath;
-        teamDirLocation.setText(selectedWorkspaceDir);
+        workspaceDirBox.setText(selectedWorkspaceDir);
     }
 
     private void setLogBox(boolean state)
@@ -205,10 +240,11 @@ public class SettingsGUI extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chooseButton;
+    private javax.swing.JCheckBox createWorkspaceBox;
     private javax.swing.JCheckBox logCheckBox;
     private javax.swing.JButton scoutButton;
-    private javax.swing.JTextField teamDirLocation;
-    private javax.swing.JPanel wDirPanel;
+    private javax.swing.JTextField workspaceDirBox;
+    private javax.swing.JPanel workspaceDirPanel;
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFileChooser fileExplorer;

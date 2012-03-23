@@ -30,16 +30,18 @@ public class TeamFileOut
         // Store the Team's text file as their team number plus the .txt extension
         String teamFile = Integer.toString(teamNumber) + ".txt";
 
+        // Create a list to store the file data
         ArrayList<String> list = new ArrayList<String>();
 
         // If the team's file is not created, create the team's file, and add some standard content
         if(!teamFileScanner.isFileCreated(teamFileDir, teamFile))
         {
-            // Remember the changelskjdflakjf? This is where it would be implimented
+            // Debug
             log.log("Team File", "Creating Team " + teamNumber + "'s Data File");
 
             // Create the File
             fileCreo.createFile(teamFileDir, teamFile);
+            fileCreo.openFile(teamFileDir, teamFile);
             fileCreo.addTeamHeader();
             fileCreo.closeFile();
         }
@@ -50,11 +52,16 @@ public class TeamFileOut
             // Open the file for Reading
             teamFileScanner.openFile(teamFileDir, teamFile);
 
+            // Store the existing data from the file into the list
             while(teamFileScanner.hasNextEntry())
             {
                 list.add(teamFileScanner.getNextLine());
             }
+            teamFileScanner.close();
         }
+
+        // Open the file creator
+        fileCreo.openFile(teamFileDir, teamFile);
 
         // Add the new entry fro the round
         String data = String.format("%d%s%d%s%d%s%d%s%s%s",
@@ -64,8 +71,10 @@ public class TeamFileOut
                 endScore, dataSeparator,
                 penalties, System.getProperty("line.separator"));
 
+        // Add the data
         list.add(data);
 
+        // Write the data
         fileCreo.addEntry(list);
 
         // Close the file to save changes

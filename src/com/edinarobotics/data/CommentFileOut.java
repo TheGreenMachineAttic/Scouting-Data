@@ -20,7 +20,7 @@ public class CommentFileOut
 {
     private static String commentFileDir = Main.commentFileDir;
 
-    private static FileScanner teamFileScanner = new FileScanner();
+    private static FileScanner commentFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
 
     private static Logger log = Main.log;
@@ -34,7 +34,7 @@ public class CommentFileOut
         ArrayList<String> list = new ArrayList<String>();
 
         // If the file does not exist, create the file, and add a standard header
-        if(!teamFileScanner.isFileCreated(commentFileDir, teamFile))
+        if(!commentFileScanner.isFileCreated(commentFileDir, teamFile))
         {
             // Remember the changelskjdflakjf? This is where it would be implimented
             log.log("Comment File", "Creating Team " + teamNumber + "'s Commnent File");
@@ -53,13 +53,14 @@ public class CommentFileOut
             log.log("Comments", "Adding content to Team " + teamNumber + "'s Commnent File");
 
             // Open the file for Reading
-            teamFileScanner.openFile(commentFileDir, teamFile);
+            commentFileScanner.openFile(commentFileDir, teamFile);
 
             // Add the existing content to the list of information
-            while(teamFileScanner.hasNextEntry())
+            while(commentFileScanner.hasNextEntry())
             {
-                list.add(teamFileScanner.getNextLine());
+                list.add(commentFileScanner.getNextLine());
             }
+            commentFileScanner.close();
 
             // Add a seperator to the comments file to clearly mark where comments start and stop
             list.add("");
@@ -71,10 +72,11 @@ public class CommentFileOut
             list.add(comments);
 
             // Write the entry out
+            fileCreo.openFile(commentFileDir, teamFile);
             fileCreo.addEntry(list);
+            
+            // Close the team file to save changes
+            fileCreo.closeFile();
         }
-
-        // Close the team file to save changes
-        fileCreo.closeFile();
     }
 }

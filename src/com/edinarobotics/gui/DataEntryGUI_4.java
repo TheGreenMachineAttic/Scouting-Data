@@ -12,6 +12,7 @@
 package com.edinarobotics.gui;
 import com.edinarobotics.data.*;
 import com.edinarobotics.filer.*;
+import com.edinarobotics.logger.*;
 import com.edinarobotics.gui.utilities.*;
 import com.edinarobotics.scout.*;
 
@@ -25,12 +26,22 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class DataEntryGUI_4 extends javax.swing.JFrame
 {
-    // Declare default feild fillers
-    private final static String penaltiesBoxDText = "Penalties";
-    private final static String comboBoxDText = "Select...";
-    private final static String NOTHING = null;
-    private final static int TEST_NUMBER = 20;
-    private final static int unselectedOptionIndex = 0;
+    // Define custom classes
+    Logger log = Main.log;
+
+    // Constants
+    private static final String NOTHING = null;
+    private static final int TEST_NUMBER = 1;
+    private static final String LOG_TAG = "Data Entry";
+    private static final boolean TESTING_ENABLED = true;
+
+    // Version String
+    private static String VERSION = Main.VERSION;
+
+    // Declare variables pertaining to default field fillers
+    private static String penaltiesBoxDText = "Penalties";
+    private static String comboBoxDText = "Select...";
+    private static int unselectedOptionIndex = 0;
 
     // Create arrays to store the data in the feilds
     private int teamNumberArray[] = new int[6];
@@ -38,24 +49,15 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     private String teamPenaltiesArray[] = new String[6];
     private String commentsArray[] = new String[6];
     private String teamList[];
-    private int currentMatch = 0;
 
-    // Version String
-    private static String VERSION = "versionError";
+    // Other important variables
+    private static final String workspaceDir = Main.workspaceDir;
+    private int currentMatch = 0;
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI_4()
     {
         initComponents();
-        init();
-    }
-
-    public DataEntryGUI_4(String version)
-    {
-        initComponents();
-
-        // Set the Version
-        VERSION = version;
         init();
     }
 
@@ -2155,15 +2157,6 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
                 error = true;
             }
 
-            // Incriment the current match
-            currentMatch++;
-
-            // reset all the feilds!
-            resetFields();
-
-            // Store the new Match number
-            roundInput.setText(Integer.toString(currentMatch));
-
             // If the penalties for a team equal null or the default text, replace the penalties with "none"
             for(int i = 0; i < 6; i++)
             {
@@ -2184,26 +2177,36 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         // If there was not an error record the data
         if(!error)
         {
+            // Write data to the files
             writeOut();
+
+            // Incriment the current match
+            currentMatch++;
+
+            // reset all the feilds!
+            resetFields();
+
+            // Store the new Match number
+            roundInput.setText(Integer.toString(currentMatch));
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     // If the Format menu option is clicked, pull up the FormatGUI
     private void formatOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatOptionActionPerformed
         // TODO add your handling code here:
-        FormatGUI_3 fGUI = new FormatGUI_3();
+        new FormatGUI_3();
     }//GEN-LAST:event_formatOptionActionPerformed
 
     // If the Comments menu option is clicked, pull up the CommenteTipsGUI
     private void commentsOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsOptionActionPerformed
         // TODO add your handling code here:
-        CommentsTipsGUI cGUI = new CommentsTipsGUI();
+        new CommentsTipsGUI();
     }//GEN-LAST:event_commentsOptionActionPerformed
 
     // If the About menu option is clicked, pull up the AboutGUI
     private void aboutOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutOptionActionPerformed
         // TODO add your handling code here:
-        AboutGUI aGUI = new AboutGUI(VERSION);
+        new AboutGUI(VERSION);
     }//GEN-LAST:event_aboutOptionActionPerformed
 
     // If the Clear Feilds menu option is clicked, reset all of the feilds
@@ -2223,14 +2226,17 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             Integer.parseInt(roundInput.getText());
             valid = true;
         }
-        catch (Exception e) {}
+        catch (Exception e)
+        {
+            new ErrorGUI("Round Number not found for testing!", ErrorGUI.ERROR_LOW);
+        }
 
         if(valid)
         {
             for(int i = 0; i < TEST_NUMBER; i++)
             {
                 fillFields();
-                submitButtonActionPerformed(evt);
+                //submitButtonActionPerformed(evt);
             }
         }
     }//GEN-LAST:event_testOptionActionPerformed
@@ -2267,13 +2273,19 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
 
     private void oneTeamOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneTeamOptionActionPerformed
         // TODO add your handling code here:
-        IndividualGUI iGUI = new IndividualGUI();
+        new IndividualGUI();
     }//GEN-LAST:event_oneTeamOptionActionPerformed
 
     private void init()
     {
-        teamList = getTeamList(Main.workspaceDir);
+        log.log(LOG_TAG, "Init Data Entry");
+
+        // Debug
+        log.log();
+        
+        teamList = getTeamList(workspaceDir);
         setTeamOptions(teamList);
+        testOption.setEnabled(TESTING_ENABLED);
         setVisible(true);
     }
 
@@ -2288,6 +2300,7 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             list.add(scan.getNextLine());
         }
         list.remove(0);
+        scan.close();
 
         String sortList[][] = new String[list.size()][1];
         for(int i = 0; i < list.size(); i++)
@@ -2346,6 +2359,10 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
     {
         for(int i = 0; i < 6; i++)
         {
+            // Debug
+            log.log();
+            log.log(LOG_TAG, "Data for Team " + teamNumberArray[i]);
+
             new TeamFileOut(teamNumberArray[i], 
                     currentMatch,
                     teamScoreArray[0][i],
@@ -2356,7 +2373,15 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
             new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
         }
 
+        // Debug
+        log.log();
+
         new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
+
+        // Debug
+        log.log();
+        
+        new MatchListFileOut(currentMatch);
     }
 
     // Clears all of the feilds
@@ -2579,6 +2604,11 @@ public class DataEntryGUI_4 extends javax.swing.JFrame
         penaltiesBox5.setText(penaltiesBoxDText);
 
         su.randScore(teamNumComboBox, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox1, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox2, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox3, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox4, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox5, unselectedOptionIndex + 1, teamList.length);
     }
 
     private void textBoxSet(javax.swing.JTextField box, String defaultText)
