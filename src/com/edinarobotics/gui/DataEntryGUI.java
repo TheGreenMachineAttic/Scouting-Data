@@ -10,9 +10,15 @@
  */
 
 package com.edinarobotics.gui;
+import com.edinarobotics.data.*;
+import com.edinarobotics.filer.*;
+import com.edinarobotics.logger.*;
+import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.scout.*;
 
-import java.lang.Exception;
-import java.util.Random;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+
 
 /*
  * @author aoneill
@@ -20,42 +26,39 @@ import java.util.Random;
  */
 public class DataEntryGUI extends javax.swing.JFrame
 {
-    // Declare default feild fillers
-    private final static String teamNumberDText = "Team ##";
-    private final static String autoPointsDText = "Autonomous";
-    private final static String endPointsDText = "End Game";
-    private final static String mainPointsDText = "Main Game";
-    private final static String penaltiesBoxDText = "Penalties";
+    // Define custom classes
+    Logger log = Main.log;
 
-    // Declare caps for random number generation
-    private final static int RAND_AUTO_POINT_CAP = 12;
-    private final static int RAND_END_POINT_CAP = 30;
-    private final static int RAND_MAIN_POINT_CAP = 80;
+    // Constants
+    private static final String NOTHING = null;
+    private static final int TEST_NUMBER = 1;
+    private static final String LOG_TAG = "Data Entry";
+    private static final boolean TESTING_ENABLED = true;
+
+    // Version String
+    private static String VERSION = Main.VERSION;
+
+    // Declare variables pertaining to default field fillers
+    private static String penaltiesBoxDText = "Penalties";
+    private static String comboBoxDText = "Select...";
+    private static int unselectedOptionIndex = 0;
 
     // Create arrays to store the data in the feilds
     private int teamNumberArray[] = new int[6];
     private int teamScoreArray[][] = new int[3][6];
     private String teamPenaltiesArray[] = new String[6];
     private String commentsArray[] = new String[6];
+    private String teamList[];
+
+    // Other important variables
+    private static final String workspaceDir = Main.workspaceDir;
     private int currentMatch = 0;
-
-    // Fla to store the state of the submit button
-    private boolean submitted = false;
-
-    // Version String
-    private static String VERSION = "versionError";
 
     /** Creates new form DataEntryGUI */
     public DataEntryGUI()
     {
         initComponents();
-    }
-
-    public DataEntryGUI(String version)
-    {
-        initComponents();
-
-        VERSION = version;
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -71,69 +74,226 @@ public class DataEntryGUI extends javax.swing.JFrame
         roundLabel = new javax.swing.JLabel();
         roundInput = new javax.swing.JTextField();
         teamPanel = new javax.swing.JPanel();
-        teamNumber = new javax.swing.JTextField();
-        pointsPanel = new javax.swing.JPanel();
-        autoPoints = new javax.swing.JTextField();
-        endPoints = new javax.swing.JTextField();
-        mainPoints = new javax.swing.JTextField();
         penaltiesBox = new javax.swing.JTextField();
         commentsPane = new javax.swing.JScrollPane();
         comments = new javax.swing.JTextArea();
         commentsLabel = new javax.swing.JLabel();
+        tabbedPane = new javax.swing.JTabbedPane();
+        auto = new javax.swing.JPanel();
+        topLabel = new javax.swing.JLabel();
+        leftLabel = new javax.swing.JLabel();
+        rightLabel = new javax.swing.JLabel();
+        bottomLabel = new javax.swing.JLabel();
+        leftTextBox = new javax.swing.JTextField();
+        rightTextBox = new javax.swing.JTextField();
+        bottomTextBox = new javax.swing.JTextField();
+        topTextBox = new javax.swing.JTextField();
+        main = new javax.swing.JPanel();
+        topLabel1 = new javax.swing.JLabel();
+        leftLabel1 = new javax.swing.JLabel();
+        rightLabel1 = new javax.swing.JLabel();
+        bottomLabel1 = new javax.swing.JLabel();
+        leftTextBox1 = new javax.swing.JTextField();
+        rightTextBox1 = new javax.swing.JTextField();
+        bottomTextBox1 = new javax.swing.JTextField();
+        topTextBox1 = new javax.swing.JTextField();
+        end = new javax.swing.JPanel();
+        topLabel2 = new javax.swing.JLabel();
+        leftLabel2 = new javax.swing.JLabel();
+        rightLabel2 = new javax.swing.JLabel();
+        bottomLabel2 = new javax.swing.JLabel();
+        leftTextBox2 = new javax.swing.JTextField();
+        rightTextBox2 = new javax.swing.JTextField();
+        bottomTextBox2 = new javax.swing.JTextField();
+        topTextBox2 = new javax.swing.JTextField();
+        balanceCheck = new javax.swing.JCheckBox();
+        teamNumComboBox = new javax.swing.JComboBox();
+        teamLabel = new javax.swing.JLabel();
         teamPanel1 = new javax.swing.JPanel();
-        teamNumber1 = new javax.swing.JTextField();
-        pointsPanel1 = new javax.swing.JPanel();
-        autoPoints2 = new javax.swing.JTextField();
-        endPoints2 = new javax.swing.JTextField();
-        mainPoints2 = new javax.swing.JTextField();
         penaltiesBox1 = new javax.swing.JTextField();
         commentsPane1 = new javax.swing.JScrollPane();
         comments1 = new javax.swing.JTextArea();
         commentsLabel1 = new javax.swing.JLabel();
+        tabbedPane1 = new javax.swing.JTabbedPane();
+        auto1 = new javax.swing.JPanel();
+        topLabel3 = new javax.swing.JLabel();
+        leftLabel3 = new javax.swing.JLabel();
+        rightLabel3 = new javax.swing.JLabel();
+        bottomLabel3 = new javax.swing.JLabel();
+        leftTextBox3 = new javax.swing.JTextField();
+        rightTextBox3 = new javax.swing.JTextField();
+        bottomTextBox3 = new javax.swing.JTextField();
+        topTextBox3 = new javax.swing.JTextField();
+        main1 = new javax.swing.JPanel();
+        topLabel4 = new javax.swing.JLabel();
+        leftLabel4 = new javax.swing.JLabel();
+        rightLabel4 = new javax.swing.JLabel();
+        bottomLabel4 = new javax.swing.JLabel();
+        leftTextBox4 = new javax.swing.JTextField();
+        rightTextBox4 = new javax.swing.JTextField();
+        bottomTextBox4 = new javax.swing.JTextField();
+        topTextBox4 = new javax.swing.JTextField();
+        end1 = new javax.swing.JPanel();
+        topLabel5 = new javax.swing.JLabel();
+        leftLabel5 = new javax.swing.JLabel();
+        rightLabel5 = new javax.swing.JLabel();
+        bottomLabel5 = new javax.swing.JLabel();
+        leftTextBox5 = new javax.swing.JTextField();
+        rightTextBox5 = new javax.swing.JTextField();
+        bottomTextBox5 = new javax.swing.JTextField();
+        topTextBox5 = new javax.swing.JTextField();
+        balanceCheck1 = new javax.swing.JCheckBox();
+        teamNumComboBox1 = new javax.swing.JComboBox();
+        teamLabel1 = new javax.swing.JLabel();
         teamPanel2 = new javax.swing.JPanel();
-        teamNumber2 = new javax.swing.JTextField();
-        pointsPanel2 = new javax.swing.JPanel();
-        autoPoints3 = new javax.swing.JTextField();
-        endPoints3 = new javax.swing.JTextField();
-        mainPoints3 = new javax.swing.JTextField();
         penaltiesBox2 = new javax.swing.JTextField();
         commentsPane2 = new javax.swing.JScrollPane();
         comments2 = new javax.swing.JTextArea();
         commentsLabel2 = new javax.swing.JLabel();
+        tabbedPane2 = new javax.swing.JTabbedPane();
+        auto2 = new javax.swing.JPanel();
+        topLabel6 = new javax.swing.JLabel();
+        leftLabel6 = new javax.swing.JLabel();
+        rightLabel6 = new javax.swing.JLabel();
+        bottomLabel6 = new javax.swing.JLabel();
+        leftTextBox6 = new javax.swing.JTextField();
+        rightTextBox6 = new javax.swing.JTextField();
+        bottomTextBox6 = new javax.swing.JTextField();
+        topTextBox6 = new javax.swing.JTextField();
+        main2 = new javax.swing.JPanel();
+        topLabel7 = new javax.swing.JLabel();
+        leftLabel7 = new javax.swing.JLabel();
+        rightLabel7 = new javax.swing.JLabel();
+        bottomLabel7 = new javax.swing.JLabel();
+        leftTextBox7 = new javax.swing.JTextField();
+        rightTextBox7 = new javax.swing.JTextField();
+        bottomTextBox7 = new javax.swing.JTextField();
+        topTextBox7 = new javax.swing.JTextField();
+        end2 = new javax.swing.JPanel();
+        topLabel8 = new javax.swing.JLabel();
+        leftLabel8 = new javax.swing.JLabel();
+        rightLabel8 = new javax.swing.JLabel();
+        bottomLabel8 = new javax.swing.JLabel();
+        leftTextBox8 = new javax.swing.JTextField();
+        rightTextBox8 = new javax.swing.JTextField();
+        bottomTextBox8 = new javax.swing.JTextField();
+        topTextBox8 = new javax.swing.JTextField();
+        balanceCheck2 = new javax.swing.JCheckBox();
+        teamNumComboBox2 = new javax.swing.JComboBox();
+        teamLabel2 = new javax.swing.JLabel();
         teamPanel3 = new javax.swing.JPanel();
-        teamNumber3 = new javax.swing.JTextField();
-        pointsPanel3 = new javax.swing.JPanel();
-        autoPoints5 = new javax.swing.JTextField();
-        endPoints5 = new javax.swing.JTextField();
-        mainPoints5 = new javax.swing.JTextField();
         penaltiesBox3 = new javax.swing.JTextField();
         commentsPane3 = new javax.swing.JScrollPane();
         comments3 = new javax.swing.JTextArea();
         commentsLabel3 = new javax.swing.JLabel();
+        tabbedPane3 = new javax.swing.JTabbedPane();
+        auto3 = new javax.swing.JPanel();
+        topLabel9 = new javax.swing.JLabel();
+        leftLabel9 = new javax.swing.JLabel();
+        rightLabel9 = new javax.swing.JLabel();
+        bottomLabel9 = new javax.swing.JLabel();
+        leftTextBox9 = new javax.swing.JTextField();
+        rightTextBox9 = new javax.swing.JTextField();
+        bottomTextBox9 = new javax.swing.JTextField();
+        topTextBox9 = new javax.swing.JTextField();
+        main3 = new javax.swing.JPanel();
+        topLabel10 = new javax.swing.JLabel();
+        leftLabel10 = new javax.swing.JLabel();
+        rightLabel10 = new javax.swing.JLabel();
+        bottomLabel10 = new javax.swing.JLabel();
+        leftTextBox10 = new javax.swing.JTextField();
+        rightTextBox10 = new javax.swing.JTextField();
+        bottomTextBox10 = new javax.swing.JTextField();
+        topTextBox10 = new javax.swing.JTextField();
+        end3 = new javax.swing.JPanel();
+        topLabel11 = new javax.swing.JLabel();
+        leftLabel11 = new javax.swing.JLabel();
+        rightLabel11 = new javax.swing.JLabel();
+        bottomLabel11 = new javax.swing.JLabel();
+        leftTextBox11 = new javax.swing.JTextField();
+        rightTextBox11 = new javax.swing.JTextField();
+        bottomTextBox11 = new javax.swing.JTextField();
+        topTextBox11 = new javax.swing.JTextField();
+        balanceCheck3 = new javax.swing.JCheckBox();
+        teamNumComboBox3 = new javax.swing.JComboBox();
+        teamLabel3 = new javax.swing.JLabel();
         teamPanel4 = new javax.swing.JPanel();
-        teamNumber4 = new javax.swing.JTextField();
-        pointsPanel4 = new javax.swing.JPanel();
-        autoPoints6 = new javax.swing.JTextField();
-        endPoints6 = new javax.swing.JTextField();
-        mainPoints6 = new javax.swing.JTextField();
         penaltiesBox4 = new javax.swing.JTextField();
         commentsPane4 = new javax.swing.JScrollPane();
         comments4 = new javax.swing.JTextArea();
         commentsLabel4 = new javax.swing.JLabel();
+        tabbedPane4 = new javax.swing.JTabbedPane();
+        auto4 = new javax.swing.JPanel();
+        topLabel12 = new javax.swing.JLabel();
+        leftLabel12 = new javax.swing.JLabel();
+        rightLabel12 = new javax.swing.JLabel();
+        bottomLabel12 = new javax.swing.JLabel();
+        leftTextBox12 = new javax.swing.JTextField();
+        rightTextBox12 = new javax.swing.JTextField();
+        bottomTextBox12 = new javax.swing.JTextField();
+        topTextBox12 = new javax.swing.JTextField();
+        main4 = new javax.swing.JPanel();
+        topLabel13 = new javax.swing.JLabel();
+        leftLabel13 = new javax.swing.JLabel();
+        rightLabel13 = new javax.swing.JLabel();
+        bottomLabel13 = new javax.swing.JLabel();
+        leftTextBox13 = new javax.swing.JTextField();
+        rightTextBox13 = new javax.swing.JTextField();
+        bottomTextBox13 = new javax.swing.JTextField();
+        topTextBox13 = new javax.swing.JTextField();
+        end4 = new javax.swing.JPanel();
+        topLabel14 = new javax.swing.JLabel();
+        leftLabel14 = new javax.swing.JLabel();
+        rightLabel14 = new javax.swing.JLabel();
+        bottomLabel14 = new javax.swing.JLabel();
+        leftTextBox14 = new javax.swing.JTextField();
+        rightTextBox14 = new javax.swing.JTextField();
+        bottomTextBox14 = new javax.swing.JTextField();
+        topTextBox14 = new javax.swing.JTextField();
+        balanceCheck4 = new javax.swing.JCheckBox();
+        teamNumComboBox4 = new javax.swing.JComboBox();
+        teamLabel4 = new javax.swing.JLabel();
         teamPanel5 = new javax.swing.JPanel();
-        teamNumber5 = new javax.swing.JTextField();
-        pointsPanel5 = new javax.swing.JPanel();
-        autoPoints7 = new javax.swing.JTextField();
-        endPoints7 = new javax.swing.JTextField();
-        mainPoints7 = new javax.swing.JTextField();
         penaltiesBox5 = new javax.swing.JTextField();
         commentsPane5 = new javax.swing.JScrollPane();
         comments5 = new javax.swing.JTextArea();
         commentsLabel5 = new javax.swing.JLabel();
+        tabbedPane5 = new javax.swing.JTabbedPane();
+        auto5 = new javax.swing.JPanel();
+        topLabel15 = new javax.swing.JLabel();
+        leftLabel15 = new javax.swing.JLabel();
+        rightLabel15 = new javax.swing.JLabel();
+        bottomLabel15 = new javax.swing.JLabel();
+        leftTextBox15 = new javax.swing.JTextField();
+        rightTextBox15 = new javax.swing.JTextField();
+        bottomTextBox15 = new javax.swing.JTextField();
+        topTextBox15 = new javax.swing.JTextField();
+        main5 = new javax.swing.JPanel();
+        topLabel16 = new javax.swing.JLabel();
+        leftLabel16 = new javax.swing.JLabel();
+        rightLabel16 = new javax.swing.JLabel();
+        bottomLabel16 = new javax.swing.JLabel();
+        leftTextBox16 = new javax.swing.JTextField();
+        rightTextBox16 = new javax.swing.JTextField();
+        bottomTextBox16 = new javax.swing.JTextField();
+        topTextBox16 = new javax.swing.JTextField();
+        end5 = new javax.swing.JPanel();
+        topLabel17 = new javax.swing.JLabel();
+        leftLabel17 = new javax.swing.JLabel();
+        rightLabel17 = new javax.swing.JLabel();
+        bottomLabel17 = new javax.swing.JLabel();
+        leftTextBox17 = new javax.swing.JTextField();
+        rightTextBox17 = new javax.swing.JTextField();
+        bottomTextBox17 = new javax.swing.JTextField();
+        topTextBox17 = new javax.swing.JTextField();
+        balanceCheck5 = new javax.swing.JCheckBox();
+        teamNumComboBox5 = new javax.swing.JComboBox();
+        teamLabel5 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         commentsOption = new javax.swing.JMenuItem();
+        oneTeamOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
@@ -143,6 +303,8 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Entry");
+        setBackground(new java.awt.Color(0, 204, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
         roundPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -169,59 +331,6 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         teamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
-        teamNumber.setText("Team ##");
-        teamNumber.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumberMouseClicked(evt);
-            }
-        });
-
-        pointsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints.setText("Autonomous");
-        autoPoints.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPointsMouseClicked(evt);
-            }
-        });
-
-        endPoints.setText("End Game");
-        endPoints.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPointsMouseClicked(evt);
-            }
-        });
-
-        mainPoints.setText("Main Game");
-        mainPoints.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPointsMouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanelLayout = new org.jdesktop.layout.GroupLayout(pointsPanel);
-        pointsPanel.setLayout(pointsPanelLayout);
-        pointsPanelLayout.setHorizontalGroup(
-            pointsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanelLayout.createSequentialGroup()
-                .add(autoPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanelLayout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanelLayout.setVerticalGroup(
-            pointsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanelLayout.createSequentialGroup()
-                .add(pointsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
         penaltiesBox.setText("Penalties");
         penaltiesBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -236,16 +345,231 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel.setText("Additional Comments");
 
+        tabbedPane.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel.setText("Top");
+
+        leftLabel.setText("Left");
+
+        rightLabel.setText("Right");
+
+        bottomLabel.setText("Bottom");
+
+        leftTextBox.setColumns(3);
+
+        rightTextBox.setColumns(3);
+
+        bottomTextBox.setColumns(4);
+
+        topTextBox.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout autoLayout = new org.jdesktop.layout.GroupLayout(auto);
+        auto.setLayout(autoLayout);
+        autoLayout.setHorizontalGroup(
+            autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(autoLayout.createSequentialGroup()
+                .add(leftTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(autoLayout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel)
+                .add(18, 18, 18)
+                .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(autoLayout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel))
+                    .add(autoLayout.createSequentialGroup()
+                        .add(topTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel))))
+            .add(autoLayout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        autoLayout.setVerticalGroup(
+            autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(autoLayout.createSequentialGroup()
+                .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel)
+                    .add(autoLayout.createSequentialGroup()
+                        .add(topLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(autoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane.addTab("Autonomous", auto);
+
+        topLabel1.setText("Top");
+
+        leftLabel1.setText("Left");
+
+        rightLabel1.setText("Right");
+
+        bottomLabel1.setText("Bottom");
+
+        leftTextBox1.setColumns(3);
+
+        rightTextBox1.setColumns(3);
+
+        bottomTextBox1.setColumns(4);
+
+        topTextBox1.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout mainLayout = new org.jdesktop.layout.GroupLayout(main);
+        main.setLayout(mainLayout);
+        mainLayout.setHorizontalGroup(
+            mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(mainLayout.createSequentialGroup()
+                .add(leftTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(mainLayout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel1)
+                .add(18, 18, 18)
+                .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(mainLayout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel1))
+                    .add(mainLayout.createSequentialGroup()
+                        .add(topTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel1))))
+            .add(mainLayout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        mainLayout.setVerticalGroup(
+            mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(mainLayout.createSequentialGroup()
+                .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel1)
+                    .add(mainLayout.createSequentialGroup()
+                        .add(topLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(mainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane.addTab("Main Game", main);
+
+        topLabel2.setText("Top");
+
+        leftLabel2.setText("Left");
+
+        rightLabel2.setText("Right");
+
+        bottomLabel2.setText("Bottom");
+
+        leftTextBox2.setColumns(3);
+
+        rightTextBox2.setColumns(3);
+
+        bottomTextBox2.setColumns(4);
+
+        topTextBox2.setColumns(4);
+
+        balanceCheck.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout endLayout = new org.jdesktop.layout.GroupLayout(end);
+        end.setLayout(endLayout);
+        endLayout.setHorizontalGroup(
+            endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(endLayout.createSequentialGroup()
+                .add(leftTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(endLayout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel2)
+                .add(18, 18, 18)
+                .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(endLayout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel2))
+                    .add(endLayout.createSequentialGroup()
+                        .add(topTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel2))))
+            .add(endLayout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(endLayout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck))
+        );
+        endLayout.setVerticalGroup(
+            endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(endLayout.createSequentialGroup()
+                .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel2)
+                    .add(endLayout.createSequentialGroup()
+                        .add(topLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(endLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("End Game", end);
+
+        teamNumComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanelLayout = new org.jdesktop.layout.GroupLayout(teamPanel);
         teamPanel.setLayout(teamPanelLayout);
         teamPanelLayout.setHorizontalGroup(
             teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanelLayout.createSequentialGroup()
-                .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanelLayout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel)
                     .add(commentsPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -254,73 +578,23 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamPanelLayout.setVerticalGroup(
             teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanelLayout.createSequentialGroup()
-                .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(commentsLabel))
+                .add(16, 16, 16)
+                .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(commentsLabel)
+                    .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel)
+                        .add(teamNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane)
                     .add(teamPanelLayout.createSequentialGroup()
-                        .add(pointsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         teamPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
-
-        teamNumber1.setText("Team ##");
-        teamNumber1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber1MouseClicked(evt);
-            }
-        });
-
-        pointsPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints2.setText("Autonomous");
-        autoPoints2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPoints2MouseClicked(evt);
-            }
-        });
-
-        endPoints2.setText("End Game");
-        endPoints2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPoints2MouseClicked(evt);
-            }
-        });
-
-        mainPoints2.setText("Main Game");
-        mainPoints2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPoints2MouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanel1Layout = new org.jdesktop.layout.GroupLayout(pointsPanel1);
-        pointsPanel1.setLayout(pointsPanel1Layout);
-        pointsPanel1Layout.setHorizontalGroup(
-            pointsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel1Layout.createSequentialGroup()
-                .add(autoPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanel1Layout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanel1Layout.setVerticalGroup(
-            pointsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel1Layout.createSequentialGroup()
-                .add(pointsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         penaltiesBox1.setText("Penalties");
         penaltiesBox1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,16 +610,231 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel1.setText("Additional Comments");
 
+        tabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel3.setText("Top");
+
+        leftLabel3.setText("Left");
+
+        rightLabel3.setText("Right");
+
+        bottomLabel3.setText("Bottom");
+
+        leftTextBox3.setColumns(3);
+
+        rightTextBox3.setColumns(3);
+
+        bottomTextBox3.setColumns(4);
+
+        topTextBox3.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout auto1Layout = new org.jdesktop.layout.GroupLayout(auto1);
+        auto1.setLayout(auto1Layout);
+        auto1Layout.setHorizontalGroup(
+            auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto1Layout.createSequentialGroup()
+                .add(leftTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(auto1Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel3)
+                .add(18, 18, 18)
+                .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(auto1Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel3))
+                    .add(auto1Layout.createSequentialGroup()
+                        .add(topTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel3))))
+            .add(auto1Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        auto1Layout.setVerticalGroup(
+            auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto1Layout.createSequentialGroup()
+                .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel3)
+                    .add(auto1Layout.createSequentialGroup()
+                        .add(topLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(auto1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane1.addTab("Autonomous", auto1);
+
+        topLabel4.setText("Top");
+
+        leftLabel4.setText("Left");
+
+        rightLabel4.setText("Right");
+
+        bottomLabel4.setText("Bottom");
+
+        leftTextBox4.setColumns(3);
+
+        rightTextBox4.setColumns(3);
+
+        bottomTextBox4.setColumns(4);
+
+        topTextBox4.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout main1Layout = new org.jdesktop.layout.GroupLayout(main1);
+        main1.setLayout(main1Layout);
+        main1Layout.setHorizontalGroup(
+            main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main1Layout.createSequentialGroup()
+                .add(leftTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(main1Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel4)
+                .add(18, 18, 18)
+                .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(main1Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel4))
+                    .add(main1Layout.createSequentialGroup()
+                        .add(topTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel4))))
+            .add(main1Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        main1Layout.setVerticalGroup(
+            main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main1Layout.createSequentialGroup()
+                .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel4)
+                    .add(main1Layout.createSequentialGroup()
+                        .add(topLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel4))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(main1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel4))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane1.addTab("Main Game", main1);
+
+        topLabel5.setText("Top");
+
+        leftLabel5.setText("Left");
+
+        rightLabel5.setText("Right");
+
+        bottomLabel5.setText("Bottom");
+
+        leftTextBox5.setColumns(3);
+
+        rightTextBox5.setColumns(3);
+
+        bottomTextBox5.setColumns(4);
+
+        topTextBox5.setColumns(4);
+
+        balanceCheck1.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout end1Layout = new org.jdesktop.layout.GroupLayout(end1);
+        end1.setLayout(end1Layout);
+        end1Layout.setHorizontalGroup(
+            end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end1Layout.createSequentialGroup()
+                .add(leftTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end1Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel5)
+                .add(18, 18, 18)
+                .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(end1Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel5))
+                    .add(end1Layout.createSequentialGroup()
+                        .add(topTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel5))))
+            .add(end1Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end1Layout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck1))
+        );
+        end1Layout.setVerticalGroup(
+            end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end1Layout.createSequentialGroup()
+                .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel5)
+                    .add(end1Layout.createSequentialGroup()
+                        .add(topLabel5)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(end1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck1)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane1.addTab("End Game", end1);
+
+        teamNumComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel1.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel1Layout = new org.jdesktop.layout.GroupLayout(teamPanel1);
         teamPanel1.setLayout(teamPanel1Layout);
         teamPanel1Layout.setHorizontalGroup(
             teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel1Layout.createSequentialGroup()
-                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox1))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel1)
                     .add(commentsPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -354,73 +843,23 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamPanel1Layout.setVerticalGroup(
             teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel1Layout.createSequentialGroup()
-                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(commentsLabel1))
+                .addContainerGap()
+                .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(commentsLabel1)
+                    .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel1)
+                        .add(teamNumComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane1)
                     .add(teamPanel1Layout.createSequentialGroup()
-                        .add(pointsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane1))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         teamPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
-
-        teamNumber2.setText("Team ##");
-        teamNumber2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber2MouseClicked(evt);
-            }
-        });
-
-        pointsPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints3.setText("Autonomous");
-        autoPoints3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPoints3MouseClicked(evt);
-            }
-        });
-
-        endPoints3.setText("End Game");
-        endPoints3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPoints3MouseClicked(evt);
-            }
-        });
-
-        mainPoints3.setText("Main Game");
-        mainPoints3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPoints3MouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanel2Layout = new org.jdesktop.layout.GroupLayout(pointsPanel2);
-        pointsPanel2.setLayout(pointsPanel2Layout);
-        pointsPanel2Layout.setHorizontalGroup(
-            pointsPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel2Layout.createSequentialGroup()
-                .add(autoPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanel2Layout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanel2Layout.setVerticalGroup(
-            pointsPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel2Layout.createSequentialGroup()
-                .add(pointsPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         penaltiesBox2.setText("Penalties");
         penaltiesBox2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -436,16 +875,231 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel2.setText("Additional Comments");
 
+        tabbedPane2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel6.setText("Top");
+
+        leftLabel6.setText("Left");
+
+        rightLabel6.setText("Right");
+
+        bottomLabel6.setText("Bottom");
+
+        leftTextBox6.setColumns(3);
+
+        rightTextBox6.setColumns(3);
+
+        bottomTextBox6.setColumns(4);
+
+        topTextBox6.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout auto2Layout = new org.jdesktop.layout.GroupLayout(auto2);
+        auto2.setLayout(auto2Layout);
+        auto2Layout.setHorizontalGroup(
+            auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto2Layout.createSequentialGroup()
+                .add(leftTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel6)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(auto2Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel6)
+                .add(18, 18, 18)
+                .add(auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(auto2Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel6))
+                    .add(auto2Layout.createSequentialGroup()
+                        .add(topTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel6))))
+            .add(auto2Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        auto2Layout.setVerticalGroup(
+            auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto2Layout.createSequentialGroup()
+                .add(auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel6)
+                    .add(auto2Layout.createSequentialGroup()
+                        .add(topLabel6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel6))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(auto2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel6))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane2.addTab("Autonomous", auto2);
+
+        topLabel7.setText("Top");
+
+        leftLabel7.setText("Left");
+
+        rightLabel7.setText("Right");
+
+        bottomLabel7.setText("Bottom");
+
+        leftTextBox7.setColumns(3);
+
+        rightTextBox7.setColumns(3);
+
+        bottomTextBox7.setColumns(4);
+
+        topTextBox7.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout main2Layout = new org.jdesktop.layout.GroupLayout(main2);
+        main2.setLayout(main2Layout);
+        main2Layout.setHorizontalGroup(
+            main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main2Layout.createSequentialGroup()
+                .add(leftTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel7)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(main2Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel7)
+                .add(18, 18, 18)
+                .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(main2Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel7))
+                    .add(main2Layout.createSequentialGroup()
+                        .add(topTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel7))))
+            .add(main2Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        main2Layout.setVerticalGroup(
+            main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main2Layout.createSequentialGroup()
+                .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel7)
+                    .add(main2Layout.createSequentialGroup()
+                        .add(topLabel7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel7))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(main2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel7))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane2.addTab("Main Game", main2);
+
+        topLabel8.setText("Top");
+
+        leftLabel8.setText("Left");
+
+        rightLabel8.setText("Right");
+
+        bottomLabel8.setText("Bottom");
+
+        leftTextBox8.setColumns(3);
+
+        rightTextBox8.setColumns(3);
+
+        bottomTextBox8.setColumns(4);
+
+        topTextBox8.setColumns(4);
+
+        balanceCheck2.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout end2Layout = new org.jdesktop.layout.GroupLayout(end2);
+        end2.setLayout(end2Layout);
+        end2Layout.setHorizontalGroup(
+            end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end2Layout.createSequentialGroup()
+                .add(leftTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel8)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end2Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel8)
+                .add(18, 18, 18)
+                .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(end2Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel8))
+                    .add(end2Layout.createSequentialGroup()
+                        .add(topTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel8))))
+            .add(end2Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end2Layout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck2))
+        );
+        end2Layout.setVerticalGroup(
+            end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end2Layout.createSequentialGroup()
+                .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel8)
+                    .add(end2Layout.createSequentialGroup()
+                        .add(topLabel8)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel8))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(end2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel8))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck2)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane2.addTab("End Game", end2);
+
+        teamNumComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel2.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel2Layout = new org.jdesktop.layout.GroupLayout(teamPanel2);
         teamPanel2.setLayout(teamPanel2Layout);
         teamPanel2Layout.setHorizontalGroup(
             teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel2Layout.createSequentialGroup()
-                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel2Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox2))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel2)
                     .add(commentsPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -454,73 +1108,23 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamPanel2Layout.setVerticalGroup(
             teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel2Layout.createSequentialGroup()
-                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(commentsLabel2))
+                .addContainerGap()
+                .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(commentsLabel2)
+                    .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel2)
+                        .add(teamNumComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane2)
                     .add(teamPanel2Layout.createSequentialGroup()
-                        .add(pointsPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane2))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         teamPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber3.setText("Team ##");
-        teamNumber3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber3MouseClicked(evt);
-            }
-        });
-
-        pointsPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints5.setText("Autonomous");
-        autoPoints5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPoints5MouseClicked(evt);
-            }
-        });
-
-        endPoints5.setText("End Game");
-        endPoints5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPoints5MouseClicked(evt);
-            }
-        });
-
-        mainPoints5.setText("Main Game");
-        mainPoints5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPoints5MouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanel3Layout = new org.jdesktop.layout.GroupLayout(pointsPanel3);
-        pointsPanel3.setLayout(pointsPanel3Layout);
-        pointsPanel3Layout.setHorizontalGroup(
-            pointsPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel3Layout.createSequentialGroup()
-                .add(autoPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanel3Layout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanel3Layout.setVerticalGroup(
-            pointsPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel3Layout.createSequentialGroup()
-                .add(pointsPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         penaltiesBox3.setText("Penalties");
         penaltiesBox3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -536,16 +1140,231 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel3.setText("Additional Comments");
 
+        tabbedPane3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel9.setText("Top");
+
+        leftLabel9.setText("Left");
+
+        rightLabel9.setText("Right");
+
+        bottomLabel9.setText("Bottom");
+
+        leftTextBox9.setColumns(3);
+
+        rightTextBox9.setColumns(3);
+
+        bottomTextBox9.setColumns(4);
+
+        topTextBox9.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout auto3Layout = new org.jdesktop.layout.GroupLayout(auto3);
+        auto3.setLayout(auto3Layout);
+        auto3Layout.setHorizontalGroup(
+            auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto3Layout.createSequentialGroup()
+                .add(leftTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel9)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(auto3Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel9)
+                .add(18, 18, 18)
+                .add(auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(auto3Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel9))
+                    .add(auto3Layout.createSequentialGroup()
+                        .add(topTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel9))))
+            .add(auto3Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        auto3Layout.setVerticalGroup(
+            auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto3Layout.createSequentialGroup()
+                .add(auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel9)
+                    .add(auto3Layout.createSequentialGroup()
+                        .add(topLabel9)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel9))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(auto3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel9))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane3.addTab("Autonomous", auto3);
+
+        topLabel10.setText("Top");
+
+        leftLabel10.setText("Left");
+
+        rightLabel10.setText("Right");
+
+        bottomLabel10.setText("Bottom");
+
+        leftTextBox10.setColumns(3);
+
+        rightTextBox10.setColumns(3);
+
+        bottomTextBox10.setColumns(4);
+
+        topTextBox10.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout main3Layout = new org.jdesktop.layout.GroupLayout(main3);
+        main3.setLayout(main3Layout);
+        main3Layout.setHorizontalGroup(
+            main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main3Layout.createSequentialGroup()
+                .add(leftTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel10)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(main3Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel10)
+                .add(18, 18, 18)
+                .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(main3Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel10))
+                    .add(main3Layout.createSequentialGroup()
+                        .add(topTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel10))))
+            .add(main3Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        main3Layout.setVerticalGroup(
+            main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main3Layout.createSequentialGroup()
+                .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel10)
+                    .add(main3Layout.createSequentialGroup()
+                        .add(topLabel10)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel10))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(main3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel10))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane3.addTab("Main Game", main3);
+
+        topLabel11.setText("Top");
+
+        leftLabel11.setText("Left");
+
+        rightLabel11.setText("Right");
+
+        bottomLabel11.setText("Bottom");
+
+        leftTextBox11.setColumns(3);
+
+        rightTextBox11.setColumns(3);
+
+        bottomTextBox11.setColumns(4);
+
+        topTextBox11.setColumns(4);
+
+        balanceCheck3.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout end3Layout = new org.jdesktop.layout.GroupLayout(end3);
+        end3.setLayout(end3Layout);
+        end3Layout.setHorizontalGroup(
+            end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end3Layout.createSequentialGroup()
+                .add(leftTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel11)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end3Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel11)
+                .add(18, 18, 18)
+                .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(end3Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel11))
+                    .add(end3Layout.createSequentialGroup()
+                        .add(topTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel11))))
+            .add(end3Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end3Layout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck3))
+        );
+        end3Layout.setVerticalGroup(
+            end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end3Layout.createSequentialGroup()
+                .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel11)
+                    .add(end3Layout.createSequentialGroup()
+                        .add(topLabel11)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel11))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(end3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel11))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck3)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane3.addTab("End Game", end3);
+
+        teamNumComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel3.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel3Layout = new org.jdesktop.layout.GroupLayout(teamPanel3);
         teamPanel3.setLayout(teamPanel3Layout);
         teamPanel3Layout.setHorizontalGroup(
             teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel3Layout.createSequentialGroup()
-                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel3Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox3))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(commentsLabel3)
                     .add(commentsPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -554,73 +1373,23 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamPanel3Layout.setVerticalGroup(
             teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel3Layout.createSequentialGroup()
-                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(commentsLabel3))
+                .add(20, 20, 20)
+                .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(commentsLabel3)
+                    .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel3)
+                        .add(teamNumComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane3)
                     .add(teamPanel3Layout.createSequentialGroup()
-                        .add(pointsPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane3))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         teamPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber4.setText("Team ##");
-        teamNumber4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber4MouseClicked(evt);
-            }
-        });
-
-        pointsPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints6.setText("Autonomous");
-        autoPoints6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPoints6MouseClicked(evt);
-            }
-        });
-
-        endPoints6.setText("End Game");
-        endPoints6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPoints6MouseClicked(evt);
-            }
-        });
-
-        mainPoints6.setText("Main Game");
-        mainPoints6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPoints6MouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanel4Layout = new org.jdesktop.layout.GroupLayout(pointsPanel4);
-        pointsPanel4.setLayout(pointsPanel4Layout);
-        pointsPanel4Layout.setHorizontalGroup(
-            pointsPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel4Layout.createSequentialGroup()
-                .add(autoPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanel4Layout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanel4Layout.setVerticalGroup(
-            pointsPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel4Layout.createSequentialGroup()
-                .add(pointsPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         penaltiesBox4.setText("Penalties");
         penaltiesBox4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -636,91 +1405,256 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel4.setText("Additional Comments");
 
+        tabbedPane4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel12.setText("Top");
+
+        leftLabel12.setText("Left");
+
+        rightLabel12.setText("Right");
+
+        bottomLabel12.setText("Bottom");
+
+        leftTextBox12.setColumns(3);
+
+        rightTextBox12.setColumns(3);
+
+        bottomTextBox12.setColumns(4);
+
+        topTextBox12.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout auto4Layout = new org.jdesktop.layout.GroupLayout(auto4);
+        auto4.setLayout(auto4Layout);
+        auto4Layout.setHorizontalGroup(
+            auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto4Layout.createSequentialGroup()
+                .add(leftTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel12)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(auto4Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel12)
+                .add(18, 18, 18)
+                .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(auto4Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel12))
+                    .add(auto4Layout.createSequentialGroup()
+                        .add(topTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel12))))
+            .add(auto4Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        auto4Layout.setVerticalGroup(
+            auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto4Layout.createSequentialGroup()
+                .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel12)
+                    .add(auto4Layout.createSequentialGroup()
+                        .add(topLabel12)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel12))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(auto4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel12))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane4.addTab("Autonomous", auto4);
+
+        topLabel13.setText("Top");
+
+        leftLabel13.setText("Left");
+
+        rightLabel13.setText("Right");
+
+        bottomLabel13.setText("Bottom");
+
+        leftTextBox13.setColumns(3);
+
+        rightTextBox13.setColumns(3);
+
+        bottomTextBox13.setColumns(4);
+
+        topTextBox13.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout main4Layout = new org.jdesktop.layout.GroupLayout(main4);
+        main4.setLayout(main4Layout);
+        main4Layout.setHorizontalGroup(
+            main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main4Layout.createSequentialGroup()
+                .add(leftTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel13)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(main4Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel13)
+                .add(18, 18, 18)
+                .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(main4Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel13))
+                    .add(main4Layout.createSequentialGroup()
+                        .add(topTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel13))))
+            .add(main4Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        main4Layout.setVerticalGroup(
+            main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main4Layout.createSequentialGroup()
+                .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel13)
+                    .add(main4Layout.createSequentialGroup()
+                        .add(topLabel13)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel13))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(main4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel13))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane4.addTab("Main Game", main4);
+
+        topLabel14.setText("Top");
+
+        leftLabel14.setText("Left");
+
+        rightLabel14.setText("Right");
+
+        bottomLabel14.setText("Bottom");
+
+        leftTextBox14.setColumns(3);
+
+        rightTextBox14.setColumns(3);
+
+        bottomTextBox14.setColumns(4);
+
+        topTextBox14.setColumns(4);
+
+        balanceCheck4.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout end4Layout = new org.jdesktop.layout.GroupLayout(end4);
+        end4.setLayout(end4Layout);
+        end4Layout.setHorizontalGroup(
+            end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end4Layout.createSequentialGroup()
+                .add(leftTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel14)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end4Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel14)
+                .add(18, 18, 18)
+                .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(end4Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel14))
+                    .add(end4Layout.createSequentialGroup()
+                        .add(topTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel14))))
+            .add(end4Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end4Layout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck4))
+        );
+        end4Layout.setVerticalGroup(
+            end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end4Layout.createSequentialGroup()
+                .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel14)
+                    .add(end4Layout.createSequentialGroup()
+                        .add(topLabel14)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel14))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(end4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel14))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck4)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane4.addTab("End Game", end4);
+
+        teamNumComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel4.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel4Layout = new org.jdesktop.layout.GroupLayout(teamPanel4);
         teamPanel4.setLayout(teamPanel4Layout);
         teamPanel4Layout.setHorizontalGroup(
             teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel4Layout.createSequentialGroup()
-                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox4))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(commentsLabel4)
-                    .add(commentsPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel4Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox4))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(commentsPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(commentsLabel4))
                 .addContainerGap())
         );
         teamPanel4Layout.setVerticalGroup(
             teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel4Layout.createSequentialGroup()
-                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(16, 16, 16)
+                .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel4)
+                        .add(teamNumComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(commentsLabel4))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane4)
                     .add(teamPanel4Layout.createSequentialGroup()
-                        .add(pointsPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane4))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         teamPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
-
-        teamNumber5.setText("Team ##");
-        teamNumber5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamNumber5MouseClicked(evt);
-            }
-        });
-
-        pointsPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Points"));
-
-        autoPoints7.setText("Autonomous");
-        autoPoints7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPoints7MouseClicked(evt);
-            }
-        });
-
-        endPoints7.setText("End Game");
-        endPoints7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                endPoints7MouseClicked(evt);
-            }
-        });
-
-        mainPoints7.setText("Main Game");
-        mainPoints7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainPoints7MouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout pointsPanel5Layout = new org.jdesktop.layout.GroupLayout(pointsPanel5);
-        pointsPanel5.setLayout(pointsPanel5Layout);
-        pointsPanel5Layout.setHorizontalGroup(
-            pointsPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel5Layout.createSequentialGroup()
-                .add(autoPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(endPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(pointsPanel5Layout.createSequentialGroup()
-                .add(51, 51, 51)
-                .add(mainPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        pointsPanel5Layout.setVerticalGroup(
-            pointsPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pointsPanel5Layout.createSequentialGroup()
-                .add(pointsPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(autoPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(endPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPoints7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         penaltiesBox5.setText("Penalties");
         penaltiesBox5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -736,35 +1670,253 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         commentsLabel5.setText("Additional Comments");
 
+        tabbedPane5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        topLabel15.setText("Top");
+
+        leftLabel15.setText("Left");
+
+        rightLabel15.setText("Right");
+
+        bottomLabel15.setText("Bottom");
+
+        leftTextBox15.setColumns(3);
+
+        rightTextBox15.setColumns(3);
+
+        bottomTextBox15.setColumns(4);
+
+        topTextBox15.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout auto5Layout = new org.jdesktop.layout.GroupLayout(auto5);
+        auto5.setLayout(auto5Layout);
+        auto5Layout.setHorizontalGroup(
+            auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto5Layout.createSequentialGroup()
+                .add(leftTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel15)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(auto5Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel15)
+                .add(18, 18, 18)
+                .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(auto5Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel15))
+                    .add(auto5Layout.createSequentialGroup()
+                        .add(topTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel15))))
+            .add(auto5Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        auto5Layout.setVerticalGroup(
+            auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(auto5Layout.createSequentialGroup()
+                .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel15)
+                    .add(auto5Layout.createSequentialGroup()
+                        .add(topLabel15)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel15))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(auto5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel15))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane5.addTab("Autonomous", auto5);
+
+        topLabel16.setText("Top");
+
+        leftLabel16.setText("Left");
+
+        rightLabel16.setText("Right");
+
+        bottomLabel16.setText("Bottom");
+
+        leftTextBox16.setColumns(3);
+
+        rightTextBox16.setColumns(3);
+
+        bottomTextBox16.setColumns(4);
+
+        topTextBox16.setColumns(4);
+
+        org.jdesktop.layout.GroupLayout main5Layout = new org.jdesktop.layout.GroupLayout(main5);
+        main5.setLayout(main5Layout);
+        main5Layout.setHorizontalGroup(
+            main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main5Layout.createSequentialGroup()
+                .add(leftTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel16)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(main5Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel16)
+                .add(18, 18, 18)
+                .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(main5Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel16))
+                    .add(main5Layout.createSequentialGroup()
+                        .add(topTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel16))))
+            .add(main5Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        main5Layout.setVerticalGroup(
+            main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(main5Layout.createSequentialGroup()
+                .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel16)
+                    .add(main5Layout.createSequentialGroup()
+                        .add(topLabel16)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel16))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(main5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel16))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabbedPane5.addTab("Main Game", main5);
+
+        topLabel17.setText("Top");
+
+        leftLabel17.setText("Left");
+
+        rightLabel17.setText("Right");
+
+        bottomLabel17.setText("Bottom");
+
+        leftTextBox17.setColumns(3);
+
+        rightTextBox17.setColumns(3);
+
+        bottomTextBox17.setColumns(4);
+
+        topTextBox17.setColumns(4);
+
+        balanceCheck5.setText("Balanced");
+
+        org.jdesktop.layout.GroupLayout end5Layout = new org.jdesktop.layout.GroupLayout(end5);
+        end5.setLayout(end5Layout);
+        end5Layout.setHorizontalGroup(
+            end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end5Layout.createSequentialGroup()
+                .add(leftTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(bottomLabel17)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rightTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end5Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(leftLabel17)
+                .add(18, 18, 18)
+                .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(end5Layout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(topLabel17))
+                    .add(end5Layout.createSequentialGroup()
+                        .add(topTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rightLabel17))))
+            .add(end5Layout.createSequentialGroup()
+                .add(49, 49, 49)
+                .add(bottomTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(end5Layout.createSequentialGroup()
+                .add(34, 34, 34)
+                .add(balanceCheck5))
+        );
+        end5Layout.setVerticalGroup(
+            end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(end5Layout.createSequentialGroup()
+                .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(leftLabel17)
+                    .add(end5Layout.createSequentialGroup()
+                        .add(topLabel17)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(topTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rightLabel17))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(end5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(leftTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rightTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bottomLabel17))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bottomTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(balanceCheck5)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabbedPane5.addTab("End Game", end5);
+
+        teamNumComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "teams" }));
+
+        teamLabel5.setText("Team");
+
         org.jdesktop.layout.GroupLayout teamPanel5Layout = new org.jdesktop.layout.GroupLayout(teamPanel5);
         teamPanel5.setLayout(teamPanel5Layout);
         teamPanel5Layout.setHorizontalGroup(
             teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel5Layout.createSequentialGroup()
-                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(teamNumber5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pointsPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(penaltiesBox5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(commentsLabel5)
-                    .add(commentsPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel5Layout.createSequentialGroup()
+                            .add(11, 11, 11)
+                            .add(penaltiesBox5))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, teamPanel5Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(teamPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(teamLabel5)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamNumComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(commentsPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(commentsLabel5))
                 .addContainerGap())
         );
         teamPanel5Layout.setVerticalGroup(
             teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(teamPanel5Layout.createSequentialGroup()
-                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(teamNumber5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(16, 16, 16)
+                .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(teamLabel5)
+                        .add(teamNumComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(commentsLabel5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(teamPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, commentsPane5)
                     .add(teamPanel5Layout.createSequentialGroup()
-                        .add(pointsPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(tabbedPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(penaltiesBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(penaltiesBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(commentsPane5))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         submitButton.setText("Submit");
@@ -784,6 +1936,14 @@ public class DataEntryGUI extends javax.swing.JFrame
         });
         fileMenu.add(commentsOption);
 
+        oneTeamOption.setText("Data Input for One Team");
+        oneTeamOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oneTeamOptionActionPerformed(evt);
+            }
+        });
+        fileMenu.add(oneTeamOption);
+
         menu.add(fileMenu);
 
         editMenu.setText("Edit");
@@ -797,6 +1957,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         editMenu.add(clearOption);
 
         testOption.setText("Test Data Entry");
+        testOption.setEnabled(false);
         testOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 testOptionActionPerformed(evt);
@@ -836,39 +1997,37 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(teamPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(teamPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(teamPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(teamPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(teamPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(teamPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
                         .add(roundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(143, 143, 143)
-                        .add(submitButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 203, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(357, 357, 357)
+                        .add(submitButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 203, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(teamPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(teamPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(teamPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(teamPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(teamPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(teamPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(teamPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(teamPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(teamPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(teamPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(teamPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(teamPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(teamPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(teamPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(teamPanel3, 0, 303, Short.MAX_VALUE))
+                .add(11, 11, 11)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(roundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(submitButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -880,332 +2039,95 @@ public class DataEntryGUI extends javax.swing.JFrame
 
     // All of these methods with the ".setText(null)" remove the content from a feild if it is the
     // default filler from a mouse click (sometimes double click)
-    private void teamNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumberMouseClicked
-        // TODO add your handling code here:
-        if(teamNumber.getText().equals(teamNumberDText))
-        {
-            teamNumber.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumberMouseClicked
-
-    private void autoPointsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPointsMouseClicked
-        // TODO add your handling code here:
-        if(autoPoints.getText().equals(autoPointsDText))
-        {
-            autoPoints.setText(null);
-        }
-
-    }//GEN-LAST:event_autoPointsMouseClicked
-
-    private void endPointsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPointsMouseClicked
-        // TODO add your handling code here:
-        if(endPoints.getText().equals(endPointsDText))
-        {
-            endPoints.setText(null);
-        }
-
-    }//GEN-LAST:event_endPointsMouseClicked
-
-    private void mainPointsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPointsMouseClicked
-        // TODO add your handling code here:
-        if(mainPoints.getText().equals(mainPointsDText))
-        {
-            mainPoints.setText(null);
-        }
-
-    }//GEN-LAST:event_mainPointsMouseClicked
-
-    private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBoxMouseClicked
-
-    private void teamNumber1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber1MouseClicked
-        // TODO add your handling code here:
-        if(teamNumber1.getText().equals(teamNumberDText))
-        {
-            teamNumber1.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumber1MouseClicked
-
-    private void autoPoints2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPoints2MouseClicked
-        // TODO add your handling code here:
-        if(autoPoints2.getText().equals(autoPointsDText))
-        {
-            autoPoints2.setText(null);
-        }
-
-    }//GEN-LAST:event_autoPoints2MouseClicked
-
-    private void endPoints2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPoints2MouseClicked
-        // TODO add your handling code here:
-        if(endPoints2.getText().equals(endPointsDText))
-        {
-            endPoints2.setText(null);
-        }
-
-    }//GEN-LAST:event_endPoints2MouseClicked
-
-    private void mainPoints2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPoints2MouseClicked
-        // TODO add your handling code here:
-        if(mainPoints2.getText().equals(mainPointsDText))
-        {
-            mainPoints2.setText(null);
-        }
-
-    }//GEN-LAST:event_mainPoints2MouseClicked
-
-    private void penaltiesBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox1MouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox1.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox1.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBox1MouseClicked
-
-    private void teamNumber2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber2MouseClicked
-        // TODO add your handling code here:
-        if(teamNumber2.getText().equals(teamNumberDText))
-        {
-            teamNumber2.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumber2MouseClicked
-
-    private void autoPoints3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPoints3MouseClicked
-        // TODO add your handling code here:
-        if(autoPoints3.getText().equals(autoPointsDText))
-        {
-            autoPoints3.setText(null);
-        }
-
-
-    }//GEN-LAST:event_autoPoints3MouseClicked
-
-    private void endPoints3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPoints3MouseClicked
-        // TODO add your handling code here:
-        if(endPoints3.getText().equals(endPointsDText))
-        {
-            endPoints3.setText(null);
-        }
-
-    }//GEN-LAST:event_endPoints3MouseClicked
-
-    private void mainPoints3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPoints3MouseClicked
-        // TODO add your handling code here:
-        if(mainPoints3.getText().equals(mainPointsDText))
-        {
-            mainPoints3.setText(null);
-        }
-
-    }//GEN-LAST:event_mainPoints3MouseClicked
-
-    private void penaltiesBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox2MouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox2.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox2.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBox2MouseClicked
-
-    private void teamNumber3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber3MouseClicked
-        // TODO add your handling code here:
-        if(teamNumber3.getText().equals(teamNumberDText))
-        {
-            teamNumber3.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumber3MouseClicked
-
-    private void autoPoints5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPoints5MouseClicked
-        // TODO add your handling code here:
-        if(autoPoints5.getText().equals(autoPointsDText))
-        {
-            autoPoints5.setText(null);
-        }
-
-
-    }//GEN-LAST:event_autoPoints5MouseClicked
-
-    private void endPoints5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPoints5MouseClicked
-        // TODO add your handling code here:
-        if(endPoints5.getText().equals(endPointsDText))
-        {
-            endPoints5.setText(null);
-        }
-
-    }//GEN-LAST:event_endPoints5MouseClicked
-
-    private void mainPoints5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPoints5MouseClicked
-        // TODO add your handling code here:
-        if(mainPoints5.getText().equals(mainPointsDText))
-        {
-            mainPoints5.setText(null);
-        }
-
-    }//GEN-LAST:event_mainPoints5MouseClicked
-
-    private void penaltiesBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox3MouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox3.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox3.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBox3MouseClicked
-
-    private void teamNumber4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber4MouseClicked
-        // TODO add your handling code here:
-        if(teamNumber4.getText().equals(teamNumberDText))
-        {
-            teamNumber4.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumber4MouseClicked
-
-    private void autoPoints6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPoints6MouseClicked
-        // TODO add your handling code here:
-        if(autoPoints6.getText().equals(autoPointsDText))
-        {
-            autoPoints6.setText(null);
-        }
-
-
-    }//GEN-LAST:event_autoPoints6MouseClicked
-
-    private void endPoints6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPoints6MouseClicked
-        // TODO add your handling code here:
-        if(endPoints6.getText().equals(endPointsDText))
-        {
-            endPoints6.setText(null);
-        }
-
-    }//GEN-LAST:event_endPoints6MouseClicked
-
-    private void mainPoints6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPoints6MouseClicked
-        // TODO add your handling code here:
-        if(mainPoints6.getText().equals(mainPointsDText))
-        {
-            mainPoints6.setText(null);
-        }
-
-    }//GEN-LAST:event_mainPoints6MouseClicked
-
-    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox4.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox4.setText(null);
-        }
-
-    }//GEN-LAST:event_penaltiesBox4MouseClicked
-
-    private void teamNumber5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamNumber5MouseClicked
-        // TODO add your handling code here:
-        if(teamNumber5.getText().equals(teamNumberDText))
-        {
-            teamNumber5.setText(null);
-        }
-
-    }//GEN-LAST:event_teamNumber5MouseClicked
-
-    private void autoPoints7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPoints7MouseClicked
-        // TODO add your handling code here:
-        if(autoPoints7.getText().equals(autoPointsDText))
-        {
-            autoPoints7.setText(null);
-        }
-
-
-    }//GEN-LAST:event_autoPoints7MouseClicked
-
-    private void endPoints7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endPoints7MouseClicked
-        // TODO add your handling code here:
-        if(endPoints7.getText().equals(endPointsDText))
-        {
-            endPoints7.setText(null);
-        }
-
-    }//GEN-LAST:event_endPoints7MouseClicked
-
-    private void mainPoints7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainPoints7MouseClicked
-        // TODO add your handling code here:
-        if(mainPoints7.getText().equals(mainPointsDText))
-        {
-            mainPoints7.setText(null);
-        }
-        
-    }//GEN-LAST:event_mainPoints7MouseClicked
-
-    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
-        // TODO add your handling code here:
-        if(penaltiesBox5.getText().equals(penaltiesBoxDText))
-        {
-            penaltiesBox5.setText(null);
-        }
-        
-    }//GEN-LAST:event_penaltiesBox5MouseClicked
-
     // This method is called when the submit button is pressed
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
+        boolean error = false;
+
         try
         {
-            // Set the flag to true
-            submitted = true;
+            ScoreUtility su = new ScoreUtility();
+
+            // Team Top Left (#1)
+            int autoPoints = su.getScores(ScoreUtility.AUTO, topTextBox, leftTextBox, rightTextBox, bottomTextBox);
+            int mainPoints = su.getScores(ScoreUtility.MAIN, topTextBox1, leftTextBox1, rightTextBox1, bottomTextBox1);
+            int endPoints = su.getScores(ScoreUtility.END, topTextBox2, leftTextBox2, rightTextBox2, bottomTextBox2, balanceCheck);
+
+            // Team Top Middle (#2)
+            int autoPoints1 = su.getScores(ScoreUtility.AUTO, topTextBox3, leftTextBox3, rightTextBox3, bottomTextBox3);
+            int mainPoints1 = su.getScores(ScoreUtility.MAIN, topTextBox4, leftTextBox4, rightTextBox4, bottomTextBox5);
+            int endPoints1 = su.getScores(ScoreUtility.END, topTextBox5, leftTextBox5, rightTextBox5, bottomTextBox5, balanceCheck1);
+
+            // Team Top Right (#3)
+            int autoPoints2 = su.getScores(ScoreUtility.AUTO, topTextBox6, leftTextBox6, rightTextBox6, bottomTextBox6);
+            int mainPoints2 = su.getScores(ScoreUtility.MAIN, topTextBox7, leftTextBox7, rightTextBox7, bottomTextBox7);
+            int endPoints2 = su.getScores(ScoreUtility.END, topTextBox8, leftTextBox8, rightTextBox8, bottomTextBox8, balanceCheck2);
+
+            // Team Bottom Left (#4)
+            int autoPoints3 = su.getScores(ScoreUtility.AUTO, topTextBox9, leftTextBox9, rightTextBox9, bottomTextBox9);
+            int mainPoints3 = su.getScores(ScoreUtility.MAIN, topTextBox10, leftTextBox10, rightTextBox10, bottomTextBox10);
+            int endPoints3 = su.getScores(ScoreUtility.END, topTextBox11, leftTextBox11, rightTextBox11, bottomTextBox11, balanceCheck3);
+
+            // Team Bottom Middle (#5)
+            int autoPoints4 = su.getScores(ScoreUtility.AUTO, topTextBox12, leftTextBox12, rightTextBox12, bottomTextBox12);
+            int mainPoints4 = su.getScores(ScoreUtility.MAIN, topTextBox13, leftTextBox13, rightTextBox13, bottomTextBox13);
+            int endPoints4 = su.getScores(ScoreUtility.END, topTextBox14, leftTextBox14, rightTextBox14, bottomTextBox14, balanceCheck4);
+
+            // Team Bottom Right (#6)
+            int autoPoints5 = su.getScores(ScoreUtility.AUTO, topTextBox15, leftTextBox15, rightTextBox15, bottomTextBox15);
+            int mainPoints5 = su.getScores(ScoreUtility.MAIN, topTextBox16, leftTextBox16, rightTextBox16, bottomTextBox16);
+            int endPoints5 = su.getScores(ScoreUtility.END, topTextBox17, leftTextBox17, rightTextBox17, bottomTextBox17, balanceCheck5);
 
             // Store Team numbers
             //System.out.println("Storing Teams...");
-            teamNumberArray[0] = Integer.parseInt(teamNumber.getText());
-            teamNumberArray[1] = Integer.parseInt(teamNumber1.getText());
-            teamNumberArray[2] = Integer.parseInt(teamNumber2.getText());
-            teamNumberArray[3] = Integer.parseInt(teamNumber3.getText());
-            teamNumberArray[4] = Integer.parseInt(teamNumber4.getText());
-            teamNumberArray[5] = Integer.parseInt(teamNumber5.getText());
+            teamNumberArray[0] = Integer.parseInt(teamNumComboBox.getSelectedItem().toString());
+            teamNumberArray[1] = Integer.parseInt(teamNumComboBox1.getSelectedItem().toString());
+            teamNumberArray[2] = Integer.parseInt(teamNumComboBox2.getSelectedItem().toString());
+            teamNumberArray[3] = Integer.parseInt(teamNumComboBox3.getSelectedItem().toString());
+            teamNumberArray[4] = Integer.parseInt(teamNumComboBox4.getSelectedItem().toString());
+            teamNumberArray[5] = Integer.parseInt(teamNumComboBox5.getSelectedItem().toString());
+
+            if(hasRepeatEntry(teamNumberArray))
+            {
+                new ErrorGUI("Repetition of team numbers!", ErrorGUI.ERROR_LOW);
+                error = true;
+            }
 
             // Store scores for Team #1
             //System.out.println("Storing Scores for Team #1");
-            teamScoreArray[0][0] = Integer.parseInt(autoPoints.getText());
-            teamScoreArray[1][0] = Integer.parseInt(mainPoints.getText());
-            teamScoreArray[2][0] = Integer.parseInt(endPoints.getText());
+            teamScoreArray[0][0] = autoPoints;
+            teamScoreArray[1][0] = mainPoints;
+            teamScoreArray[2][0] = endPoints;
 
             // Store scores for Team #2
             //System.out.println("Storing Scores for Team #2");
-            teamScoreArray[0][1] = Integer.parseInt(autoPoints2.getText());
-            teamScoreArray[1][1] = Integer.parseInt(mainPoints2.getText());
-            teamScoreArray[2][1] = Integer.parseInt(endPoints2.getText());
+            teamScoreArray[0][1] = autoPoints1;
+            teamScoreArray[1][1] = mainPoints1;
+            teamScoreArray[2][1] = endPoints1;
 
             // Store scores for Team #3
             //System.out.println("Storing Scores for Team #3");
-            teamScoreArray[0][2] = Integer.parseInt(autoPoints3.getText());
-            teamScoreArray[1][2] = Integer.parseInt(mainPoints3.getText());
-            teamScoreArray[2][2] = Integer.parseInt(endPoints3.getText());
+            teamScoreArray[0][2] = autoPoints2;
+            teamScoreArray[1][2] = mainPoints2;
+            teamScoreArray[2][2] = endPoints2;
 
             // Store scores for Team #4
             //System.out.println("Storing Scores for Team #4");
-            teamScoreArray[0][3] = Integer.parseInt(autoPoints5.getText());
-            teamScoreArray[1][3] = Integer.parseInt(mainPoints5.getText());
-            teamScoreArray[2][3] = Integer.parseInt(endPoints5.getText());
+            teamScoreArray[0][3] = autoPoints3;
+            teamScoreArray[1][3] = mainPoints3;
+            teamScoreArray[2][3] = endPoints3;
 
             // Store scores for Team #5
             //System.out.println("Storing Scores for Team #5");
-            teamScoreArray[0][4] = Integer.parseInt(autoPoints6.getText());
-            teamScoreArray[1][4] = Integer.parseInt(mainPoints6.getText());
-            teamScoreArray[2][4] = Integer.parseInt(endPoints6.getText());
+            teamScoreArray[0][4] = autoPoints4;
+            teamScoreArray[1][4] = mainPoints4;
+            teamScoreArray[2][4] = endPoints4;
 
             // Store scores for Team #6
             //System.out.println("Storing Scores for Team #6");
-            teamScoreArray[0][5] = Integer.parseInt(autoPoints7.getText());
-            teamScoreArray[1][5] = Integer.parseInt(mainPoints7.getText());
-            teamScoreArray[2][5] = Integer.parseInt(endPoints7.getText());
+            teamScoreArray[0][5] = autoPoints5;
+            teamScoreArray[1][5] = mainPoints5;
+            teamScoreArray[2][5] = endPoints5;
 
             // Store penalties for all teams
             //System.out.println("Storing Penalties...");
@@ -1231,17 +2153,9 @@ public class DataEntryGUI extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
-                throw new Exception();
+                new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_LOW);
+                error = true;
             }
-
-            // Incriment the current match
-            currentMatch++;
-
-            // reset all the feilds!
-            resetFields();
-
-            // Store the new Match number
-            roundInput.setText(Integer.toString(currentMatch));
 
             // If the penalties for a team equal null or the default text, replace the penalties with "none"
             for(int i = 0; i < 6; i++)
@@ -1253,30 +2167,46 @@ public class DataEntryGUI extends javax.swing.JFrame
             }
         }
 
-        // If a feild was empty or something failed, reset the submitted button, and tell the console
+        // If a field was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
-            System.out.println("Bad Submission!");
-            submitted = false;
+            new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
+            error = true;
+        }
+
+        // If there was not an error record the data
+        if(!error)
+        {
+            // Write data to the files
+            writeOut();
+
+            // Incriment the current match
+            currentMatch++;
+
+            // reset all the feilds!
+            resetFields();
+
+            // Store the new Match number
+            roundInput.setText(Integer.toString(currentMatch));
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     // If the Format menu option is clicked, pull up the FormatGUI
     private void formatOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatOptionActionPerformed
         // TODO add your handling code here:
-        FormatGUI fGUI = new FormatGUI();
+        new FormatGUI();
     }//GEN-LAST:event_formatOptionActionPerformed
 
     // If the Comments menu option is clicked, pull up the CommenteTipsGUI
     private void commentsOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsOptionActionPerformed
         // TODO add your handling code here:
-        CommentsTipsGUI cGUI = new CommentsTipsGUI();
+        new CommentsTipsGUI();
     }//GEN-LAST:event_commentsOptionActionPerformed
 
     // If the About menu option is clicked, pull up the AboutGUI
     private void aboutOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutOptionActionPerformed
         // TODO add your handling code here:
-        AboutGUI aGUI = new AboutGUI(VERSION);
+        new AboutGUI(VERSION);
     }//GEN-LAST:event_aboutOptionActionPerformed
 
     // If the Clear Feilds menu option is clicked, reset all of the feilds
@@ -1289,8 +2219,403 @@ public class DataEntryGUI extends javax.swing.JFrame
     // If the Test Data Entry option is clicked, fill the feilds
     private void testOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testOptionActionPerformed
         // TODO add your handling code here:
-        fillFields();
+        boolean valid = false;
+
+        try
+        {
+            Integer.parseInt(roundInput.getText());
+            valid = true;
+        }
+        catch (Exception e)
+        {
+            new ErrorGUI("Round Number not found for testing!", ErrorGUI.ERROR_LOW);
+        }
+
+        if(valid)
+        {
+            for(int i = 0; i < TEST_NUMBER; i++)
+            {
+                fillFields();
+                //submitButtonActionPerformed(evt);
+            }
+        }
     }//GEN-LAST:event_testOptionActionPerformed
+
+    private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBoxMouseClicked
+
+    private void penaltiesBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox1MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox1, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox1MouseClicked
+
+    private void penaltiesBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox2MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox2, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox2MouseClicked
+
+    private void penaltiesBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox3MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox3, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox3MouseClicked
+
+    private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox4, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox4MouseClicked
+
+    private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
+        // TODO add your handling code here:
+        textBoxSet(penaltiesBox5, penaltiesBoxDText);
+    }//GEN-LAST:event_penaltiesBox5MouseClicked
+
+    private void oneTeamOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneTeamOptionActionPerformed
+        // TODO add your handling code here:
+        new IndividualGUI();
+    }//GEN-LAST:event_oneTeamOptionActionPerformed
+
+    private void init()
+    {
+        log.log(LOG_TAG, "Init Data Entry");
+
+        // Debug
+        log.log();
+        
+        teamList = getTeamList(workspaceDir);
+        setTeamOptions(teamList);
+        testOption.setEnabled(TESTING_ENABLED);
+        setVisible(true);
+    }
+
+    private String[] getTeamList(String workspaceDir)
+    {
+        FileScanner scan = new FileScanner();
+        scan.openFile(workspaceDir, Main.teamListFile);
+
+        ArrayList<String> list = new ArrayList<String>();
+        while(scan.hasNextEntry())
+        {
+            list.add(scan.getNextLine());
+        }
+        list.remove(0);
+        scan.close();
+
+        String sortList[][] = new String[list.size()][1];
+        for(int i = 0; i < list.size(); i++)
+        {
+            sortList[i][0] = list.get(i);
+        }
+
+        Sorter sort = new Sorter(1);
+        sortList = sort.sortBest(sortList, 0, Sorter.LOW_TO_HIGH);
+
+        String sortResult[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            sortResult[i] = sortList[i][0];
+        }
+
+        list.clear();
+        for(int i = 0; i < sortResult.length; i++)
+        {
+            list.add(sortResult[i]);
+        }
+        list.add(unselectedOptionIndex, comboBoxDText);
+
+        String result[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            result[i] = list.get(i);
+        }
+
+        return result;
+    }
+
+    private void setTeamOptions(String[] list)
+    {
+        teamNumComboBox.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox1.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox2.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox3.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox4.setModel(new DefaultComboBoxModel(list));
+        teamNumComboBox5.setModel(new DefaultComboBoxModel(list));
+    }
+
+    private boolean hasRepeatEntry(int[] list)
+    {
+        for(int i = 1; i < list.length; i++)
+        {
+            if(list[0] == (list[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void writeOut()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            // Debug
+            log.log();
+            log.log(LOG_TAG, "Data for Team " + teamNumberArray[i]);
+
+            new TeamFileOut(teamNumberArray[i], 
+                    currentMatch,
+                    teamScoreArray[0][i],
+                    teamScoreArray[1][i],
+                    teamScoreArray[2][i],
+                    teamPenaltiesArray[i]);
+
+            new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
+        }
+
+        // Debug
+        log.log();
+
+        new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
+
+        // Debug
+        log.log();
+        
+        new MatchListFileOut(currentMatch);
+    }
+
+    // Clears all of the feilds
+    private void resetFields()
+    {
+        topTextBox.setText(NOTHING);
+        topTextBox1.setText(NOTHING);
+        topTextBox2.setText(NOTHING);
+        topTextBox3.setText(NOTHING);
+        topTextBox4.setText(NOTHING);
+        topTextBox5.setText(NOTHING);
+        topTextBox6.setText(NOTHING);
+        topTextBox7.setText(NOTHING);
+        topTextBox8.setText(NOTHING);
+        topTextBox9.setText(NOTHING);
+        topTextBox10.setText(NOTHING);
+        topTextBox11.setText(NOTHING);
+        topTextBox12.setText(NOTHING);
+        topTextBox13.setText(NOTHING);
+        topTextBox14.setText(NOTHING);
+        topTextBox15.setText(NOTHING);
+        topTextBox16.setText(NOTHING);
+        topTextBox17.setText(NOTHING);
+
+        leftTextBox.setText(NOTHING);
+        leftTextBox1.setText(NOTHING);
+        leftTextBox2.setText(NOTHING);
+        leftTextBox3.setText(NOTHING);
+        leftTextBox4.setText(NOTHING);
+        leftTextBox5.setText(NOTHING);
+        leftTextBox8.setText(NOTHING);
+        leftTextBox9.setText(NOTHING);
+        leftTextBox10.setText(NOTHING);
+        leftTextBox11.setText(NOTHING);
+        leftTextBox12.setText(NOTHING);
+        leftTextBox13.setText(NOTHING);
+        leftTextBox14.setText(NOTHING);
+        leftTextBox15.setText(NOTHING);
+        leftTextBox16.setText(NOTHING);
+        leftTextBox17.setText(NOTHING);
+
+        rightTextBox.setText(NOTHING);
+        rightTextBox1.setText(NOTHING);
+        rightTextBox2.setText(NOTHING);
+        rightTextBox3.setText(NOTHING);
+        rightTextBox4.setText(NOTHING);
+        rightTextBox5.setText(NOTHING);
+        rightTextBox8.setText(NOTHING);
+        rightTextBox9.setText(NOTHING);
+        rightTextBox10.setText(NOTHING);
+        rightTextBox11.setText(NOTHING);
+        rightTextBox12.setText(NOTHING);
+        rightTextBox13.setText(NOTHING);
+        rightTextBox14.setText(NOTHING);
+        rightTextBox15.setText(NOTHING);
+        rightTextBox16.setText(NOTHING);
+        rightTextBox17.setText(NOTHING);
+
+        bottomTextBox.setText(NOTHING);
+        bottomTextBox1.setText(NOTHING);
+        bottomTextBox2.setText(NOTHING);
+        bottomTextBox3.setText(NOTHING);
+        bottomTextBox4.setText(NOTHING);
+        bottomTextBox5.setText(NOTHING);
+        bottomTextBox8.setText(NOTHING);
+        bottomTextBox9.setText(NOTHING);
+        bottomTextBox10.setText(NOTHING);
+        bottomTextBox11.setText(NOTHING);
+        bottomTextBox12.setText(NOTHING);
+        bottomTextBox13.setText(NOTHING);
+        bottomTextBox14.setText(NOTHING);
+        bottomTextBox15.setText(NOTHING);
+        bottomTextBox16.setText(NOTHING);
+        bottomTextBox17.setText(NOTHING);
+
+        balanceCheck.setSelected(false);
+        balanceCheck1.setSelected(false);
+        balanceCheck2.setSelected(false);
+        balanceCheck3.setSelected(false);
+        balanceCheck4.setSelected(false);
+        balanceCheck5.setSelected(false);
+
+        penaltiesBox.setText(NOTHING);
+        penaltiesBox1.setText(NOTHING);
+        penaltiesBox2.setText(NOTHING);
+        penaltiesBox3.setText(NOTHING);
+        penaltiesBox4.setText(NOTHING);
+        penaltiesBox5.setText(NOTHING);
+
+        comments.setText(NOTHING);
+        comments1.setText(NOTHING);
+        comments2.setText(NOTHING);
+        comments3.setText(NOTHING);
+        comments4.setText(NOTHING);
+        comments5.setText(NOTHING);
+
+        teamNumComboBox.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox1.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox2.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox3.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox4.setSelectedIndex(unselectedOptionIndex);
+        teamNumComboBox5.setSelectedIndex(unselectedOptionIndex);
+    }
+
+    // Fills many of the fields with random numbers based on the cap for each feild
+    private void fillFields()
+    {
+        ScoreUtility su = new ScoreUtility();
+
+        su.randScore(ScoreUtility.AUTO, topTextBox);
+        su.randScore(ScoreUtility.AUTO, leftTextBox);
+        su.randScore(ScoreUtility.AUTO, rightTextBox);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox3);
+        su.randScore(ScoreUtility.AUTO, leftTextBox3);
+        su.randScore(ScoreUtility.AUTO, rightTextBox3);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox3);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox6);
+        su.randScore(ScoreUtility.AUTO, leftTextBox6);
+        su.randScore(ScoreUtility.AUTO, rightTextBox6);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox6);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox9);
+        su.randScore(ScoreUtility.AUTO, leftTextBox9);
+        su.randScore(ScoreUtility.AUTO, rightTextBox9);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox9);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox12);
+        su.randScore(ScoreUtility.AUTO, leftTextBox12);
+        su.randScore(ScoreUtility.AUTO, rightTextBox12);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox12);
+
+        su.randScore(ScoreUtility.AUTO, topTextBox15);
+        su.randScore(ScoreUtility.AUTO, leftTextBox15);
+        su.randScore(ScoreUtility.AUTO, rightTextBox15);
+        su.randScore(ScoreUtility.AUTO, bottomTextBox15);
+
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+
+        su.randScore(ScoreUtility.MAIN, topTextBox1);
+        su.randScore(ScoreUtility.MAIN, leftTextBox1);
+        su.randScore(ScoreUtility.MAIN, rightTextBox1);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox1);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox4);
+        su.randScore(ScoreUtility.MAIN, leftTextBox4);
+        su.randScore(ScoreUtility.MAIN, rightTextBox4);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox4);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox7);
+        su.randScore(ScoreUtility.MAIN, leftTextBox7);
+        su.randScore(ScoreUtility.MAIN, rightTextBox7);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox7);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox10);
+        su.randScore(ScoreUtility.MAIN, leftTextBox10);
+        su.randScore(ScoreUtility.MAIN, rightTextBox10);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox10);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox13);
+        su.randScore(ScoreUtility.MAIN, leftTextBox13);
+        su.randScore(ScoreUtility.MAIN, rightTextBox13);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox13);
+
+        su.randScore(ScoreUtility.MAIN, topTextBox16);
+        su.randScore(ScoreUtility.MAIN, leftTextBox16);
+        su.randScore(ScoreUtility.MAIN, rightTextBox16);
+        su.randScore(ScoreUtility.MAIN, bottomTextBox16);
+
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+
+        su.randScore(ScoreUtility.END, topTextBox2);
+        su.randScore(ScoreUtility.END, leftTextBox2);
+        su.randScore(ScoreUtility.END, rightTextBox2);
+        su.randScore(ScoreUtility.END, bottomTextBox2);
+        su.randScore(balanceCheck);
+
+        su.randScore(ScoreUtility.END, topTextBox5);
+        su.randScore(ScoreUtility.END, leftTextBox5);
+        su.randScore(ScoreUtility.END, rightTextBox5);
+        su.randScore(ScoreUtility.END, bottomTextBox5);
+        su.randScore(balanceCheck1);
+
+        su.randScore(ScoreUtility.END, topTextBox8);
+        su.randScore(ScoreUtility.END, leftTextBox8);
+        su.randScore(ScoreUtility.END, rightTextBox8);
+        su.randScore(ScoreUtility.END, bottomTextBox8);
+        su.randScore(balanceCheck2);
+
+        su.randScore(ScoreUtility.END, topTextBox11);
+        su.randScore(ScoreUtility.END, leftTextBox11);
+        su.randScore(ScoreUtility.END, rightTextBox11);
+        su.randScore(ScoreUtility.END, bottomTextBox11);
+        su.randScore(balanceCheck3);
+
+        su.randScore(ScoreUtility.END, topTextBox14);
+        su.randScore(ScoreUtility.END, leftTextBox14);
+        su.randScore(ScoreUtility.END, rightTextBox14);
+        su.randScore(ScoreUtility.END, bottomTextBox14);
+        su.randScore(balanceCheck4);
+
+        su.randScore(ScoreUtility.END, topTextBox17);
+        su.randScore(ScoreUtility.END, leftTextBox17);
+        su.randScore(ScoreUtility.END, rightTextBox17);
+        su.randScore(ScoreUtility.END, bottomTextBox17);
+        su.randScore(balanceCheck5);
+
+
+        penaltiesBox.setText(penaltiesBoxDText);
+        penaltiesBox1.setText(penaltiesBoxDText);
+        penaltiesBox2.setText(penaltiesBoxDText);
+        penaltiesBox3.setText(penaltiesBoxDText);
+        penaltiesBox4.setText(penaltiesBoxDText);
+        penaltiesBox5.setText(penaltiesBoxDText);
+
+        su.randScore(teamNumComboBox, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox1, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox2, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox3, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox4, unselectedOptionIndex + 1, teamList.length);
+        su.randScore(teamNumComboBox5, unselectedOptionIndex + 1, teamList.length);
+    }
+
+    private void textBoxSet(javax.swing.JTextField box, String defaultText)
+    {
+        String previous = box.getText();
+        box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
+    }
 
     /**
     * @param args the command line arguments
@@ -1304,128 +2629,56 @@ public class DataEntryGUI extends javax.swing.JFrame
         });
     }
 
-    // Return methods for the data
-    public int[] getTeamNumbers()
-    {
-        return teamNumberArray;
-    }
-
-    public int[][] getScores()
-    {
-        return teamScoreArray;
-    }
-
-    public String[] getPenalties()
-    {
-        return teamPenaltiesArray;
-    }
-
-    public int getMatch()
-    {
-        return currentMatch - 1;
-    }
-
-    public String[] getComments()
-    {
-        return commentsArray;
-    }
-
-    public boolean getSubmittedFlag() throws InterruptedException
-    {
-        // The sleep helps the computer think
-        Thread.currentThread().sleep(10);
-        return submitted;
-    }
-
-    public void resetSubmittedFlag()
-    {
-        submitted = false;
-    }
-
-    // Clears all f the feilds
-    public void resetFields()
-    {
-        autoPoints.setText(null);
-        autoPoints2.setText(null);
-        autoPoints3.setText(null);
-        autoPoints5.setText(null);
-        autoPoints6.setText(null);
-        autoPoints7.setText(null);
-        comments.setText(null);
-        comments1.setText(null);
-        comments2.setText(null);
-        comments3.setText(null);
-        comments4.setText(null);
-        comments5.setText(null);
-        endPoints.setText(null);
-        endPoints2.setText(null);
-        endPoints3.setText(null);
-        endPoints5.setText(null);
-        endPoints6.setText(null);
-        endPoints7.setText(null);
-        mainPoints.setText(null);
-        mainPoints2.setText(null);
-        mainPoints3.setText(null);
-        mainPoints5.setText(null);
-        mainPoints6.setText(null);
-        mainPoints7.setText(null);
-        penaltiesBox.setText(null);
-        penaltiesBox1.setText(null);
-        penaltiesBox2.setText(null);
-        penaltiesBox3.setText(null);
-        penaltiesBox4.setText(null);
-        penaltiesBox5.setText(null);
-        teamNumber.setText(null);
-        teamNumber1.setText(null);
-        teamNumber2.setText(null);
-        teamNumber3.setText(null);
-        teamNumber4.setText(null);
-        teamNumber5.setText(null);
-    }
-
-    // Fills many of the fields with random numbers based on the cap for each feild
-    public void fillFields()
-    {
-        autoPoints.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints2.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints3.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints5.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints6.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        autoPoints7.setText(Integer.toString(new Random().nextInt(RAND_AUTO_POINT_CAP)));
-        endPoints.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints2.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints3.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints5.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints6.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        endPoints7.setText(Integer.toString(new Random().nextInt(RAND_END_POINT_CAP)));
-        mainPoints.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints2.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints3.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints5.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints6.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        mainPoints7.setText(Integer.toString(new Random().nextInt(RAND_MAIN_POINT_CAP)));
-        penaltiesBox.setText(penaltiesBoxDText);
-        penaltiesBox1.setText(penaltiesBoxDText);
-        penaltiesBox2.setText(penaltiesBoxDText);
-        penaltiesBox3.setText(penaltiesBoxDText);
-        penaltiesBox4.setText(penaltiesBoxDText);
-        penaltiesBox5.setText(penaltiesBoxDText);
-        teamNumber.setText("2555");
-        teamNumber1.setText("2500");
-        teamNumber2.setText("111");
-        teamNumber3.setText("1816");
-        teamNumber4.setText("2169");
-        teamNumber5.setText("1337");
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutOption;
-    private javax.swing.JTextField autoPoints;
-    private javax.swing.JTextField autoPoints2;
-    private javax.swing.JTextField autoPoints3;
-    private javax.swing.JTextField autoPoints5;
-    private javax.swing.JTextField autoPoints6;
-    private javax.swing.JTextField autoPoints7;
+    private javax.swing.JPanel auto;
+    private javax.swing.JPanel auto1;
+    private javax.swing.JPanel auto2;
+    private javax.swing.JPanel auto3;
+    private javax.swing.JPanel auto4;
+    private javax.swing.JPanel auto5;
+    private javax.swing.JCheckBox balanceCheck;
+    private javax.swing.JCheckBox balanceCheck1;
+    private javax.swing.JCheckBox balanceCheck2;
+    private javax.swing.JCheckBox balanceCheck3;
+    private javax.swing.JCheckBox balanceCheck4;
+    private javax.swing.JCheckBox balanceCheck5;
+    private javax.swing.JLabel bottomLabel;
+    private javax.swing.JLabel bottomLabel1;
+    private javax.swing.JLabel bottomLabel10;
+    private javax.swing.JLabel bottomLabel11;
+    private javax.swing.JLabel bottomLabel12;
+    private javax.swing.JLabel bottomLabel13;
+    private javax.swing.JLabel bottomLabel14;
+    private javax.swing.JLabel bottomLabel15;
+    private javax.swing.JLabel bottomLabel16;
+    private javax.swing.JLabel bottomLabel17;
+    private javax.swing.JLabel bottomLabel2;
+    private javax.swing.JLabel bottomLabel3;
+    private javax.swing.JLabel bottomLabel4;
+    private javax.swing.JLabel bottomLabel5;
+    private javax.swing.JLabel bottomLabel6;
+    private javax.swing.JLabel bottomLabel7;
+    private javax.swing.JLabel bottomLabel8;
+    private javax.swing.JLabel bottomLabel9;
+    private javax.swing.JTextField bottomTextBox;
+    private javax.swing.JTextField bottomTextBox1;
+    private javax.swing.JTextField bottomTextBox10;
+    private javax.swing.JTextField bottomTextBox11;
+    private javax.swing.JTextField bottomTextBox12;
+    private javax.swing.JTextField bottomTextBox13;
+    private javax.swing.JTextField bottomTextBox14;
+    private javax.swing.JTextField bottomTextBox15;
+    private javax.swing.JTextField bottomTextBox16;
+    private javax.swing.JTextField bottomTextBox17;
+    private javax.swing.JTextField bottomTextBox2;
+    private javax.swing.JTextField bottomTextBox3;
+    private javax.swing.JTextField bottomTextBox4;
+    private javax.swing.JTextField bottomTextBox5;
+    private javax.swing.JTextField bottomTextBox6;
+    private javax.swing.JTextField bottomTextBox7;
+    private javax.swing.JTextField bottomTextBox8;
+    private javax.swing.JTextField bottomTextBox9;
     private javax.swing.JMenuItem clearOption;
     private javax.swing.JTextArea comments;
     private javax.swing.JTextArea comments1;
@@ -1447,44 +2700,123 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JScrollPane commentsPane4;
     private javax.swing.JScrollPane commentsPane5;
     private javax.swing.JMenu editMenu;
-    private javax.swing.JTextField endPoints;
-    private javax.swing.JTextField endPoints2;
-    private javax.swing.JTextField endPoints3;
-    private javax.swing.JTextField endPoints5;
-    private javax.swing.JTextField endPoints6;
-    private javax.swing.JTextField endPoints7;
+    private javax.swing.JPanel end;
+    private javax.swing.JPanel end1;
+    private javax.swing.JPanel end2;
+    private javax.swing.JPanel end3;
+    private javax.swing.JPanel end4;
+    private javax.swing.JPanel end5;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem formatOption;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JTextField mainPoints;
-    private javax.swing.JTextField mainPoints2;
-    private javax.swing.JTextField mainPoints3;
-    private javax.swing.JTextField mainPoints5;
-    private javax.swing.JTextField mainPoints6;
-    private javax.swing.JTextField mainPoints7;
+    private javax.swing.JLabel leftLabel;
+    private javax.swing.JLabel leftLabel1;
+    private javax.swing.JLabel leftLabel10;
+    private javax.swing.JLabel leftLabel11;
+    private javax.swing.JLabel leftLabel12;
+    private javax.swing.JLabel leftLabel13;
+    private javax.swing.JLabel leftLabel14;
+    private javax.swing.JLabel leftLabel15;
+    private javax.swing.JLabel leftLabel16;
+    private javax.swing.JLabel leftLabel17;
+    private javax.swing.JLabel leftLabel2;
+    private javax.swing.JLabel leftLabel3;
+    private javax.swing.JLabel leftLabel4;
+    private javax.swing.JLabel leftLabel5;
+    private javax.swing.JLabel leftLabel6;
+    private javax.swing.JLabel leftLabel7;
+    private javax.swing.JLabel leftLabel8;
+    private javax.swing.JLabel leftLabel9;
+    private javax.swing.JTextField leftTextBox;
+    private javax.swing.JTextField leftTextBox1;
+    private javax.swing.JTextField leftTextBox10;
+    private javax.swing.JTextField leftTextBox11;
+    private javax.swing.JTextField leftTextBox12;
+    private javax.swing.JTextField leftTextBox13;
+    private javax.swing.JTextField leftTextBox14;
+    private javax.swing.JTextField leftTextBox15;
+    private javax.swing.JTextField leftTextBox16;
+    private javax.swing.JTextField leftTextBox17;
+    private javax.swing.JTextField leftTextBox2;
+    private javax.swing.JTextField leftTextBox3;
+    private javax.swing.JTextField leftTextBox4;
+    private javax.swing.JTextField leftTextBox5;
+    private javax.swing.JTextField leftTextBox6;
+    private javax.swing.JTextField leftTextBox7;
+    private javax.swing.JTextField leftTextBox8;
+    private javax.swing.JTextField leftTextBox9;
+    private javax.swing.JPanel main;
+    private javax.swing.JPanel main1;
+    private javax.swing.JPanel main2;
+    private javax.swing.JPanel main3;
+    private javax.swing.JPanel main4;
+    private javax.swing.JPanel main5;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem oneTeamOption;
     private javax.swing.JTextField penaltiesBox;
     private javax.swing.JTextField penaltiesBox1;
     private javax.swing.JTextField penaltiesBox2;
     private javax.swing.JTextField penaltiesBox3;
     private javax.swing.JTextField penaltiesBox4;
     private javax.swing.JTextField penaltiesBox5;
-    private javax.swing.JPanel pointsPanel;
-    private javax.swing.JPanel pointsPanel1;
-    private javax.swing.JPanel pointsPanel2;
-    private javax.swing.JPanel pointsPanel3;
-    private javax.swing.JPanel pointsPanel4;
-    private javax.swing.JPanel pointsPanel5;
+    private javax.swing.JLabel rightLabel;
+    private javax.swing.JLabel rightLabel1;
+    private javax.swing.JLabel rightLabel10;
+    private javax.swing.JLabel rightLabel11;
+    private javax.swing.JLabel rightLabel12;
+    private javax.swing.JLabel rightLabel13;
+    private javax.swing.JLabel rightLabel14;
+    private javax.swing.JLabel rightLabel15;
+    private javax.swing.JLabel rightLabel16;
+    private javax.swing.JLabel rightLabel17;
+    private javax.swing.JLabel rightLabel2;
+    private javax.swing.JLabel rightLabel3;
+    private javax.swing.JLabel rightLabel4;
+    private javax.swing.JLabel rightLabel5;
+    private javax.swing.JLabel rightLabel6;
+    private javax.swing.JLabel rightLabel7;
+    private javax.swing.JLabel rightLabel8;
+    private javax.swing.JLabel rightLabel9;
+    private javax.swing.JTextField rightTextBox;
+    private javax.swing.JTextField rightTextBox1;
+    private javax.swing.JTextField rightTextBox10;
+    private javax.swing.JTextField rightTextBox11;
+    private javax.swing.JTextField rightTextBox12;
+    private javax.swing.JTextField rightTextBox13;
+    private javax.swing.JTextField rightTextBox14;
+    private javax.swing.JTextField rightTextBox15;
+    private javax.swing.JTextField rightTextBox16;
+    private javax.swing.JTextField rightTextBox17;
+    private javax.swing.JTextField rightTextBox2;
+    private javax.swing.JTextField rightTextBox3;
+    private javax.swing.JTextField rightTextBox4;
+    private javax.swing.JTextField rightTextBox5;
+    private javax.swing.JTextField rightTextBox6;
+    private javax.swing.JTextField rightTextBox7;
+    private javax.swing.JTextField rightTextBox8;
+    private javax.swing.JTextField rightTextBox9;
     private javax.swing.JTextField roundInput;
     private javax.swing.JLabel roundLabel;
     private javax.swing.JPanel roundPanel;
     private javax.swing.JButton submitButton;
-    private javax.swing.JTextField teamNumber;
-    private javax.swing.JTextField teamNumber1;
-    private javax.swing.JTextField teamNumber2;
-    private javax.swing.JTextField teamNumber3;
-    private javax.swing.JTextField teamNumber4;
-    private javax.swing.JTextField teamNumber5;
+    private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTabbedPane tabbedPane1;
+    private javax.swing.JTabbedPane tabbedPane2;
+    private javax.swing.JTabbedPane tabbedPane3;
+    private javax.swing.JTabbedPane tabbedPane4;
+    private javax.swing.JTabbedPane tabbedPane5;
+    private javax.swing.JLabel teamLabel;
+    private javax.swing.JLabel teamLabel1;
+    private javax.swing.JLabel teamLabel2;
+    private javax.swing.JLabel teamLabel3;
+    private javax.swing.JLabel teamLabel4;
+    private javax.swing.JLabel teamLabel5;
+    private javax.swing.JComboBox teamNumComboBox;
+    private javax.swing.JComboBox teamNumComboBox1;
+    private javax.swing.JComboBox teamNumComboBox2;
+    private javax.swing.JComboBox teamNumComboBox3;
+    private javax.swing.JComboBox teamNumComboBox4;
+    private javax.swing.JComboBox teamNumComboBox5;
     private javax.swing.JPanel teamPanel;
     private javax.swing.JPanel teamPanel1;
     private javax.swing.JPanel teamPanel2;
@@ -1492,6 +2824,41 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JPanel teamPanel4;
     private javax.swing.JPanel teamPanel5;
     private javax.swing.JMenuItem testOption;
+    private javax.swing.JLabel topLabel;
+    private javax.swing.JLabel topLabel1;
+    private javax.swing.JLabel topLabel10;
+    private javax.swing.JLabel topLabel11;
+    private javax.swing.JLabel topLabel12;
+    private javax.swing.JLabel topLabel13;
+    private javax.swing.JLabel topLabel14;
+    private javax.swing.JLabel topLabel15;
+    private javax.swing.JLabel topLabel16;
+    private javax.swing.JLabel topLabel17;
+    private javax.swing.JLabel topLabel2;
+    private javax.swing.JLabel topLabel3;
+    private javax.swing.JLabel topLabel4;
+    private javax.swing.JLabel topLabel5;
+    private javax.swing.JLabel topLabel6;
+    private javax.swing.JLabel topLabel7;
+    private javax.swing.JLabel topLabel8;
+    private javax.swing.JLabel topLabel9;
+    private javax.swing.JTextField topTextBox;
+    private javax.swing.JTextField topTextBox1;
+    private javax.swing.JTextField topTextBox10;
+    private javax.swing.JTextField topTextBox11;
+    private javax.swing.JTextField topTextBox12;
+    private javax.swing.JTextField topTextBox13;
+    private javax.swing.JTextField topTextBox14;
+    private javax.swing.JTextField topTextBox15;
+    private javax.swing.JTextField topTextBox16;
+    private javax.swing.JTextField topTextBox17;
+    private javax.swing.JTextField topTextBox2;
+    private javax.swing.JTextField topTextBox3;
+    private javax.swing.JTextField topTextBox4;
+    private javax.swing.JTextField topTextBox5;
+    private javax.swing.JTextField topTextBox6;
+    private javax.swing.JTextField topTextBox7;
+    private javax.swing.JTextField topTextBox8;
+    private javax.swing.JTextField topTextBox9;
     // End of variables declaration//GEN-END:variables
-
 }

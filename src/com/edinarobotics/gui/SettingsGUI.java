@@ -192,7 +192,7 @@ public class SettingsGUI extends javax.swing.JFrame
         }
 
         // Data Entry starts here
-        new DataEntryGUI_4();
+        new DataEntryGUI();
     }//GEN-LAST:event_scoutButtonActionPerformed
 
     private void chooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseButtonActionPerformed
