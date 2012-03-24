@@ -10,12 +10,16 @@
  */
 
 package com.edinarobotics.gui;
-import com.edinarobotics.data.*;
-import com.edinarobotics.filer.*;
-import com.edinarobotics.logger.*;
-import com.edinarobotics.gui.utilities.*;
-import com.edinarobotics.scout.*;
-
+import com.edinarobotics.data.CommentFileOut;
+import com.edinarobotics.data.MatchFileOut;
+import com.edinarobotics.data.MatchListFileOut;
+import com.edinarobotics.data.TeamFileOut;
+import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.gui.utilities.ErrorGUI;
+import com.edinarobotics.gui.utilities.ScoreUtility;
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Main;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
@@ -293,7 +297,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         menu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         commentsOption = new javax.swing.JMenuItem();
-        oneTeamOption = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         clearOption = new javax.swing.JMenuItem();
         testOption = new javax.swing.JMenuItem();
@@ -542,7 +545,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("End Game", end);
@@ -807,7 +810,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck1)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane1.addTab("End Game", end1);
@@ -1072,7 +1075,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck2)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane2.addTab("End Game", end2);
@@ -1337,7 +1340,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck3)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane3.addTab("End Game", end3);
@@ -1386,7 +1389,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(penaltiesBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(commentsPane3))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         teamPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
@@ -1602,7 +1605,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck4)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane4.addTab("End Game", end4);
@@ -1867,7 +1870,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(bottomTextBox17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(balanceCheck5)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabbedPane5.addTab("End Game", end5);
@@ -1935,14 +1938,6 @@ public class DataEntryGUI extends javax.swing.JFrame
             }
         });
         fileMenu.add(commentsOption);
-
-        oneTeamOption.setText("Data Input for One Team");
-        oneTeamOption.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                oneTeamOptionActionPerformed(evt);
-            }
-        });
-        fileMenu.add(oneTeamOption);
 
         menu.add(fileMenu);
 
@@ -2026,7 +2021,7 @@ public class DataEntryGUI extends javax.swing.JFrame
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(teamPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(teamPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(teamPanel3, 0, 303, Short.MAX_VALUE))
+                    .add(teamPanel3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(11, 11, 11)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(roundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -2089,7 +2084,7 @@ public class DataEntryGUI extends javax.swing.JFrame
 
             if(hasRepeatEntry(teamNumberArray))
             {
-                new ErrorGUI("Repetition of team numbers!", ErrorGUI.ERROR_LOW);
+                ErrorGUI errorGUI = new ErrorGUI("Repetition of team numbers!", ErrorGUI.ERROR_LOW);
                 error = true;
             }
 
@@ -2153,7 +2148,7 @@ public class DataEntryGUI extends javax.swing.JFrame
             // If the current match is less than or equal to 0, throw an exception
             if(currentMatch <= 0)
             {
-                new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_LOW);
+                ErrorGUI errorGUI = new ErrorGUI("Round Number Negative!", ErrorGUI.ERROR_LOW);
                 error = true;
             }
 
@@ -2170,7 +2165,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         // If a field was empty or something failed, reset the submitted button, and tell the console
         catch (Exception e)
         {
-            new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
+            ErrorGUI errorGUI = new ErrorGUI("Bad Submission!\n\n" + e.getClass().getName() + "\n" + e.getMessage(), ErrorGUI.ERROR_LOW);
             error = true;
         }
 
@@ -2194,19 +2189,19 @@ public class DataEntryGUI extends javax.swing.JFrame
     // If the Format menu option is clicked, pull up the FormatGUI
     private void formatOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatOptionActionPerformed
         // TODO add your handling code here:
-        new FormatGUI();
+        FormatGUI formatGUI = new FormatGUI();
     }//GEN-LAST:event_formatOptionActionPerformed
 
     // If the Comments menu option is clicked, pull up the CommenteTipsGUI
     private void commentsOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsOptionActionPerformed
         // TODO add your handling code here:
-        new CommentsTipsGUI();
+        CommentsTipsGUI commentsTipsGUI = new CommentsTipsGUI();
     }//GEN-LAST:event_commentsOptionActionPerformed
 
     // If the About menu option is clicked, pull up the AboutGUI
     private void aboutOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutOptionActionPerformed
         // TODO add your handling code here:
-        new AboutGUI(VERSION);
+        AboutGUI aboutGUI = new AboutGUI(VERSION);
     }//GEN-LAST:event_aboutOptionActionPerformed
 
     // If the Clear Feilds menu option is clicked, reset all of the feilds
@@ -2228,7 +2223,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         }
         catch (Exception e)
         {
-            new ErrorGUI("Round Number not found for testing!", ErrorGUI.ERROR_LOW);
+            ErrorGUI errorGUI = new ErrorGUI("Round Number not found for testing!", ErrorGUI.ERROR_LOW);
         }
 
         if(valid)
@@ -2270,11 +2265,6 @@ public class DataEntryGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         textBoxSet(penaltiesBox5, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox5MouseClicked
-
-    private void oneTeamOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneTeamOptionActionPerformed
-        // TODO add your handling code here:
-        new IndividualGUI();
-    }//GEN-LAST:event_oneTeamOptionActionPerformed
 
     private void init()
     {
@@ -2362,26 +2352,24 @@ public class DataEntryGUI extends javax.swing.JFrame
             // Debug
             log.log();
             log.log(LOG_TAG, "Data for Team " + teamNumberArray[i]);
-
-            new TeamFileOut(teamNumberArray[i], 
-                    currentMatch,
-                    teamScoreArray[0][i],
-                    teamScoreArray[1][i],
-                    teamScoreArray[2][i],
-                    teamPenaltiesArray[i]);
-
-            new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
+            TeamFileOut teamFileOut = new TeamFileOut(teamNumberArray[i], 
+                                              currentMatch,
+                                              teamScoreArray[0][i],
+                                              teamScoreArray[1][i],
+                                              teamScoreArray[2][i],
+                                              teamPenaltiesArray[i]);
+            CommentFileOut commentFileOut = new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
         }
 
         // Debug
         log.log();
-
-        new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
+        
+        MatchFileOut matchFileOut = new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
 
         // Debug
         log.log();
         
-        new MatchListFileOut(currentMatch);
+        MatchListFileOut matchListFileOut = new MatchListFileOut(currentMatch);
     }
 
     // Clears all of the feilds
@@ -2752,7 +2740,6 @@ public class DataEntryGUI extends javax.swing.JFrame
     private javax.swing.JPanel main4;
     private javax.swing.JPanel main5;
     private javax.swing.JMenuBar menu;
-    private javax.swing.JMenuItem oneTeamOption;
     private javax.swing.JTextField penaltiesBox;
     private javax.swing.JTextField penaltiesBox1;
     private javax.swing.JTextField penaltiesBox2;

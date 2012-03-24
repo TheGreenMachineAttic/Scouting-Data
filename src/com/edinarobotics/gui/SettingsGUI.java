@@ -11,7 +11,8 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.data.*;
+import com.edinarobotics.data.ConfigFile;
+import com.edinarobotics.data.DefaultWorkspace;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
 import java.io.File;
@@ -24,32 +25,40 @@ import java.io.File;
 
 public class SettingsGUI extends javax.swing.JFrame
 {
+    // Logger of the class
+    private static Logger log = Main.log;
     private static String LOG_TAG = "SettingsGUI";
 
-    private static Logger log = Main.log;
+    // Config file
     private static ConfigFile config = new ConfigFile();
 
+    // Variables set by the User
     private static String selectedWorkspaceDir;
     private static boolean logSetting;
 
-    /** Creates new form SettingsGUI */
+    /**
+     * Initializes the Settings GUI
+     */
     public SettingsGUI()
     {
         initComponents();
         
+        // Read the config Data
         String[] configData = config.configRead();
+        
+        // Set the variables accordingly
         selectedWorkspaceDir = configData[0];
-
         logSetting = Boolean.parseBoolean(configData[1]);
 
-        setTeamDirField(selectedWorkspaceDir);
+        // Update the Workspace path and the log setting
+        setWorkspaceDirField(selectedWorkspaceDir);
         setLogBox(logSetting);
 
+        // Initialize the FileChooser
         fileExplorer = new javax.swing.JFileChooser();
         fileExplorer.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-
-        log.setEnabled(logSetting);
-
+        
+        // Set the GUI to be visible 
         setVisible(true);
     }
 
@@ -153,6 +162,10 @@ public class SettingsGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Method called when the "Scout!" button is pushed
+     * @param evt ActionEvent created by the button
+     */
     private void scoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoutButtonActionPerformed
         // TODO add your handling code here:
 
@@ -190,18 +203,28 @@ public class SettingsGUI extends javax.swing.JFrame
         {
             log.log(LOG_TAG, "Workspace folder checks out");
         }
-
+        
         // Data Entry starts here
-        new DataEntryGUI();
+        DataEntryGUI dataEntryGUI = new DataEntryGUI();
     }//GEN-LAST:event_scoutButtonActionPerformed
 
+    /**
+     * Method called when the User browses for files
+     * @param evt ActionEvent produced by the button
+     */
     private void chooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseButtonActionPerformed
         // TODO add your handling code here:
+        
+        // Set the default location for file browsing
         fileExplorer.setCurrentDirectory(new File(System.getProperty("user.dir")));
         
+        // Let the user select the file, and store the status to a variable
         int returnVal = fileExplorer.showOpenDialog(this);
+        
+        // If the User approved their option for Folder selecton
         if(returnVal == javax.swing.JFileChooser.APPROVE_OPTION)
         {
+            // Try to update the text box for the location and the variable
             try
             {
                 selectedWorkspaceDir = fileExplorer.getSelectedFile().getPath();
@@ -209,26 +232,37 @@ public class SettingsGUI extends javax.swing.JFrame
             }
             catch(Exception e)
             {
-                System.out.println("Could not set teamDirLocation Field!");
+                log.log(LOG_TAG, "Could not set teamDirLocation Field!");
             }
         }
     }//GEN-LAST:event_chooseButtonActionPerformed
 
-    private void setTeamDirField(String dirPath)
+    /**
+     * Sets the workspace location text box
+     * @param dirPath the location to be written to the text box
+     */
+    private void setWorkspaceDirField(String dirPath)
     {
+        // Update the textbox and the variable
         selectedWorkspaceDir = dirPath;
         workspaceDirBox.setText(selectedWorkspaceDir);
     }
 
+    /**
+     * Sets the state of the log enabled based on the passed in state
+     * @param state the value to be written to the check box
+     */
     private void setLogBox(boolean state)
     {
+        // Update the check box and the variable
         logSetting = state;
         logCheckBox.setSelected(logSetting);
     }
 
     /**
-    * @param args the command line arguments
-    */
+     * Main runnable function in this GUI
+     * @param args the command line arguments
+     */
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -247,5 +281,6 @@ public class SettingsGUI extends javax.swing.JFrame
     private javax.swing.JPanel workspaceDirPanel;
     // End of variables declaration//GEN-END:variables
 
+    // File Chooser variable
     private javax.swing.JFileChooser fileExplorer;
 }
