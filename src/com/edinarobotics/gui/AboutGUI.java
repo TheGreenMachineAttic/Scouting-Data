@@ -11,34 +11,27 @@
 
 package com.edinarobotics.gui;
 
+import com.edinarobotics.scout.Main;
+
 /*
  * @author aoneill
  * @note Made by the Netbeans built-in GUI creator
  */
 public class AboutGUI extends javax.swing.JFrame
 {
-    private static String VERSION = "versionError";
+    private static String VERSION = Main.VERSION;
 
-    /** Creates new form AboutGUI */
+    /**
+     * Creates new form AboutGUI
+     */
     public AboutGUI()
     {
         initComponents();
 
+        // Set the Verion
         setVersion(VERSION);
 
-        setLocation(350,250);
-        setVisible(true);
-    }
-
-    public AboutGUI(String version)
-    {
-        initComponents();
-
-        setLocation(350,250);
-
-        VERSION = version;
-        setVersion(VERSION);
-
+        // Show the GUI
         setVisible(true);
     }
 
@@ -60,7 +53,7 @@ public class AboutGUI extends javax.swing.JFrame
         setTitle("About");
         setResizable(false);
 
-        pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/scouting/rescources/Logo.png"))); // NOI18N
+        pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edinarobotics/rescources/Logo.png"))); // NOI18N
 
         devLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         devLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,8 +73,8 @@ public class AboutGUI extends javax.swing.JFrame
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pic)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, whoIsLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .add(devLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, whoIsLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(devLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(versionLabel))
                 .addContainerGap())
         );
@@ -94,7 +87,7 @@ public class AboutGUI extends javax.swing.JFrame
                 .add(devLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(whoIsLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(versionLabel)
                 .addContainerGap())
         );
@@ -103,8 +96,19 @@ public class AboutGUI extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * Sets the content of the label containing the Version
+     * @param version the version to be displayed
+     */
+    private void setVersion(String version)
+    {
+        // Set the content
+        versionLabel.setText(version);
+    }
+    
+    /**
+     * The Main Runnable function of the class
+     * @param args the command line arguments
+     */
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -112,11 +116,6 @@ public class AboutGUI extends javax.swing.JFrame
                 new AboutGUI().setVisible(true);
             }
         });
-    }
-
-    private void setVersion(String version)
-    {
-        versionLabel.setText(version);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

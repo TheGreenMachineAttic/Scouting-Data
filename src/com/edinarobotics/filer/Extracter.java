@@ -2,37 +2,31 @@ package com.edinarobotics.filer;
 
 import com.edinarobotics.scout.Main;
 
-/**
- * @author Alex O'Neill
+/*
+ * @author aoneill
  * @breif A class to manage taking data from a string by following a simple 
  *          formats
  */
 public class Extracter 
 {
     // Store the separator in a common place
-    char defaultSeparator = Main.DATA_SEPARATOR.charAt(0);
+    public static char defaultSeparator = Main.DATA_SEPARATOR.charAt(0);
 
-    // Setter / getter Methods for the defaultSeparator
-    public void setSeparator(char separator)
-    {
-        defaultSeparator = separator;
-    }
-
-    public char getSeparator()
-    {
-        return defaultSeparator;
-    }
-
-    // Used to take the word from the string input at the given entry
-    // Takes info from string: <entry1><separator><entry2>
+    /**
+     * Used to take the word from the string input at the given entry.
+     * Takes info from string: [entry1][separator][entry2]
+     * @param input the String to be separated
+     * @param entryNumber the entry to be extracted
+     * @return the extracted entry
+     */
     public String extractEntry(String input, int entryNumber)
     {
         // Declare variables to be used for extaction
-        String result = "";
+        String result;
         int stringLength = input.length();
-        int newStringLength = 0;
-        int finalStringLength = 0;
-        char array[] = new char[stringLength];
+        int newStringLength;
+        int finalStringLength;
+        char array[];
         int cutOff = 0;
         int count = 0;
 
@@ -136,14 +130,19 @@ public class Extracter
         return result;
     }
 
+    /**
+     * Returns the content of a String past a certain data separator
+     * @param input the string to be analyzed
+     * @param entryNumber the entry number to go from
+     * @return the cut off string
+     */
     public String contentPast(String input, int entryNumber)
     {
         // Declare variables to be used for extaction
-        String result = "";
+        String result;
         int stringLength = input.length();
-        int newStringLength = 0;
-        int finalStringLength = 0;
-        char array[] = new char[stringLength];
+        int newStringLength;
+        char array[];
         int cutOff = 0;
         int count = 0;
 
@@ -214,6 +213,7 @@ public class Extracter
         return result;
     }
 
+    // UNUSED CURRENTLY
 //    // Used to take the word from the string input at the given entry
 //    // Takes info from string: <entry1><separator><entry2>
 //    public String extractEntry2(String input, int entryNumber)

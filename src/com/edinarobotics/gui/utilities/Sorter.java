@@ -126,7 +126,7 @@ public class Sorter
         log.log(LOG_TAG, "Loops to Sort: " + iter);
 
         // Return the sorted array
-        return parser.dataRowArrayToStringArray(list);
+        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
     /**
@@ -220,7 +220,7 @@ public class Sorter
         log.log(LOG_TAG, "Loops to Sort: " + iter);
 
         // Return the sorted array
-        return parser.dataRowArrayToStringArray(list);
+        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
     /**

@@ -17,16 +17,16 @@ import java.io.File;
 
 public class DefaultWorkspace
 {
+    // Logger stuff
     private static Logger log = Main.log;
+    private static String LOG_TAG = "Default Workspace";
 
     // Initialize classes dealing with File operation
     private static FileCreator fileCreo = new FileCreator();
     private static FileScanner matchFileScanner = new FileScanner();
     private static FileScanner teamListFileScanner = new FileScanner();
 
-    private static String LOG_TAG = "Default Workspace";
-
-    // Assign a variable the current directory
+    // Assign variables for various dirs and titles
     private static String matchListFile = Main.matchListFile;
     private static String matchFolderName = Main.matchFolderName;
 
@@ -37,6 +37,10 @@ public class DefaultWorkspace
     private static String commentFolderName = Main.commentFolderName;
     private static String teamFolderName = Main.teamFolderName;
 
+    /**
+     * Creates a default workspace in a given folder
+     * @param dir directory to create the folder in
+     */
     public void createDefaultWorkspace(String dir)
     {
         // If the default Workspace folder is not created, create it.
@@ -72,8 +76,6 @@ public class DefaultWorkspace
         {
             log.log(LOG_TAG, "Creating Match List file");
             fileCreo.createFile(dir + "/" + workspaceFolderName, teamListFile);
-            fileCreo.openFile(dir + "/" + workspaceFolderName, teamListFile);
-            fileCreo.addTeamListHeader();
             fileCreo.closeFile();
         }
 
@@ -82,12 +84,13 @@ public class DefaultWorkspace
         {
             log.log(LOG_TAG, "Creating Match List");
             fileCreo.createFile(dir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
-            fileCreo.openFile(dir + "/" + workspaceFolderName + "/" + matchFolderName, matchListFile);
-            fileCreo.addMatchListHeader();
             fileCreo.closeFile();
         }
     }
 
+    /**
+     * Check to see if the workspace loaded is legit and fill in gaps
+     */
     public void checkWorkspace()
     {
         // If the default Workspace folder is not created, create it.
@@ -123,8 +126,6 @@ public class DefaultWorkspace
         {
             log.log(LOG_TAG, "Creating Match List file");
             fileCreo.createFile(workspaceDir, teamListFile);
-            fileCreo.openFile(workspaceDir, teamListFile);
-            fileCreo.addTeamListHeader();
             fileCreo.closeFile();
         }
 
@@ -133,12 +134,14 @@ public class DefaultWorkspace
         {
             log.log(LOG_TAG, "Creating Match List file");
             fileCreo.createFile(workspaceDir, matchListFile);
-            fileCreo.openFile(workspaceDir, matchListFile);
-            fileCreo.addMatchListHeader();
             fileCreo.closeFile();
         }
     }
 
+    /**
+     * Check to see if a Worksapce is correctly made
+     * @return 
+     */
     public boolean isEverythingPresent()
     {
         // Boolean to store the result

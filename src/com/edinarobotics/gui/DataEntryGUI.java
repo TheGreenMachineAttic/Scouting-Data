@@ -20,6 +20,7 @@ import com.edinarobotics.gui.utilities.ScoreUtility;
 import com.edinarobotics.gui.utilities.Sorter;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
+
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
@@ -2031,9 +2032,6 @@ public class DataEntryGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    // All of these methods with the ".setText(null)" remove the content from a feild if it is the
-    // default filler from a mouse click (sometimes double click)
     // This method is called when the submit button is pressed
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
@@ -2201,7 +2199,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     // If the About menu option is clicked, pull up the AboutGUI
     private void aboutOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutOptionActionPerformed
         // TODO add your handling code here:
-        AboutGUI aboutGUI = new AboutGUI(VERSION);
+        AboutGUI aboutGUI = new AboutGUI();
     }//GEN-LAST:event_aboutOptionActionPerformed
 
     // If the Clear Feilds menu option is clicked, reset all of the feilds
@@ -2235,96 +2233,161 @@ public class DataEntryGUI extends javax.swing.JFrame
             }
         }
     }//GEN-LAST:event_testOptionActionPerformed
-
+    
+    // All of these methods with the "textBoxSet(Box, DText)" remove the content from a field if it is the
+    // default filler from a mouse click (sometimes double click)
+    
+    /**
+     * Removes the content of the PenaltiesBox once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBoxMouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBoxMouseClicked
-
+    
+    /**
+     * Removes the content of the PenaltiesBox1 once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox1MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox1, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox1MouseClicked
-
+    
+    /**
+     * Removes the content of the PenaltiesBox2 once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox2MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox2, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox2MouseClicked
-
+    
+    /**
+     * Removes the content of the PenaltiesBox3 once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox3MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox3, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox3MouseClicked
-
+    
+    /**
+     * Removes the content of the PenaltiesBox4 once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox4MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox4, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox4MouseClicked
-
+    
+    /**
+     * Removes the content of the PenaltiesBox5 once clicked upon
+     * @param evt ActionEvent produced by the box being clicked
+     */
     private void penaltiesBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penaltiesBox5MouseClicked
         // TODO add your handling code here:
         textBoxSet(penaltiesBox5, penaltiesBoxDText);
     }//GEN-LAST:event_penaltiesBox5MouseClicked
 
+    /**
+     * Init function for the class. Only runs once
+     */
     private void init()
     {
+        // Notify the console that Data Entry has begun
         log.log(LOG_TAG, "Init Data Entry");
 
         // Debug
         log.log();
         
+        // Get the list of teams
         teamList = getTeamList(workspaceDir);
+        
+        // Set the dropboxes for the teams
         setTeamOptions(teamList);
+        
+        // Enable or disable the testing option
         testOption.setEnabled(TESTING_ENABLED);
+        
+        // Show the GUI
         setVisible(true);
     }
 
+    /**
+     * Get the list of Teams to be shown in the GUI
+     * @param workspaceDir the location of the Workspace
+     * @return the list of teams
+     */
     private String[] getTeamList(String workspaceDir)
     {
+        // Open up the team list file
         FileScanner scan = new FileScanner();
         scan.openFile(workspaceDir, Main.teamListFile);
 
+        // Create a list to store the contents of the file
         ArrayList<String> list = new ArrayList<String>();
         while(scan.hasNextEntry())
         {
             list.add(scan.getNextLine());
         }
+        
+        // Remove the first entry (Header of the file)
         list.remove(0);
+        
+        // Close the scanner
         scan.close();
 
+        // Create a 2d array to hold the list
+        // 2d because Sorter takes 2d Arrays
         String sortList[][] = new String[list.size()][1];
         for(int i = 0; i < list.size(); i++)
         {
             sortList[i][0] = list.get(i);
         }
 
+        // Sort the list
         Sorter sort = new Sorter(1);
         sortList = sort.sortBest(sortList, 0, Sorter.LOW_TO_HIGH);
 
+        // Convert the sorted list back to a 1d array
         String sortResult[] = new String[list.size()];
         for(int i = 0; i < list.size(); i++)
         {
             sortResult[i] = sortList[i][0];
         }
 
+        // clear the list
         list.clear();
+        
+        // move contents of the 1 array back to the list
         for(int i = 0; i < sortResult.length; i++)
         {
             list.add(sortResult[i]);
         }
+        
+        // Add the "Select... " text to the beginning
         list.add(unselectedOptionIndex, comboBoxDText);
 
+        // Convert the list back to an array
         String result[] = new String[list.size()];
         for(int i = 0; i < list.size(); i++)
         {
             result[i] = list.get(i);
         }
 
+        // Return the final array
         return result;
     }
 
+    /**
+     * Set the contents of the selection boxes for the teams
+     * @param list the list of teams
+     */
     private void setTeamOptions(String[] list)
     {
+        // Sets a bunc of models for the Scroll Boxes
         teamNumComboBox.setModel(new DefaultComboBoxModel(list));
         teamNumComboBox1.setModel(new DefaultComboBoxModel(list));
         teamNumComboBox2.setModel(new DefaultComboBoxModel(list));
@@ -2333,46 +2396,67 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamNumComboBox5.setModel(new DefaultComboBoxModel(list));
     }
 
+    /**
+     * Checks to see if a list of integers has a repeat
+     * @param list the list to be tested
+     * @return if it has a repeat entry or not
+     */
     private boolean hasRepeatEntry(int[] list)
     {
+        // iterate throug the list and compare against the first entry
         for(int i = 1; i < list.length; i++)
         {
+            // If the two equal, return true
             if(list[0] == (list[i]))
             {
                 return true;
             }
         }
+        
+        // Else return false
         return false;
     }
 
+    /**
+     * Creates the files to store the contents of the Data entered
+     */
     private void writeOut()
     {
+        // Iterate though teams
         for(int i = 0; i < 6; i++)
         {
             // Debug
             log.log();
             log.log(LOG_TAG, "Data for Team " + teamNumberArray[i]);
+            
+            // Create the file for Scores
             TeamFileOut teamFileOut = new TeamFileOut(teamNumberArray[i], 
                                               currentMatch,
                                               teamScoreArray[0][i],
                                               teamScoreArray[1][i],
                                               teamScoreArray[2][i],
                                               teamPenaltiesArray[i]);
+            
+            // Create the file for comments
             CommentFileOut commentFileOut = new CommentFileOut(teamNumberArray[i], currentMatch, commentsArray[i]);
         }
 
         // Debug
         log.log();
         
+        // Create the Match file
         MatchFileOut matchFileOut = new MatchFileOut(currentMatch, teamNumberArray, teamScoreArray, teamPenaltiesArray);
 
         // Debug
         log.log();
         
+        // Create the Match list file
         MatchListFileOut matchListFileOut = new MatchListFileOut(currentMatch);
     }
 
-    // Clears all of the feilds
+    /**
+     * Clears and resets all fields of the Data Entry GUI
+     */
     private void resetFields()
     {
         topTextBox.setText(NOTHING);
@@ -2474,11 +2558,15 @@ public class DataEntryGUI extends javax.swing.JFrame
         teamNumComboBox5.setSelectedIndex(unselectedOptionIndex);
     }
 
-    // Fills many of the fields with random numbers based on the cap for each feild
+    /**
+     * Fills fields with random data
+     */
     private void fillFields()
     {
+        // Declare the class which hadles random scoring
         ScoreUtility su = new ScoreUtility();
 
+        // Random Autonomous Scores
         su.randScore(ScoreUtility.AUTO, topTextBox);
         su.randScore(ScoreUtility.AUTO, leftTextBox);
         su.randScore(ScoreUtility.AUTO, rightTextBox);
@@ -2513,6 +2601,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         /////////////////////////////////////////////////
         /////////////////////////////////////////////////
 
+        // Ransom Main Game Scores
         su.randScore(ScoreUtility.MAIN, topTextBox1);
         su.randScore(ScoreUtility.MAIN, leftTextBox1);
         su.randScore(ScoreUtility.MAIN, rightTextBox1);
@@ -2547,6 +2636,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         /////////////////////////////////////////////////
         /////////////////////////////////////////////////
 
+        // Ransom End Game Scores
         su.randScore(ScoreUtility.END, topTextBox2);
         su.randScore(ScoreUtility.END, leftTextBox2);
         su.randScore(ScoreUtility.END, rightTextBox2);
@@ -2583,7 +2673,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         su.randScore(ScoreUtility.END, bottomTextBox17);
         su.randScore(balanceCheck5);
 
-
+        // Peanlties boxes
         penaltiesBox.setText(penaltiesBoxDText);
         penaltiesBox1.setText(penaltiesBoxDText);
         penaltiesBox2.setText(penaltiesBoxDText);
@@ -2591,6 +2681,7 @@ public class DataEntryGUI extends javax.swing.JFrame
         penaltiesBox4.setText(penaltiesBoxDText);
         penaltiesBox5.setText(penaltiesBoxDText);
 
+        // Randomize the team selection
         su.randScore(teamNumComboBox, unselectedOptionIndex + 1, teamList.length);
         su.randScore(teamNumComboBox1, unselectedOptionIndex + 1, teamList.length);
         su.randScore(teamNumComboBox2, unselectedOptionIndex + 1, teamList.length);
@@ -2599,15 +2690,26 @@ public class DataEntryGUI extends javax.swing.JFrame
         su.randScore(teamNumComboBox5, unselectedOptionIndex + 1, teamList.length);
     }
 
+    /**
+     * Set a Text Field's content based on its current content and the desired result.
+     * If the text of the box corresponds to that of the default text, set it to nothing,
+     * if not, leave it be
+     * @param box
+     * @param defaultText 
+     */
     private void textBoxSet(javax.swing.JTextField box, String defaultText)
     {
+        // Get the text from the box at its current state
         String previous = box.getText();
+        
+        // Evaluate the contents of the box and change it if needed
         box.setText(box.getText().equals(defaultText) ? NOTHING : previous);
     }
 
     /**
-    * @param args the command line arguments
-    */
+     * The Main runnable function of the class
+     * @param args the command line arguments
+     */
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {

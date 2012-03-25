@@ -1,7 +1,7 @@
 package com.edinarobotics.filer;
+
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
-
 import java.io.File;
 import java.util.Scanner;
 
@@ -19,16 +19,24 @@ public class FileScanner
     private String recentName;
     private String recentPath;
 
-    // Used to open the text file in the Scanner
+    /**
+     * Opens a file to be read
+     * @param path the location of the file
+     * @param name the name of the file
+     */
     public void openFile(String path, String name)
     {
         // Try to open the file at the path specified, and warn the user if it
         // fails
 
+        // Update the recent file data 
         recentName = name;
         recentPath = path;
 
+        // Notify the console
         log.log(LOG_TAG, "Opening " + name + " in " + path);
+        
+        // Try to open the file
         try
         {
             read = new Scanner(new File(path + "/" + name));
@@ -39,7 +47,12 @@ public class FileScanner
         }
     }
 
-    // Test to see if the file is created
+    /**
+     * Checks to see if a file is created
+     * @param path the location of the file
+     * @param name the name of the file
+     * @return if the file is created or not
+     */
     public boolean isFileCreated(String path, String name)
     {
         boolean res = false;
@@ -62,19 +75,27 @@ public class FileScanner
         return res;
     }
 
-    // Used to check if the file has another entry
+    /**
+     * Checks to see if the file opened has another line of content
+     * @return whether there is more content
+     */
     public boolean hasNextEntry()
     {
-        boolean result = false;
+        // Variable to store the result
+        boolean result;
 
         // If the Scanner can read another line, return true
         result = read.hasNext();
         return result;
     }
 
-    // Used to return the next line of text from the file
+    /**
+     * Gets the next line of readable data from the file
+     * @return the line of data read
+     */
     public String getNextLine()
     {
+        // String to hold the line of data
         String result = "";
 
         // Try to read the file and return the result
@@ -85,12 +106,14 @@ public class FileScanner
         }
         catch(Exception e)
         {
-           log.log(LOG_TAG, "Error getting next line");
+           log.log(LOG_TAG, "Error getting next line in " + recentName + " in " + recentPath);
         }
         return result;
     }
 
-    // Close the file to prevent memory leaks
+    /**
+     * Closes the Scanner to prevent memory leaks
+     */
     public void close()
     {
         try

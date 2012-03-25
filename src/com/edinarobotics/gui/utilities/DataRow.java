@@ -88,11 +88,10 @@ public class DataRow
      * @param array the Data Row Array
      * @return the 2d array
      */
-    public String[][] dataRowArrayToStringArray(DataRow array[])
+    public String[][] dataRowArrayToStringArray(DataRow array[], int finalWidth)
     {
         // Establish length and width data
         int finalLength = array.length;
-        int finalWidth = dataRow.length;
         
         // Initiaize the variable to be returned
         String result[][] = new String[finalLength][finalWidth];

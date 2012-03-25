@@ -11,21 +11,27 @@ import java.util.Formatter;
  */
 public class FileCreator 
 {
+    // Variables needed
     private Formatter format;
     private String SEPARATOR = Main.DATA_SEPARATOR;
     private Logger log = Main.log;
     private static final String LOG_TAG = "File Creator";
 
+    // Recently opened file properties
     private String currentFile = "";
     private String currentPath = "";
 
-    // Used to create the text file
+    /**
+     * Creates a given file based on name and path
+     * @param path the location of the file
+     * @param name the name of the file
+     */
     public void createFile(String path, String name)
     {
         // Try to create the file, and warn the user if it fails
         try
         {
-            log.log(LOG_TAG, "Formatter: Creating " + name + " in " + path);
+            log.log(LOG_TAG, "Creating " + name + " in " + path);
             format = new Formatter(path + "/" + name);
             
             currentFile = name;
@@ -37,13 +43,17 @@ public class FileCreator
         }
     }
 
-    // Used to open the text file
+    /**
+     * Opens a specified file
+     * @param path the location of the file
+     * @param name the name of the file
+     */
     public void openFile(String path, String name)
     {
         // Try to open the file for editing, and warn the user if it fails
         try
         {
-            log.log(LOG_TAG, "Formatter: Opening " + name + " in " + path);
+            log.log(LOG_TAG, "Opening " + name + " in " + path);
             format = new Formatter(path + "/" + name);
 
             currentFile = name;
@@ -54,43 +64,40 @@ public class FileCreator
             log.log(LOG_TAG, "Could not open " + name + " in " + path);
         }
     }
-
-    // Used to add a header to the team text file
-    public void addTeamHeader()
+    
+    /**
+     * Adds only a new line without any other content to a file
+     */
+    public void addEntry()
     {
-        format.format("%s%s", "# Format #", System.getProperty("line.separator"));
-        format.format("%s%s%s%s%s%s", "# <roundNum>" + SEPARATOR , "<autoPoints>" + SEPARATOR , "<mainPoints>" + SEPARATOR , "<endPoints>" + SEPARATOR ,"<penalties>", System.getProperty("line.separator"));
-    }
-
-    // Used to add a header to the team's commnet text file
-    public void addCommentHeader()
-    {
-        format.format("%s%s", "# Comments #", System.getProperty("line.separator"));
         format.format("%s", System.getProperty("line.separator"));
     }
-
-    // Used to add a header to the team list text file
-    public void addTeamListHeader()
-    {
-        format.format("%s%s", "# Team List #", System.getProperty("line.separator"));
-    }
-
-    // Adds a generic entry with a carriage return
+    
+    /**
+     * Add content to a file with a new line
+     * @param entry the String to be added
+     */
     public void addEntry(String entry)
     {
         format.format("%s%s", entry, System.getProperty("line.separator"));
     }
     
+    /**
+     * Adds content to a file from a 1d array with a new line after each item in the array
+     * @param list the array to add
+     */
     public void addEntry(String list[])
     {
-        System.out.println("List Size: " + list.length);
         for(int i = 0; i < list.length; i++)
         {
-            System.out.println("Formatting: " + list[i]);
             format.format("%s%s", list[i], System.getProperty("line.separator"));
         }
     }
 
+    /**
+     * Adds content to a file from an ArrayList with a new line after each item
+     * @param list the list to be added
+     */
     public void addEntry(ArrayList<String> list)
     {
         for(int i = 0; i < list.size(); i++)
@@ -99,29 +106,13 @@ public class FileCreator
         }
     }
 
-    // Add only a new line if there is no content
-    public void addEntry()
-    {
-        format.format("%s", System.getProperty("line.separator"));
-    }
-
-    // Used to close the text file
-    // Make sure you do this!! It wont actaully add stuff to your file if you
-    // don't!
+    /**
+     * Closes an opened file
+     */
     public void closeFile()
     {
         // Close the Formatter when you are done
         log.log(LOG_TAG, "Closing " + currentFile + " in " + currentPath);
         format.close();
-    }
-
-    public void addMatchHeader(int match)
-    {
-        format.format("%s%d%s%s", "# Match ", match, " #", System.getProperty("line.separator"));
-    }
-
-    public void addMatchListHeader()
-    {
-        format.format("%s%s", "# Match List #", System.getProperty("line.separator"));
     }
 }

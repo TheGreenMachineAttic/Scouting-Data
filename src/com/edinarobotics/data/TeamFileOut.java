@@ -4,10 +4,10 @@
  */
 
 package com.edinarobotics.data;
-import com.edinarobotics.filer.*;
+import com.edinarobotics.filer.FileCreator;
+import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Main;
-
 import java.util.ArrayList;
 
 /*
@@ -15,16 +15,29 @@ import java.util.ArrayList;
  * @breif
  */
 
+
 public class TeamFileOut 
 {
+    // Vraiables used for file creation
     private static String teamFileDir = Main.teamFileDir;
     private static String dataSeparator = Main.DATA_SEPARATOR;
 
     private static FileScanner teamFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
-
+    
+    private static String header[] = {"# Format #", "# <roundNum>" + Main.DATA_SEPARATOR + "<autoPoints>" + Main.DATA_SEPARATOR + "<mainPoints>" + Main.DATA_SEPARATOR + "<endPoints>" + Main.DATA_SEPARATOR +"<penalties>"};
+    
     private static Logger log = Main.log;
 
+    /**
+     * Creates a data file for a given team with the given data
+     * @param teamNumber the team number for which the data belongs
+     * @param matchNumber the match the team was involved in
+     * @param autoScore the Autonomous score the team received
+     * @param mainScore the Main Game score the team received
+     * @param endScore the End Game score the team received
+     * @param penalties the Penalties the team received
+     */
     public TeamFileOut(int teamNumber, int matchNumber, int autoScore, int mainScore, int endScore, String penalties)
     {
         // Store the Team's text file as their team number plus the .txt extension
@@ -42,7 +55,7 @@ public class TeamFileOut
             // Create the File
             fileCreo.createFile(teamFileDir, teamFile);
             fileCreo.openFile(teamFileDir, teamFile);
-            fileCreo.addTeamHeader();
+            fileCreo.addEntry(header);
             fileCreo.closeFile();
         }
 

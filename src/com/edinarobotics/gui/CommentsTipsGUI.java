@@ -18,10 +18,14 @@ package com.edinarobotics.gui;
 public class CommentsTipsGUI extends javax.swing.JFrame
 {
 
-    /** Creates new form CommentsTipsGUI */
+    /** 
+     * Creates new form CommentsTipsGUI
+     */
     public CommentsTipsGUI()
     {
         initComponents();
+        
+        // Show the GUI
         setVisible(true);
     }
 
@@ -62,8 +66,9 @@ public class CommentsTipsGUI extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * The Main Runnable function of this class
+     * @param args the command line arguments
+     */
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {

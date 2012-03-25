@@ -18,13 +18,21 @@ import java.util.ArrayList;
 
 public class CommentFileOut 
 {
-    private static String commentFileDir = Main.commentFileDir;
-
     private static FileScanner commentFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
+    
+    private static String commentFileDir = Main.commentFileDir;
 
     private static Logger log = Main.log;
+    private static String LOG_TAG = "Comments File";
 
+    private static String[] header = {"# Comments #"}; 
+    /**
+     * Create a file to hold the comments for a team
+     * @param teamNumber the team to create the file for
+     * @param matchNumber the match number the team was in
+     * @param comments the comments to be added
+     */
     public CommentFileOut(int teamNumber, int matchNumber, String comments)
     {
         // Store the Team's Comment file as the team's number plus the ending of "-Comments.txt"
@@ -37,12 +45,12 @@ public class CommentFileOut
         if(!commentFileScanner.isFileCreated(commentFileDir, teamFile))
         {
             // Remember the changelskjdflakjf? This is where it would be implimented
-            log.log("Comment File", "Creating Team " + teamNumber + "'s Commnent File");
+            log.log(LOG_TAG, "Creating Team " + teamNumber + "'s Commnent File");
 
             // Create the file, add content, and close it
             fileCreo.createFile(commentFileDir, teamFile);
             fileCreo.openFile(commentFileDir, teamFile);
-            fileCreo.addCommentHeader();
+            fileCreo.addEntry(header);
             fileCreo.closeFile();
         }
 
@@ -50,7 +58,7 @@ public class CommentFileOut
         if(!comments.equals(""))
         {
             // Debug statement
-            log.log("Comments", "Adding content to Team " + teamNumber + "'s Commnent File");
+            log.log(LOG_TAG, "Adding content to Team " + teamNumber + "'s Commnent File");
 
             // Open the file for Reading
             commentFileScanner.openFile(commentFileDir, teamFile);
