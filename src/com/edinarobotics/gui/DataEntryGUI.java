@@ -19,7 +19,7 @@ import com.edinarobotics.gui.utilities.ErrorGUI;
 import com.edinarobotics.gui.utilities.ScoreUtility;
 import com.edinarobotics.gui.utilities.Sorter;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -32,16 +32,13 @@ import javax.swing.DefaultComboBoxModel;
 public class DataEntryGUI extends javax.swing.JFrame
 {
     // Define custom classes
-    Logger log = Main.log;
+    Logger log = Global.log;
 
     // Constants
     private static final String NOTHING = null;
     private static final int TEST_NUMBER = 1;
     private static final String LOG_TAG = "Data Entry";
-    private static final boolean TESTING_ENABLED = true;
-
-    // Version String
-    private static String VERSION = Main.VERSION;
+    private static final boolean TESTING_ENABLED = false;
 
     // Declare variables pertaining to default field fillers
     private static String penaltiesBoxDText = "Penalties";
@@ -56,7 +53,8 @@ public class DataEntryGUI extends javax.swing.JFrame
     private String teamList[];
 
     // Other important variables
-    private static final String workspaceDir = Main.workspaceDir;
+    private static final String workspaceDir = Global.workspaceDir;
+    private static final String teamListFile = Global.teamListFile;
     private int currentMatch = 0;
 
     /** Creates new form DataEntryGUI */
@@ -2324,7 +2322,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     {
         // Open up the team list file
         FileScanner scan = new FileScanner();
-        scan.openFile(workspaceDir, Main.teamListFile);
+        scan.openFile(workspaceDir, teamListFile);
 
         // Create a list to store the contents of the file
         ArrayList<String> list = new ArrayList<String>();

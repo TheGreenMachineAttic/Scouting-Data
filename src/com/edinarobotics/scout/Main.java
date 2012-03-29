@@ -11,34 +11,9 @@ import com.edinarobotics.logger.Logger;
 
 public class Main 
 {
-    // Create a logger for the program
-    public static Logger log = new Logger();
-
-    // Assign a variable the current directory
-    public static String currentDir = System.getProperty("user.dir");
-    public static final String VERSION = "1.0.1";
-    public static final String DATA_SEPARATOR = ":";
-
-    public static String workspaceDir = "C:/";
-    public static String teamFileDir = "C:/";
-    public static String commentFileDir = "C:/";
-    public static boolean logActivate = false;
-
-    // Initialize important strings used througout the program
-    public static String configFile = "config.txt";
-    public static String configFileDir = System.getProperty("user.dir");
-
-    public static String teamListFile = "TeamList.txt";
-    public static String teamFile = "team.txt";
+    private static Logger log = Global.log;
+    private static String currentDir = Global.currentDir;
     
-    public static String matchListFile = "Match-List.txt";
-    public static String matchFolderName = "Matches";
-    public static String matchFile;
-
-    public static String workspaceFolderName = "Workspace";
-    public static String commentFolderName = "Comments";
-    public static String teamFolderName = "TeamDir";
-
     /**
      * Class which runs on start-up
      * @param args arguments passed in

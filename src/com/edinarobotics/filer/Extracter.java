@@ -1,6 +1,6 @@
 package com.edinarobotics.filer;
 
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -10,7 +10,7 @@ import com.edinarobotics.scout.Main;
 public class Extracter 
 {
     // Store the separator in a common place
-    public static char defaultSeparator = Main.DATA_SEPARATOR.charAt(0);
+    public static char defaultSeparator = Global.DATA_SEPARATOR.charAt(0);
 
     /**
      * Used to take the word from the string input at the given entry.

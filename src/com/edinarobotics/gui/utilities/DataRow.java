@@ -5,7 +5,7 @@
 
 package com.edinarobotics.gui.utilities;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -15,7 +15,7 @@ import com.edinarobotics.scout.Main;
 public class DataRow 
 {
     // Logger for the class
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_ID = "Data Row";
     
     // Variable to store the passed in information

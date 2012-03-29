@@ -1,7 +1,7 @@
 package com.edinarobotics.filer;
 
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
 import java.util.Formatter;
 
@@ -13,8 +13,8 @@ public class FileCreator
 {
     // Variables needed
     private Formatter format;
-    private String SEPARATOR = Main.DATA_SEPARATOR;
-    private Logger log = Main.log;
+    private String SEPARATOR = Global.DATA_SEPARATOR;
+    private Logger log = Global.log;
     private static final String LOG_TAG = "File Creator";
 
     // Recently opened file properties

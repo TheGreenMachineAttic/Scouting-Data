@@ -7,7 +7,7 @@ package com.edinarobotics.data;
 
 import com.edinarobotics.filer.*;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.io.File;
 
 /*
@@ -18,7 +18,7 @@ import java.io.File;
 public class DefaultWorkspace
 {
     // Logger stuff
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "Default Workspace";
 
     // Initialize classes dealing with File operation
@@ -27,15 +27,15 @@ public class DefaultWorkspace
     private static FileScanner teamListFileScanner = new FileScanner();
 
     // Assign variables for various dirs and titles
-    private static String matchListFile = Main.matchListFile;
-    private static String matchFolderName = Main.matchFolderName;
+    private static String matchListFile = Global.matchListFile;
+    private static String matchFolderName = Global.matchFolderName;
 
-    private static String teamListFile = Main.teamListFile;
+    private static String teamListFile = Global.teamListFile;
 
-    private static String workspaceFolderName = Main.workspaceFolderName;
-    private static String workspaceDir = Main.workspaceDir;
-    private static String commentFolderName = Main.commentFolderName;
-    private static String teamFolderName = Main.teamFolderName;
+    private static String workspaceFolderName = Global.workspaceFolderName;
+    private static String workspaceDir = Global.workspaceDir;
+    private static String commentFolderName = Global.commentFolderName;
+    private static String teamFolderName = Global.teamFolderName;
 
     /**
      * Creates a default workspace in a given folder

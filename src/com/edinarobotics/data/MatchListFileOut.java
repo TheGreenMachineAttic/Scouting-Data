@@ -8,7 +8,7 @@ package com.edinarobotics.data;
 import com.edinarobotics.filer.FileCreator;
 import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
 
 /*
@@ -23,14 +23,14 @@ public class MatchListFileOut
     private static FileScanner matchFileScanner = new FileScanner();
     
     // Create the logger
-    public static Logger log = Main.log;
+    public static Logger log = Global.log;
 
     // Assign Variables for file creation
-    public static String currentDir = Main.currentDir;
-    public static String workspaceDir = Main.workspaceDir;
+    public static String currentDir = Global.currentDir;
+    public static String workspaceDir = Global.workspaceDir;
 
-    public static String matchListFile = Main.matchListFile;
-    public static String matchFolderName = Main.matchFolderName;
+    public static String matchListFile = Global.matchListFile;
+    public static String matchFolderName = Global.matchFolderName;
     
     private static String[] header = {"# Match List #"};
 

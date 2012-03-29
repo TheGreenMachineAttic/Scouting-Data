@@ -1,7 +1,7 @@
 package com.edinarobotics.filer;
 
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.io.File;
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class FileScanner
 {
     private Scanner read;
-    private Logger log = Main.log;
+    private Logger log = Global.log;
     private static final String LOG_TAG = "File Scanner";
 
     private String recentName;

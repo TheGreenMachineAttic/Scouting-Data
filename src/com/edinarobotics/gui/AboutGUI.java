@@ -11,7 +11,7 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -19,7 +19,7 @@ import com.edinarobotics.scout.Main;
  */
 public class AboutGUI extends javax.swing.JFrame
 {
-    private static String VERSION = Main.VERSION;
+    private static String VERSION = Global.VERSION;
 
     /**
      * Creates new form AboutGUI

@@ -7,7 +7,7 @@ package com.edinarobotics.data;
 import com.edinarobotics.filer.FileCreator;
 import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
 
 /*
@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class TeamFileOut 
 {
     // Vraiables used for file creation
-    private static String teamFileDir = Main.teamFileDir;
-    private static String dataSeparator = Main.DATA_SEPARATOR;
+    private static String teamFileDir = Global.teamFileDir;
+    private static String dataSeparator = Global.DATA_SEPARATOR;
 
     private static FileScanner teamFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
     
-    private static String header[] = {"# Format #", "# <roundNum>" + Main.DATA_SEPARATOR + "<autoPoints>" + Main.DATA_SEPARATOR + "<mainPoints>" + Main.DATA_SEPARATOR + "<endPoints>" + Main.DATA_SEPARATOR +"<penalties>"};
+    private static String header[] = {"# Format #", "# <roundNum>" + Global.DATA_SEPARATOR + "<autoPoints>" + Global.DATA_SEPARATOR + "<GlobalPoints>" + Global.DATA_SEPARATOR + "<endPoints>" + Global.DATA_SEPARATOR +"<penalties>"};
     
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
 
     /**
      * Creates a data file for a given team with the given data

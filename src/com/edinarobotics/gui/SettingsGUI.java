@@ -14,7 +14,7 @@ package com.edinarobotics.gui;
 import com.edinarobotics.data.ConfigFile;
 import com.edinarobotics.data.DefaultWorkspace;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.io.File;
 
 /*
@@ -26,7 +26,7 @@ import java.io.File;
 public class SettingsGUI extends javax.swing.JFrame
 {
     // Logger of the class
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "SettingsGUI";
 
     // Config file
@@ -181,10 +181,10 @@ public class SettingsGUI extends javax.swing.JFrame
         config.configWrite(update);
 
         // Update the global Variables
-        Main.workspaceDir = selectedWorkspaceDir;
-        Main.teamFileDir = selectedWorkspaceDir + "/" + Main.teamFolderName;
-        Main.commentFileDir = selectedWorkspaceDir + "/" + Main.commentFolderName;
-        Main.logActivate = logSetting;
+        Global.workspaceDir = selectedWorkspaceDir;
+        Global.teamFileDir = selectedWorkspaceDir + "/" + Global.teamFolderName;
+        Global.commentFileDir = selectedWorkspaceDir + "/" + Global.commentFolderName;
+        Global.logActivate = logSetting;
 
         // Enable the logger if requested
         log.setEnabled(logSetting);

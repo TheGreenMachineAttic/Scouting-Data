@@ -7,7 +7,7 @@ package com.edinarobotics.data;
 
 import com.edinarobotics.filer.*;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 import java.util.ArrayList;
 
@@ -21,9 +21,9 @@ public class CommentFileOut
     private static FileScanner commentFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
     
-    private static String commentFileDir = Main.commentFileDir;
+    private static String commentFileDir = Global.commentFileDir;
 
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "Comments File";
 
     private static String[] header = {"# Comments #"}; 

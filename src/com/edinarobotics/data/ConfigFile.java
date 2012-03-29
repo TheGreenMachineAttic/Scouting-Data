@@ -9,7 +9,7 @@ import com.edinarobotics.filer.Extracter;
 import com.edinarobotics.filer.FileCreator;
 import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
 
 /*
@@ -25,14 +25,14 @@ public class ConfigFile
     private static Extracter extract = new Extracter();
     
     // Logger stuff
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "Config File";
     
     // Other config stuff
-    private static String DATA_SEPARATOR = Main.DATA_SEPARATOR;
+    private static String DATA_SEPARATOR = Global.DATA_SEPARATOR;
 
-    private static String configDir = Main.configFileDir;
-    private static String configFile = Main.configFile;
+    private static String configDir = Global.configFileDir;
+    private static String configFile = Global.configFile;
     private static int configEntries = 2;
 
     private static String[] configFormat = {"deafultWorkspace", "changeLogActivate"};

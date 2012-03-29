@@ -8,7 +8,7 @@ package com.edinarobotics.data;
 import com.edinarobotics.filer.FileCreator;
 import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -18,15 +18,15 @@ import com.edinarobotics.scout.Main;
 public class MatchFileOut 
 {
     // Variables for file creation
-    private static String workspaceDir = Main.workspaceDir;
-    private static String matchFolderName = Main.matchFolderName;
-    private static String DATA_SEPARATOR = Main.DATA_SEPARATOR;
+    private static String workspaceDir = Global.workspaceDir;
+    private static String matchFolderName = Global.matchFolderName;
+    private static String DATA_SEPARATOR = Global.DATA_SEPARATOR;
 
     private static FileScanner matchFileScanner = new FileScanner();
     private static FileCreator fileCreo = new FileCreator();
 
     // Logger stuff
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "Match File";
     
     private static String[] header = {"# Match File #"};

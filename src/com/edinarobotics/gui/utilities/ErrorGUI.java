@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -12,7 +12,7 @@
 package com.edinarobotics.gui.utilities;
 
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -21,7 +21,7 @@ import com.edinarobotics.scout.Main;
 public class ErrorGUI extends javax.swing.JFrame
 {
     // Logger for the class
-    private static Logger log = Main.log;
+    private static Logger log = Global.log;
     private static String LOG_TAG = "Error";
     
     // Error level possibilities
