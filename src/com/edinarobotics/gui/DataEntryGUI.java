@@ -20,7 +20,6 @@ import com.edinarobotics.gui.utilities.ScoreUtility;
 import com.edinarobotics.gui.utilities.Sorter;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Global;
-
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
@@ -36,9 +35,9 @@ public class DataEntryGUI extends javax.swing.JFrame
 
     // Constants
     private static final String NOTHING = null;
-    private static final int TEST_NUMBER = 1;
+    private static final int TEST_NUMBER = 120;
     private static final String LOG_TAG = "Data Entry";
-    private static final boolean TESTING_ENABLED = false;
+    private static final boolean TESTING_ENABLED = true;
 
     // Declare variables pertaining to default field fillers
     private static String penaltiesBoxDText = "Penalties";
@@ -2227,7 +2226,7 @@ public class DataEntryGUI extends javax.swing.JFrame
             for(int i = 0; i < TEST_NUMBER; i++)
             {
                 fillFields();
-                //submitButtonActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         }
     }//GEN-LAST:event_testOptionActionPerformed

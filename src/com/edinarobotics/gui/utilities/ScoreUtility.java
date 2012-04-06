@@ -4,7 +4,7 @@
  */
 
 package com.edinarobotics.gui.utilities;
-
+ 
 import java.util.Random;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -31,10 +31,10 @@ public class ScoreUtility
     private static final int TOP_HOOP_VAL = 3;
     private static final int MIDDLE_HOOP_VAL = 2;
     private static final int LOW_HOOP_VAL = 1;
-    private static final int BALANCE_POINTS = 20;
+    private static final int BALANCE_POINTS = 10;
 
     // Declare caps for random number generation
-    private final static int RAND_AUTO_POINT_CAP = 1;
+    private final static int RAND_AUTO_POINT_CAP = 3;
     private final static int RAND_END_POINT_CAP = 12;
     private final static int RAND_MAIN_POINT_CAP = 6;
 
@@ -69,16 +69,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + AUTO_ADDITION);
+                        0 : (TOP_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + AUTO_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + AUTO_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + AUTO_ADDITION);
+                        0 : (LOW_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(bottomText);
                 }
                 catch(Exception ex)
                 {
@@ -96,16 +96,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + MAIN_ADDITION);
+                        0 : (TOP_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + MAIN_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + MAIN_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + MAIN_ADDITION);
+                        0 : (LOW_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(bottomText);
                 }
                 catch(Exception ex)
                 {
@@ -123,16 +123,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + END_ADDITION);
+                        0 : (TOP_HOOP_VAL + END_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + END_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + END_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + END_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + END_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + END_ADDITION);
+                        0 : (LOW_HOOP_VAL + END_ADDITION) * Integer.parseInt(bottomText);
                 }
                 catch(Exception ex)
                 {
@@ -185,16 +185,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + AUTO_ADDITION);
+                        0 : (TOP_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + AUTO_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + AUTO_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + AUTO_ADDITION);
+                        0 : (LOW_HOOP_VAL + AUTO_ADDITION) * Integer.parseInt(bottomText);
                 }
                 catch(Exception ex)
                 {
@@ -212,16 +212,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + MAIN_ADDITION);
+                        0 : (TOP_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + MAIN_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + MAIN_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + MAIN_ADDITION);
+                        0 : (LOW_HOOP_VAL + MAIN_ADDITION) * Integer.parseInt(bottomText);
                 }
                 catch(Exception ex)
                 {
@@ -240,16 +240,16 @@ public class ScoreUtility
                 try
                 {
                     result += topText.equals("") ?
-                        0 : (TOP_HOOP_VAL * Integer.parseInt(topText) + END_ADDITION);
+                        0 : (TOP_HOOP_VAL + END_ADDITION) * Integer.parseInt(topText);
 
                     result += leftText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(leftText) + END_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + END_ADDITION) * Integer.parseInt(leftText);
 
                     result += rightText.equals("") ?
-                        0 : (MIDDLE_HOOP_VAL * Integer.parseInt(rightText) + END_ADDITION);
+                        0 : (MIDDLE_HOOP_VAL + END_ADDITION) * Integer.parseInt(rightText);
 
                     result += bottomText.equals("") ?
-                        0 : (LOW_HOOP_VAL * Integer.parseInt(bottomText) + END_ADDITION);
+                        0 : (LOW_HOOP_VAL + END_ADDITION) * Integer.parseInt(bottomText);
 
                     result += box.isSelected() ?
                         BALANCE_POINTS : 0;
