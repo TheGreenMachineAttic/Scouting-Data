@@ -4,8 +4,8 @@
  */
 
 package com.edinarobotics.data;
-import com.edinarobotics.filer.FileCreator;
-import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.filer.FileWriter;
+import com.edinarobotics.filer.FileReader;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ public class TeamFileOut
     private static String teamFileDir = Global.teamFileDir;
     private static String dataSeparator = Global.DATA_SEPARATOR;
 
-    private static FileScanner teamFileScanner = new FileScanner();
-    private static FileCreator fileCreo = new FileCreator();
+    private static FileReader teamFileScanner = new FileReader();
+    private static FileWriter fileCreo = new FileWriter();
     
     private static String header[] = {"# Format #", "# <roundNum>" + Global.DATA_SEPARATOR + "<autoPoints>" + Global.DATA_SEPARATOR + "<GlobalPoints>" + Global.DATA_SEPARATOR + "<endPoints>" + Global.DATA_SEPARATOR +"<penalties>"};
     

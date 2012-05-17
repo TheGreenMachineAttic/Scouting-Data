@@ -5,8 +5,8 @@
 
 package com.edinarobotics.data;
 
-import com.edinarobotics.filer.FileCreator;
-import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.filer.FileWriter;
+import com.edinarobotics.filer.FileReader;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public class MatchListFileOut
 {
     // Initialize classes dealing with File operation
-    private static FileCreator fileCreo = new FileCreator();
-    private static FileScanner matchFileScanner = new FileScanner();
+    private static FileWriter fileCreo = new FileWriter();
+    private static FileReader matchFileScanner = new FileReader();
     
     // Create the logger
     public static Logger log = Global.log;

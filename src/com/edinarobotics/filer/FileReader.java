@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @breif A class to take data from a text file
  */
 
-public class FileScanner
+public class FileReader
 {
     private Scanner read;
     private Logger log = Global.log;

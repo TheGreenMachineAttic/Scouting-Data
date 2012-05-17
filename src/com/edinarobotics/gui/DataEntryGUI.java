@@ -14,7 +14,7 @@ import com.edinarobotics.data.CommentFileOut;
 import com.edinarobotics.data.MatchFileOut;
 import com.edinarobotics.data.MatchListFileOut;
 import com.edinarobotics.data.TeamFileOut;
-import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.filer.FileReader;
 import com.edinarobotics.gui.utilities.ErrorGUI;
 import com.edinarobotics.gui.utilities.ScoreUtility;
 import com.edinarobotics.gui.utilities.Sorter;
@@ -2320,7 +2320,7 @@ public class DataEntryGUI extends javax.swing.JFrame
     private String[] getTeamList(String workspaceDir)
     {
         // Open up the team list file
-        FileScanner scan = new FileScanner();
+        FileReader scan = new FileReader();
         scan.openFile(workspaceDir, teamListFile);
 
         // Create a list to store the contents of the file

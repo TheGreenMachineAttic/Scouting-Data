@@ -6,8 +6,8 @@
 package com.edinarobotics.data;
 
 import com.edinarobotics.filer.Extracter;
-import com.edinarobotics.filer.FileCreator;
-import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.filer.FileWriter;
+import com.edinarobotics.filer.FileReader;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 public class ConfigFile
 {
     // Variables for Config 
-    private static FileScanner configScanner = new FileScanner();
-    private static FileCreator fileCreo = new FileCreator();
+    private static FileReader configScanner = new FileReader();
+    private static FileWriter fileCreo = new FileWriter();
     private static Extracter extract = new Extracter();
     
     // Logger stuff

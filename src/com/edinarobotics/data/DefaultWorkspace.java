@@ -22,9 +22,9 @@ public class DefaultWorkspace
     private static String LOG_TAG = "Default Workspace";
 
     // Initialize classes dealing with File operation
-    private static FileCreator fileCreo = new FileCreator();
-    private static FileScanner matchFileScanner = new FileScanner();
-    private static FileScanner teamListFileScanner = new FileScanner();
+    private static FileWriter fileCreo = new FileWriter();
+    private static FileReader matchFileScanner = new FileReader();
+    private static FileReader teamListFileScanner = new FileReader();
 
     // Assign variables for various dirs and titles
     private static String matchListFile = Global.matchListFile;

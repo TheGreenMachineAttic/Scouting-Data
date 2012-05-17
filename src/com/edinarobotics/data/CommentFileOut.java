@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class CommentFileOut 
 {
-    private static FileScanner commentFileScanner = new FileScanner();
-    private static FileCreator fileCreo = new FileCreator();
+    private static FileReader commentFileScanner = new FileReader();
+    private static FileWriter fileCreo = new FileWriter();
     
     private static String commentFileDir = Global.commentFileDir;
 

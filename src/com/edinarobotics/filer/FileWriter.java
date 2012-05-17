@@ -9,7 +9,7 @@ import java.util.Formatter;
  * @author Alex O'Neill
  * @breif A class to create a text file
  */
-public class FileCreator 
+public class FileWriter 
 {
     // Variables needed
     private Formatter format;
