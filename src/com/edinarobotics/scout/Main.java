@@ -22,6 +22,7 @@ public class Main
     {
         // Set the logger to be enabled just for init
         log.setEnabled(true);
+        log.setTimeStampEnabled(Logger.TIMER_TIME);
         log.log("Main", "Working in " +  currentDir);
         
         // Initialize the Settings GUI
